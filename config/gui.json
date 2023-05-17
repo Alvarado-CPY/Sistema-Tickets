@@ -1,0 +1,19 @@
+{
+    "colors": {
+        "main_color": "#FFF",
+        "secondary_color": "#18BD1F",
+        "terciary_color": "#0F0",
+        "complement_color": "#00F"
+    },
+    "hover_colors": {
+        "main_color": "#000",
+        "secondary_color": "#F00",
+        "terciary_color": "#0F0",
+        "complement_color": "#00F"
+    },
+    "fonts": {
+        "main_font": "Montserrat",
+        "secondary_font": "Lora",
+        "terciary_font": "Hind Madurai"
+    }
+}
