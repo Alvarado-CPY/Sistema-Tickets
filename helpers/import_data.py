@@ -93,6 +93,27 @@ class ImportData:
 
         return True
 
+    def setReactivationInDB(self):
+        reactivation_sheet = self.working_book[self.sheet_reactivation]
+        info_worker = []
+
+        for row in reactivation_sheet.iter_rows(values_only=True, min_col=1, max_col=22, min_row=12):
+            if row[0] == None:
+                break
+
+            row = list(row)
+            info_worker.append([row[2], row[21], row[8]])
+
+        with sqlite3.connect(self.db_path) as bd:
+            cursor = bd.cursor()
+            cursor.executemany(
+                """INSERT INTO reactivations VALUES(?,?,?)""",
+                info_worker
+            )
+            bd.commit()
+
+        return True
+
     def operate(self):
         if self.setWorkBook() == False:
             return False
@@ -102,7 +123,8 @@ class ImportData:
 
         threads = [
             Thread(target=self.setWorkersInDB),
-            Thread(target=self.setNewIncomeInDB)
+            Thread(target=self.setNewIncomeInDB),
+            Thread(target=self.setReactivationInDB)
         ]
 
         for thread in threads:
