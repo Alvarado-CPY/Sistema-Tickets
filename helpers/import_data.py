@@ -114,6 +114,27 @@ class ImportData:
 
         return True
 
+    def setDischargeInDB(self):
+        discharge_sheet = self.working_book[self.sheet_discharge]
+        info_worker = []
+
+        for row in discharge_sheet.iter_rows(values_only=True, min_col=1, max_col=22, min_row=12):
+            if row[0] == None:
+                break
+
+            row = list(row)
+            info_worker.append([row[2], row[18], row[19], row[21]])
+
+        with sqlite3.connect(self.db_path) as bd:
+            cursor = bd.cursor()
+            cursor.executemany(
+                """INSERT INTO discharge VALUES(?,?,?,?)""",
+                info_worker
+            )
+            bd.commit()
+
+        return True
+
     def operate(self):
         if self.setWorkBook() == False:
             return False
@@ -124,7 +145,8 @@ class ImportData:
         threads = [
             Thread(target=self.setWorkersInDB),
             Thread(target=self.setNewIncomeInDB),
-            Thread(target=self.setReactivationInDB)
+            Thread(target=self.setReactivationInDB),
+            Thread(target=self.setDischargeInDB)
         ]
 
         for thread in threads:
