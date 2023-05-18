@@ -216,8 +216,10 @@ class GUI_lateralmenu(GUI_root):
 
 
 class GUI_displayChargeButton:
-    def __init__(self, frame: tk.Frame) -> None:
+    def __init__(self, frame: tk.Frame, button_list: list[tk.Button], Menu: tk.Menu) -> None:
         self.frame = frame
+        self.menu = Menu
+        self.button_list = button_list
 
         self.frame.grid_rowconfigure((0, 1, 2), weight=1)
         self.frame.grid_columnconfigure(0, weight=1)
@@ -249,10 +251,32 @@ class GUI_displayChargeButton:
             font=[guiConfig().getFonts()["secondary_font"], 14]
         )
 
+        self.disableMenu()
+        self.disableButtons()
+
+    def disableMenu(self):
+        self.menu.entryconfig("Nuevo", state="disabled")
+        self.menu.entryconfig("Reporte", state="disabled")
+        self.menu.entryconfig("Base de Datos", state="disabled")
+        self.menu.entryconfig("Ayuda", state="disabled")
+
+    def disableButtons(self):
+        for button in self.button_list:
+            button.config(state="disabled")
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
         super().__init__(root)
+        # variables
+        self.button_list: list = [
+            self.button_new_income,
+            self.button_discharge,
+            self.button_reactivation,
+            self.button_suspension,
+            self.button_tickets,
+            self.button_users
+        ]
+
         # frames
         self.frame_main: tk.Frame = tk.Frame(self.root)
         self.frame_main.grid(row=0, column=1, sticky="WENS")
@@ -270,7 +294,7 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
             exist_data = cursor.fetchone()
 
             if not exist_data:
-                GUI_displayChargeButton(self.frame_main)
+                GUI_displayChargeButton(self.frame_main, button_list=self.button_list, Menu=self.Menu)
 
 
 if __name__ == "__main__":
