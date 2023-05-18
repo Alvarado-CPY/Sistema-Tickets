@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3
 import os
+import datetime
 from app_global_variables import guiConfig, dbPath
 
 
@@ -139,33 +140,67 @@ class GUI_lateralmenu(GUI_root):
         self.frame_lateral: tk.Frame = tk.Frame(self.root)
         self.frame_lateral.grid(row=0, column=0, sticky="WNS", ipadx=10, ipady=10)
         self.frame_lateral.config(
-            bg="red",
-            width=300
+            bg=guiConfig().getColors()["secondary_color"]
         )
 
-        self.frame_lateral.grid_rowconfigure(1, weight=1)
+        self.frame_lateral.grid_rowconfigure((1,2), weight=1)
         self.frame_lateral.grid_columnconfigure(0, weight=1)
 
         # title
         self.label_title: tk.Label = tk.Label(self.frame_lateral, text="SISTEMA DE GESTIÓN\nAUTOMATIZADA DE\nTICKETS DE ALIMENTACIÓN")
-        self.label_title.grid(row=0, column=0, sticky="WENS", padx=15, pady=15)
+        self.label_title.grid(row=0, column=0, sticky="WENS", pady=15)
         self.label_title.config(
-            justify="left"
+            justify="left",
+            font=[guiConfig().getFonts()["main_font"], 13],
+            bg=guiConfig().getColors()["secondary_color"]
         )
 
         # main functions
         self.frame_buttons: tk.Frame = tk.Frame(self.frame_lateral)
         self.frame_buttons.grid(row=1, column=0, sticky="WENS")
         self.frame_buttons.config(
-            bg="green"
+            bg=guiConfig().getColors()["secondary_color"]
         )
 
-        self.button_new_income: tk.Button = tk.Button(self.frame_buttons, text="Nuevo Ingreso")
-        self.button_new_income.grid(row=0, column=0, sticky="WENS")
+        self.frame_buttons.grid_rowconfigure((0,1,2,3,4,5), weight=1)
+        self.frame_buttons.grid_columnconfigure(0, weight=1)
 
-        # time and hour
-        self.frame_time_hour: tk.Frame = tk.Frame(self.frame_lateral)
-        self.frame_time_hour.grid(row=2, column=0, sticky="WENS")
+        self.button_new_income: tk.Button = tk.Button(self.frame_buttons, text="Nuevo Ingreso")
+        self.button_new_income.grid(row=0, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_new_income.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
+        self.button_reactivation: tk.Button = tk.Button(self.frame_buttons, text="Reactivaciones")
+        self.button_reactivation.grid(row=1, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_reactivation.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
+        self.button_suspension: tk.Button = tk.Button(self.frame_buttons, text="Suspensiones")
+        self.button_suspension.grid(row=2, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_suspension.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
+        self.button_discharge: tk.Button = tk.Button(self.frame_buttons, text="Egresos")
+        self.button_discharge.grid(row=3, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_discharge.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
+        self.button_tickets: tk.Button = tk.Button(self.frame_buttons, text="Tickets")
+        self.button_tickets.grid(row=4, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_tickets.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
+        self.button_users: tk.Button = tk.Button(self.frame_buttons, text="Usuarios")
+        self.button_users.grid(row=5, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_users.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:

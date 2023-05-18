@@ -42,7 +42,7 @@ class GUI_login(GUI_root):
             root, text="SISTEMA DE GESTIÓN\n AUTOMATIZADA DE\n TICKETS DE ALIMENTACIÓN")
         self.label_title.grid(row=0, column=0, sticky="WENS", padx=15)
         self.label_title.config(
-            font=[guiConfig().getFonts()["main_font"], 17, "bold"]
+            font=[guiConfig().getFonts()["main_font"], 17]
         )
 
         # form
@@ -56,7 +56,7 @@ class GUI_login(GUI_root):
             self.frame_form, text="NOMBRE DE USUARIO")
         self.label_username.grid(row=0, column=0, sticky="W")
         self.label_username.config(
-            font=[guiConfig().getFonts()["secondary_font"], 15, "bold"]
+            font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
         self.entry_username: tk.Entry = tk.Entry(self.frame_form)
@@ -70,7 +70,7 @@ class GUI_login(GUI_root):
             self.frame_form, text="CONTRASEÑA")
         self.label_password.grid(row=2, column=0, sticky="W")
         self.label_password.config(
-            font=[guiConfig().getFonts()["secondary_font"], 15, "bold"]
+            font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
         self.entry_password: tk.Entry = tk.Entry(self.frame_form)
@@ -84,7 +84,7 @@ class GUI_login(GUI_root):
             self.frame_form, text="ENTRAR")
         self.button_login.grid(row=4, column=0, sticky="WE")
         self.button_login.config(
-            font=[guiConfig().getFonts()["main_font"], 15, "bold"],
+            font=[guiConfig().getFonts()["main_font"], 15],
             command=self.login
         )
 
