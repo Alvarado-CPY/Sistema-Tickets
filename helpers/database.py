@@ -41,7 +41,8 @@ class BBDD:
             user = cursor.execute("SELECT * FROM users").fetchone()
 
             if user == None:
-                cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)", (None, 123, "admin", password, 0))
+                cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)",
+                               (None, 123, "admin", password, 0))
                 bd.commit()
 
     def tableActiveUser(self):

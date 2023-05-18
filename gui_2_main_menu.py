@@ -5,6 +5,7 @@ import os
 from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 
+
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
 
@@ -273,6 +274,7 @@ class GUI_displayChargeButton:
         for button in self.button_list:
             button.config(state=button_state)
 
+
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
         super().__init__(root)
@@ -303,7 +305,8 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
             exist_data = cursor.fetchone()
 
             if not exist_data:
-                GUI_displayChargeButton(self.frame_main, button_list=self.button_list, Menu=self.Menu)
+                GUI_displayChargeButton(
+                    self.frame_main, button_list=self.button_list, Menu=self.Menu)
 
 
 if __name__ == "__main__":
