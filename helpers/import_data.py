@@ -152,6 +152,7 @@ class ImportData:
                 """INSERT INTO suspensions VALUES(?,?,?,?)""",
                 info_worker
             )
+
             bd.commit()
 
     def operate(self):
@@ -174,7 +175,3 @@ class ImportData:
             thread.join()
 
         return True
-
-        # # change clasification of worker
-        # for worker in info_worker:
-        #     cursor.execute("UPDATE workers SET worker_classification=? WHERE worker_ci=?", (1, worker[0]))
