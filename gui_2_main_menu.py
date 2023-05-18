@@ -277,6 +277,19 @@ class GUI_workersTableData:
         self.table_workers.column("#3", width=100, anchor="center")
         self.table_workers.column("#4", width=300)
         self.table_workers.column("#5", width=140, anchor="center")
+        self.table_workers.column("#6", width=80, anchor="center")
+        self.table_workers.column("#7", width=80, anchor="center")
+        self.table_workers.column("#8", width=140, anchor="center")
+        self.table_workers.column("#9", width=370)
+        self.table_workers.column("#10", width=120, anchor="center")
+        self.table_workers.column("#11", width=120, anchor="center")
+        self.table_workers.column("#13", width=300)
+        self.table_workers.column("#16", anchor="center")
+        self.table_workers.column("#17", width=150, anchor="center")
+        self.table_workers.column("#18", anchor="center")
+        self.table_workers.column("#19", width=150, anchor="center")
+        self.table_workers.column("#20", width=150, anchor="center")
+
 
         # avoid resizing
         self.table_workers.bind("<Button-1>", self.avoidRezisable)
