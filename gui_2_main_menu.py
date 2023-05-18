@@ -3,7 +3,7 @@ from tkinter import messagebox, ttk
 import sqlite3
 import os
 from app_global_variables import guiConfig, dbPath
-
+from helpers.import_data import ImportData
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -248,21 +248,30 @@ class GUI_displayChargeButton:
         self.button_charge.grid(row=1, column=0)
         self.button_charge.config(
             width=15,
-            font=[guiConfig().getFonts()["secondary_font"], 14]
+            font=[guiConfig().getFonts()["secondary_font"], 14],
+            command=self.loadWorkerData
         )
 
-        self.disableMenu()
-        self.disableButtons()
+        self.toggleMenu("disabled")
+        self.toggleButtons("disabled")
 
-    def disableMenu(self):
-        self.menu.entryconfig("Nuevo", state="disabled")
-        self.menu.entryconfig("Reporte", state="disabled")
-        self.menu.entryconfig("Base de Datos", state="disabled")
-        self.menu.entryconfig("Ayuda", state="disabled")
+    def loadWorkerData(self):
+        import_function = ImportData(dbPath())
 
-    def disableButtons(self):
+        if import_function.operate() != False:
+            messagebox.showinfo("Atención", "Datos cargados con éxito")
+            self.toggleMenu("normal")
+            self.toggleButtons("normal")
+
+    def toggleMenu(self, menu_state: str):
+        self.menu.entryconfig("Nuevo", state=menu_state)
+        self.menu.entryconfig("Reporte", state=menu_state)
+        self.menu.entryconfig("Base de Datos", state=menu_state)
+        self.menu.entryconfig("Ayuda", state=menu_state)
+
+    def toggleButtons(self, button_state: str):
         for button in self.button_list:
-            button.config(state="disabled")
+            button.config(state=button_state)
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:

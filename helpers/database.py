@@ -76,6 +76,7 @@ class BBDD:
             service_commission STRING,
             state STRING,
             bank_account STRING,
+            bank_code STRING,
             bank STRING,
             worker_classification INTEGER
         )"""
