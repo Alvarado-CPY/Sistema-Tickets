@@ -248,27 +248,26 @@ class GUI_workersTableData:
         )
 
         # headings
-        self.table_workers.heading("#0", text="ID")
-        self.table_workers.heading("#1", text="NACIONALIDAD")
-        self.table_workers.heading("#2", text="CÉDULA")
-        self.table_workers.heading("#3", text="NOMBRE COMPLETO")
-        self.table_workers.heading("#4", text="FECHA DE NACIMIENTO")
-        self.table_workers.heading("#5", text="EDAD")
-        self.table_workers.heading("#6", text="SEXO")
-        self.table_workers.heading("#7", text="FECHA DE INGRESO")
-        self.table_workers.heading("#8", text="DENOMINACIÓN DE CARGO")
-        self.table_workers.heading("#9", text="CARGA HORARIA")
-        self.table_workers.heading("#10", text="HORARIO LABORAL")
-        self.table_workers.heading("#11", text="ESPECIALIDAD")
-        self.table_workers.heading("#12", text="TIPO DE PERSONAL")
-        self.table_workers.heading("#13", text="UBICACIÓN ADMINISTRATIVA")
-        self.table_workers.heading("#14", text="UBICACIÓN FÍSICA")
-        self.table_workers.heading("#15", text="COMISIÓN DE SERVICIO")
-        self.table_workers.heading("#16", text="ESTADO")
-        self.table_workers.heading("#17", text="CUENTA BANCARIA")
-        self.table_workers.heading("#18", text="CODIGO DEL BANCO")
-        self.table_workers.heading("#19", text="BANCO")
-        self.table_workers.heading("#20", text="CLASIFICACIÓN")
+        self.table_workers.heading("#1", text="ID")
+        self.table_workers.heading("#2", text="NACIONALIDAD")
+        self.table_workers.heading("#3", text="CÉDULA")
+        self.table_workers.heading("#4", text="NOMBRE COMPLETO")
+        self.table_workers.heading("#5", text="FECHA DE NACIMIENTO")
+        self.table_workers.heading("#6", text="EDAD")
+        self.table_workers.heading("#7", text="SEXO")
+        self.table_workers.heading("#8", text="FECHA DE INGRESO")
+        self.table_workers.heading("#9", text="DENOMINACIÓN DE CARGO")
+        self.table_workers.heading("#10", text="CARGA HORARIA")
+        self.table_workers.heading("#11", text="HORARIO LABORAL")
+        self.table_workers.heading("#12", text="ESPECIALIDAD")
+        self.table_workers.heading("#13", text="TIPO DE PERSONAL")
+        self.table_workers.heading("#14", text="UBICACIÓN ADMINISTRATIVA")
+        self.table_workers.heading("#15", text="UBICACIÓN FÍSICA")
+        self.table_workers.heading("#16", text="COMISIÓN DE SERVICIO")
+        self.table_workers.heading("#17", text="ESTADO")
+        self.table_workers.heading("#18", text="CUENTA BANCARIA")
+        self.table_workers.heading("#19", text="CODIGO DEL BANCO")
+        self.table_workers.heading("#20", text="BANCO")
 
         # scroll bars
         self.scrollbar_x: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="horizontal", command=self.table_workers.xview)
@@ -277,11 +276,42 @@ class GUI_workersTableData:
         self.scrollbar_y: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="vertical", command=self.table_workers.yview)
         self.scrollbar_y.grid(row=1, column=1, sticky="NS")
 
-
         self.table_workers.config(
             xscrollcommand=self.scrollbar_x.set,
             yscrollcommand=self.scrollbar_y.set
         )
+
+        self.loadWorkerData()
+
+    def loadWorkerData(self):
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            cursor.execute("SELECT * FROM workers")
+            workers = cursor.fetchall()
+
+            for worker in workers:
+                self.table_workers.insert(parent="", index=tk.END, values=(
+                    worker[0],
+                    worker[1],
+                    worker[2],
+                    worker[3],
+                    worker[4],
+                    worker[5],
+                    worker[6],
+                    worker[7],
+                    worker[8],
+                    worker[9],
+                    worker[10],
+                    worker[11],
+                    worker[12],
+                    worker[13],
+                    worker[14],
+                    worker[15],
+                    worker[16],
+                    worker[17],
+                    worker[18],
+                    worker[19],
+                ))
 
 class GUI_displayChargeButton:
     def __init__(self, frame: tk.Frame, button_list: list[tk.Button], Menu: tk.Menu) -> None:
