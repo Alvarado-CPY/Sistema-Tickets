@@ -54,7 +54,7 @@ class ImportData:
         info_worker = []
 
         for row in worker_sheet.iter_rows(values_only=True, min_col=1, max_col=20, min_row=14):
-            if (row[0] == None):
+            if row[0] == None:
                 break
 
             row = list(row)
@@ -72,6 +72,27 @@ class ImportData:
             )
             bd.commit()
 
+    def setNewIncomeInDB(self):
+        new_income_sheet = self.working_book[self.sheet_new_income]
+        info_worker = []
+
+        for row in new_income_sheet.iter_rows(values_only=True, min_col=1, max_col=21, min_row=12):
+            if row[0] == None:
+                break
+
+            row = list(row)
+            info_worker.append([row[2], row[20]])
+
+        with sqlite3.connect(self.db_path) as bd:
+            cursor = bd.cursor()
+            cursor.executemany(
+                """INSERT INTO newIncome VALUES(?,?)""",
+                info_worker
+            )
+            bd.commit()
+
+        return True
+
     def operate(self):
         if self.setWorkBook() == False:
             return False
@@ -80,7 +101,8 @@ class ImportData:
             return False
 
         threads = [
-            Thread(target=self.setWorkersInDB)
+            Thread(target=self.setWorkersInDB),
+            Thread(target=self.setNewIncomeInDB)
         ]
 
         for thread in threads:
