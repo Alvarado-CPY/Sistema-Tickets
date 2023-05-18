@@ -216,28 +216,100 @@ class GUI_lateralmenu(GUI_root):
         )
 
 
+class GUI_workersTableData:
+    def __init__(self, frame: tk.Frame):
+        self.frame = frame
+
+        # widgets
+        self.frame_workers: tk.Frame = tk.Frame(self.frame)
+        self.frame_workers.grid(
+            row=0, column=0, sticky="WENS", padx=20, pady=20)
+        self.frame_workers.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
+
+        self.frame_workers.grid_rowconfigure((1), weight=1)
+        self.frame_workers.grid_columnconfigure(0, weight=1)
+
+        self.label_title: tk.Label = tk.Label(
+            self.frame_workers, text="TABLA GENERAL DE NOMINA")
+        self.label_title.grid(row=0, column=0, sticky="WENS", pady=10)
+        self.label_title.config(
+            bg=guiConfig().getColors()["main_color"],
+            font=[guiConfig().getFonts()["main_font"], 18]
+        )
+
+        self.table_workers: ttk.Treeview = ttk.Treeview(
+            self.frame_workers, selectmode="browse")
+        self.table_workers.grid(row=1, column=0, sticky="WENS")
+        self.table_workers.config(
+            columns=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+        )
+
+        # headings
+        self.table_workers.heading("#0", text="ID")
+        self.table_workers.heading("#1", text="NACIONALIDAD")
+        self.table_workers.heading("#2", text="CÉDULA")
+        self.table_workers.heading("#3", text="NOMBRE COMPLETO")
+        self.table_workers.heading("#4", text="FECHA DE NACIMIENTO")
+        self.table_workers.heading("#5", text="EDAD")
+        self.table_workers.heading("#6", text="SEXO")
+        self.table_workers.heading("#7", text="FECHA DE INGRESO")
+        self.table_workers.heading("#8", text="DENOMINACIÓN DE CARGO")
+        self.table_workers.heading("#9", text="CARGA HORARIA")
+        self.table_workers.heading("#10", text="HORARIO LABORAL")
+        self.table_workers.heading("#11", text="ESPECIALIDAD")
+        self.table_workers.heading("#12", text="TIPO DE PERSONAL")
+        self.table_workers.heading("#13", text="UBICACIÓN ADMINISTRATIVA")
+        self.table_workers.heading("#14", text="UBICACIÓN FÍSICA")
+        self.table_workers.heading("#15", text="COMISIÓN DE SERVICIO")
+        self.table_workers.heading("#16", text="ESTADO")
+        self.table_workers.heading("#17", text="CUENTA BANCARIA")
+        self.table_workers.heading("#18", text="CODIGO DEL BANCO")
+        self.table_workers.heading("#19", text="BANCO")
+        self.table_workers.heading("#20", text="CLASIFICACIÓN")
+
+        # scroll bars
+        self.scrollbar_x: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="horizontal", command=self.table_workers.xview)
+        self.scrollbar_x.grid(row=2, column=0, sticky="WE")
+
+        self.scrollbar_y: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="vertical", command=self.table_workers.yview)
+        self.scrollbar_y.grid(row=1, column=1, sticky="NS")
+
+
+        self.table_workers.config(
+            xscrollcommand=self.scrollbar_x.set,
+            yscrollcommand=self.scrollbar_y.set
+        )
+
 class GUI_displayChargeButton:
     def __init__(self, frame: tk.Frame, button_list: list[tk.Button], Menu: tk.Menu) -> None:
         self.frame = frame
         self.menu = Menu
         self.button_list = button_list
 
-        self.frame.grid_rowconfigure((0, 1, 2), weight=1)
-        self.frame.grid_columnconfigure(0, weight=1)
-
         # widgets
         self.frame_widgets: tk.Frame = tk.Frame(self.frame)
-        self.frame_widgets.grid(row=1, column=0, sticky="NS")
+        self.frame_widgets.grid(row=0, column=0, sticky="WENS")
         self.frame_widgets.config(
             bg=guiConfig().getColors()["main_color"]
         )
 
-        self.frame_widgets.grid_rowconfigure(0, weight=1)
+        self.frame_widgets.grid_rowconfigure((0,1,2), weight=1)
         self.frame_widgets.grid_columnconfigure(0, weight=1)
 
+        self.frame_container: tk.Frame = tk.Frame(self.frame_widgets)
+        self.frame_container.grid(row=1, column=0, sticky="WE")
+        self.frame_container.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
+
+        self.frame_container.grid_columnconfigure(0, weight=1)
+
         self.label_charge_msg: tk.Label = tk.Label(
-            self.frame_widgets, text="No se encuentran datos cargados de nomina en la base de datos\nAntes de poder trabajar con el sistema debe de cargar una nomina de tickets.\nEsto puede tardar unos segundos, no cierre el sistema durante el proceso")
-        self.label_charge_msg.grid(row=0, column=0)
+            self.frame_container, text="No se encuentran datos cargados de nomina en la base de datos\nAntes de poder trabajar con el sistema debe de cargar una nomina de tickets.\nEsto puede tardar unos segundos, no cierre el sistema durante el proceso")
+        self.label_charge_msg.grid(row=0, column=0, sticky="WENS")
         self.label_charge_msg.config(
             bg=guiConfig().getColors()["main_color"],
             font=[guiConfig().getFonts()["main_font"], 13],
@@ -245,7 +317,7 @@ class GUI_displayChargeButton:
         )
 
         self.button_charge: tk.Button = tk.Button(
-            self.frame_widgets, text="Cargar Nomina")
+            self.frame_container, text="Cargar Nomina")
         self.button_charge.grid(row=1, column=0)
         self.button_charge.config(
             width=15,
@@ -264,6 +336,9 @@ class GUI_displayChargeButton:
             self.toggleMenu("normal")
             self.toggleButtons("normal")
 
+            self.cleanFrame()
+            GUI_workersTableData(self.frame)
+
     def toggleMenu(self, menu_state: str):
         self.menu.entryconfig("Nuevo", state=menu_state)
         self.menu.entryconfig("Reporte", state=menu_state)
@@ -273,6 +348,9 @@ class GUI_displayChargeButton:
     def toggleButtons(self, button_state: str):
         for button in self.button_list:
             button.config(state=button_state)
+
+    def cleanFrame(self):
+        self.frame_widgets.destroy()
 
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
@@ -295,6 +373,9 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
             bg=guiConfig().getColors()["main_color"]
         )
 
+        self.frame_main.grid_rowconfigure(0, weight=1)
+        self.frame_main.grid_columnconfigure(0, weight=1)
+
         # display one frame or another
         self.seeIfThereIsChargedData()
 
@@ -307,6 +388,8 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
             if not exist_data:
                 GUI_displayChargeButton(
                     self.frame_main, button_list=self.button_list, Menu=self.Menu)
+            else:
+                GUI_workersTableData(self.frame_main)
 
 
 if __name__ == "__main__":
