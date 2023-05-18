@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3
 import os
-import datetime
 from app_global_variables import guiConfig, dbPath
 
 
@@ -16,7 +15,7 @@ class GUI_root:
         self.root.protocol("WM_DELETE_WINDOW", self.destroyRoot)
 
         self.root.grid_rowconfigure(0, weight=1)
-        self.root.grid_columnconfigure((0,1), weight=1)
+        self.root.grid_columnconfigure(1, weight=1)
 
     def setfullScreen(self):
         if os.name == "nt":
@@ -132,22 +131,25 @@ class GUI_barmenu(GUI_root):
                 command=functions[key]
             )
 
+
 class GUI_lateralmenu(GUI_root):
     def __init__(self, root: tk.Tk) -> None:
         super().__init__(root)
 
         # frames
         self.frame_lateral: tk.Frame = tk.Frame(self.root)
-        self.frame_lateral.grid(row=0, column=0, sticky="WNS", ipadx=10, ipady=10)
+        self.frame_lateral.grid(
+            row=0, column=0, sticky="WNS", ipadx=10, ipady=10)
         self.frame_lateral.config(
             bg=guiConfig().getColors()["secondary_color"]
         )
 
-        self.frame_lateral.grid_rowconfigure((1,2), weight=1)
+        self.frame_lateral.grid_rowconfigure((1, 2), weight=1)
         self.frame_lateral.grid_columnconfigure(0, weight=1)
 
         # title
-        self.label_title: tk.Label = tk.Label(self.frame_lateral, text="SISTEMA DE GESTIÓN\nAUTOMATIZADA DE\nTICKETS DE ALIMENTACIÓN")
+        self.label_title: tk.Label = tk.Label(
+            self.frame_lateral, text="SISTEMA DE GESTIÓN\nAUTOMATIZADA DE\nTICKETS DE ALIMENTACIÓN")
         self.label_title.grid(row=0, column=0, sticky="WENS", pady=15)
         self.label_title.config(
             justify="left",
@@ -162,49 +164,113 @@ class GUI_lateralmenu(GUI_root):
             bg=guiConfig().getColors()["secondary_color"]
         )
 
-        self.frame_buttons.grid_rowconfigure((0,1,2,3,4,5), weight=1)
+        self.frame_buttons.grid_rowconfigure((0, 1, 2, 3, 4, 5), weight=1)
         self.frame_buttons.grid_columnconfigure(0, weight=1)
 
-        self.button_new_income: tk.Button = tk.Button(self.frame_buttons, text="Nuevo Ingreso")
-        self.button_new_income.grid(row=0, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_new_income: tk.Button = tk.Button(
+            self.frame_buttons, text="Nuevo Ingreso")
+        self.button_new_income.grid(
+            row=0, column=0, sticky="WENS", padx=10, pady=5)
         self.button_new_income.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
-        self.button_reactivation: tk.Button = tk.Button(self.frame_buttons, text="Reactivaciones")
-        self.button_reactivation.grid(row=1, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_reactivation: tk.Button = tk.Button(
+            self.frame_buttons, text="Reactivaciones")
+        self.button_reactivation.grid(
+            row=1, column=0, sticky="WENS", padx=10, pady=5)
         self.button_reactivation.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
-        self.button_suspension: tk.Button = tk.Button(self.frame_buttons, text="Suspensiones")
-        self.button_suspension.grid(row=2, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_suspension: tk.Button = tk.Button(
+            self.frame_buttons, text="Suspensiones")
+        self.button_suspension.grid(
+            row=2, column=0, sticky="WENS", padx=10, pady=5)
         self.button_suspension.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
-        self.button_discharge: tk.Button = tk.Button(self.frame_buttons, text="Egresos")
-        self.button_discharge.grid(row=3, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_discharge: tk.Button = tk.Button(
+            self.frame_buttons, text="Egresos")
+        self.button_discharge.grid(
+            row=3, column=0, sticky="WENS", padx=10, pady=5)
         self.button_discharge.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
-        self.button_tickets: tk.Button = tk.Button(self.frame_buttons, text="Tickets")
-        self.button_tickets.grid(row=4, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_tickets: tk.Button = tk.Button(
+            self.frame_buttons, text="Tickets")
+        self.button_tickets.grid(
+            row=4, column=0, sticky="WENS", padx=10, pady=5)
         self.button_tickets.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
-        self.button_users: tk.Button = tk.Button(self.frame_buttons, text="Usuarios")
+        self.button_users: tk.Button = tk.Button(
+            self.frame_buttons, text="Usuarios")
         self.button_users.grid(row=5, column=0, sticky="WENS", padx=10, pady=5)
         self.button_users.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
 
+class GUI_displayChargeButton:
+    def __init__(self, frame: tk.Frame) -> None:
+        self.frame = frame
+
+        self.frame.grid_rowconfigure((0, 1, 2), weight=1)
+        self.frame.grid_columnconfigure(0, weight=1)
+
+        # widgets
+        self.frame_widgets: tk.Frame = tk.Frame(self.frame)
+        self.frame_widgets.grid(row=1, column=0, sticky="NS")
+        self.frame_widgets.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
+
+        self.frame_widgets.grid_rowconfigure(0, weight=1)
+        self.frame_widgets.grid_columnconfigure(0, weight=1)
+
+        self.label_charge_msg: tk.Label = tk.Label(
+            self.frame_widgets, text="No se encuentran datos cargados de nomina en la base de datos\nAntes de poder trabajar con el sistema debe de cargar una nomina de tickets.\nEsto puede tardar unos segundos, no cierre el sistema durante el proceso")
+        self.label_charge_msg.grid(row=0, column=0)
+        self.label_charge_msg.config(
+            bg=guiConfig().getColors()["main_color"],
+            font=[guiConfig().getFonts()["main_font"], 13],
+            justify="left"
+        )
+
+        self.button_charge: tk.Button = tk.Button(
+            self.frame_widgets, text="Cargar Nomina")
+        self.button_charge.grid(row=1, column=0)
+        self.button_charge.config(
+            width=15,
+            font=[guiConfig().getFonts()["secondary_font"], 14]
+        )
+
+
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
         super().__init__(root)
+        # frames
+        self.frame_main: tk.Frame = tk.Frame(self.root)
+        self.frame_main.grid(row=0, column=1, sticky="WENS")
+        self.frame_main.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
+
+        # display one frame or another
+        self.seeIfThereIsChargedData()
+
+    def seeIfThereIsChargedData(self):
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            cursor.execute("SELECT * FROM workers")
+            exist_data = cursor.fetchone()
+
+            if not exist_data:
+                GUI_displayChargeButton(self.frame_main)
 
 
 if __name__ == "__main__":
