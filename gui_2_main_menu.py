@@ -4,6 +4,7 @@ import sqlite3
 import os
 from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
+from helpers.format import formatDate, formatAddMissingZero
 
 
 class GUI_root:
@@ -269,6 +270,17 @@ class GUI_workersTableData:
         self.table_workers.heading("#19", text="CODIGO DEL BANCO")
         self.table_workers.heading("#20", text="BANCO")
 
+        # columns
+        self.table_workers.column("#0", width=0, stretch=False)
+        self.table_workers.column("#1", width=80, anchor="center")
+        self.table_workers.column("#2", width=100, anchor="center")
+        self.table_workers.column("#3", width=100, anchor="center")
+        self.table_workers.column("#4", width=300)
+        self.table_workers.column("#5", width=140, anchor="center")
+
+        # avoid resizing
+        self.table_workers.bind("<Button-1>", self.avoidRezisable)
+
         # scroll bars
         self.scrollbar_x: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="horizontal", command=self.table_workers.xview)
         self.scrollbar_x.grid(row=2, column=0, sticky="WE")
@@ -283,6 +295,10 @@ class GUI_workersTableData:
 
         self.loadWorkerData()
 
+    def avoidRezisable(self, event):
+        if self.table_workers.identify_region(event.x, event.y) == "separator":
+            return "break"
+
     def loadWorkerData(self):
         with sqlite3.connect(dbPath()) as bd:
             cursor = bd.cursor()
@@ -295,10 +311,10 @@ class GUI_workersTableData:
                     worker[1],
                     worker[2],
                     worker[3],
-                    worker[4],
+                    formatDate(worker[4]),
                     worker[5],
                     worker[6],
-                    worker[7],
+                    formatDate(worker[7]),
                     worker[8],
                     worker[9],
                     worker[10],
@@ -308,8 +324,8 @@ class GUI_workersTableData:
                     worker[14],
                     worker[15],
                     worker[16],
-                    worker[17],
-                    worker[18],
+                    formatAddMissingZero(worker[17]),
+                    formatAddMissingZero(worker[18]),
                     worker[19],
                 ))
 
