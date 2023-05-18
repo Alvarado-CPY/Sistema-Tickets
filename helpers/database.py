@@ -12,7 +12,7 @@ class BBDD:
             self.tableActiveUser(),
             self.tableUserRecord(),
             self.tableWorkers(),
-            self.tableBank(),
+            self.tableNewIncome(),
             self.tableSuspensions(),
             self.tableReactivations(),
             self.tableDischarge(),
@@ -76,14 +76,21 @@ class BBDD:
             service_commission STRING,
             state STRING,
             bank_account STRING,
-            account_type STRING,
+            bank STRING,
             worker_classification INTEGER
         )"""
 
-    def tableBank(self):
-        return """CREATE TABLE IF NOT EXISTS bank(
-            bank_id INTEGER PRIMARY KEY,
-            bank STRING
+    def tableNewIncome(self):
+        return """CREATE TABLE IF NOT EXISTS newIncome(
+            worker_ci INTEGER PRIMARY KEY,
+            account_type STRING
+        )"""
+
+    def tableReactivations(self):
+        return """CREATE TABLE IF NOT EXISTS reactivations(
+            worker_ci INTEGER PRIMARY KEY,
+            account_type STRING,
+            reactivation_date DATE
         )"""
 
     def tableSuspensions(self):
@@ -92,12 +99,6 @@ class BBDD:
             desincorporation_date DATE,
             suspension_reason STRING,
             support_number INTEGER
-        )"""
-
-    def tableReactivations(self):
-        return """CREATE TABLE IF NOT EXISTS reactivations(
-            worker_ci INTEGER PRIMARY KEY,
-            reactivation_date DATE
         )"""
 
     def tableDischarge(self):
