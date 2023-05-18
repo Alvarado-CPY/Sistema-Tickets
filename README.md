@@ -19,3 +19,6 @@ Aún se encuentra bajo construcción y actualizaciones constantes, pero las depe
 - tkinter
 - sqlite3
 - openpyxl
+- reportlab
+
+En caso de que se quiera utilizar, tanto el algoritmo de importación y la base de datos están pensadas para un modelo especifico de hoja de Excel. Se recomienda adaptar estos dos modulos a la necesidad del usurio, o en todo caso adaptar las hojas de Excel al algorithmo.
