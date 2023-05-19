@@ -427,7 +427,7 @@ class GUI_categoryButtons:
         self.frame = frame
 
         self.frame_buttons: tk.Frame = tk.Frame(self.frame)
-        self.frame_buttons.grid(row=0, column=0, sticky="WENS")
+        self.frame_buttons.grid(row=0, column=0, sticky="WENS", columnspan=2)
 
         self.frame_buttons.grid_rowconfigure(0, weight=1)
         self.frame_buttons.grid_columnconfigure((0,1,2,3,4), weight=1)
@@ -447,30 +447,114 @@ class GUI_categoryButtons:
         self.button_add_worker: tk.Button = tk.Button(self.frame_buttons, text="AÑADIR TRABAJADOR")
         self.button_add_worker.grid(row=0, column=4, sticky="WENS")
 
+
 class GUI_newIncome(GUI_categoryButtons):
     def __init__(self, frame):
         self.frame = frame
 
         # frames
         self.frame_income_container: tk.Frame = tk.Frame(self.frame)
-        self.frame_income_container.grid(row=0, column=0, sticky="WENS")
+        self.frame_income_container.grid(row=0, column=0, sticky="WENS", padx=20, pady=20)
+        self.frame_income_container.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
 
-        self.frame_income_container.grid_rowconfigure(1, weight=0)
+        self.frame_income_container.grid_rowconfigure(1, weight=1)
         self.frame_income_container.grid_columnconfigure(0, weight=1)
 
         # for the table and the buttons
         self.frame_income_components: tk.Frame = tk.Frame(self.frame_income_container)
         self.frame_income_components.grid(row=1, column=0, sticky="WENS")
+        self.frame_income_components.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
 
-        self.frame_income_components.grid_rowconfigure((0,1), weight=1)
+        self.frame_income_components.grid_rowconfigure(1, weight=1)
         self.frame_income_components.grid_columnconfigure(0, weight=1)
 
         # Widgets tittle
         self.label_title: tk.Label = tk.Label(self.frame_income_container, text="TABLA NUEVO INGRESO")
         self.label_title.grid(row=0, column=0, sticky="WENS")
+        self.label_title.config(
+            bg=guiConfig().getColors()["main_color"]
+        )
 
         # Widgest buttons
         super().__init__(self.frame_income_components)
+
+        self.table_new_income: ttk.Treeview = ttk.Treeview(
+            self.frame_income_components, selectmode="browse")
+        self.table_new_income.grid(row=1, column=0, sticky="WENS")
+        self.table_new_income.config(
+            columns=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"]
+        )
+
+        # headings
+        self.table_new_income.heading("#1", text="ID")
+        self.table_new_income.heading("#2", text="NACIONALIDAD")
+        self.table_new_income.heading("#3", text="CÉDULA")
+        self.table_new_income.heading("#4", text="NOMBRE COMPLETO")
+        self.table_new_income.heading("#5", text="FECHA DE NACIMIENTO")
+        self.table_new_income.heading("#6", text="EDAD")
+        self.table_new_income.heading("#7", text="SEXO")
+        self.table_new_income.heading("#8", text="FECHA DE INGRESO")
+        self.table_new_income.heading("#9", text="DENOMINACIÓN DE CARGO")
+        self.table_new_income.heading("#10", text="CARGA HORARIA")
+        self.table_new_income.heading("#11", text="HORARIO LABORAL")
+        self.table_new_income.heading("#12", text="ESPECIALIDAD")
+        self.table_new_income.heading("#13", text="TIPO DE PERSONAL")
+        self.table_new_income.heading("#14", text="UBICACIÓN ADMINISTRATIVA")
+        self.table_new_income.heading("#15", text="UBICACIÓN FÍSICA")
+        self.table_new_income.heading("#16", text="COMISIÓN DE SERVICIO")
+        self.table_new_income.heading("#17", text="ESTADO")
+        self.table_new_income.heading("#18", text="CUENTA BANCARIA")
+        self.table_new_income.heading("#19", text="CODIGO DEL BANCO")
+        self.table_new_income.heading("#20", text="BANCO")
+        self.table_new_income.heading("#21", text="TIPO DE CUENTA")
+
+        # columns
+        self.table_new_income.column("#0", width=0, stretch=False)
+        self.table_new_income.column("#1", width=80, anchor="center")
+        self.table_new_income.column("#2", width=100, anchor="center")
+        self.table_new_income.column("#3", width=100, anchor="center")
+        self.table_new_income.column("#4", width=300)
+        self.table_new_income.column("#5", width=140, anchor="center")
+        self.table_new_income.column("#6", width=80, anchor="center")
+        self.table_new_income.column("#7", width=80, anchor="center")
+        self.table_new_income.column("#8", width=140, anchor="center")
+        self.table_new_income.column("#9", width=370)
+        self.table_new_income.column("#10", width=120, anchor="center")
+        self.table_new_income.column("#11", width=120, anchor="center")
+        self.table_new_income.column("#13", width=300)
+        self.table_new_income.column("#16", anchor="center")
+        self.table_new_income.column("#17", width=150, anchor="center")
+        self.table_new_income.column("#18", anchor="center")
+        self.table_new_income.column("#19", width=150, anchor="center")
+        self.table_new_income.column("#20", width=150, anchor="center")
+        self.table_new_income.column("#21", width=150, anchor="center")
+
+        # avoid resizing
+        self.table_new_income.bind("<Button-1>", self.avoidRezisable)
+
+        # scroll bars
+        self.scrollbar_x: ttk.Scrollbar = ttk.Scrollbar(
+            self.frame_income_components, orient="horizontal", command=self.table_new_income.xview)
+        self.scrollbar_x.grid(row=2, column=0, sticky="WE")
+
+        self.scrollbar_y: ttk.Scrollbar = ttk.Scrollbar(
+            self.frame_income_components, orient="vertical", command=self.table_new_income.yview)
+        self.scrollbar_y.grid(row=1, column=1, sticky="NS")
+
+        self.table_new_income.config(
+            xscrollcommand=self.scrollbar_x.set,
+            yscrollcommand=self.scrollbar_y.set
+        )
+
+    def avoidRezisable(self, event):
+        if self.table_new_income.identify_region(event.x, event.y) == "separator":
+            return "break"
+
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
