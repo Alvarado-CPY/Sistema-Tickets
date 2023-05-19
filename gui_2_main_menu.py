@@ -5,7 +5,7 @@ import os
 from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
-
+from helpers.search_engine import SearchEngine
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -551,6 +551,10 @@ class GUI_newIncome(GUI_categoryButtons):
         )
 
         self.loadNewIncomeData()
+
+        # search engine
+        self.search_engine = SearchEngine(self.table_new_income)
+        self.table_new_income.bind("<Key>", lambda key: self.search_engine.searchCI(key))
 
     def avoidRezisable(self, event):
         if self.table_new_income.identify_region(event.x, event.y) == "separator":
