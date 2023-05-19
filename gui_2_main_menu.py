@@ -7,6 +7,7 @@ from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
 
+
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
 
@@ -430,18 +431,22 @@ class GUI_categoryButtons:
         self.frame_buttons.grid(row=0, column=0, sticky="WENS", columnspan=2)
 
         self.frame_buttons.grid_rowconfigure(0, weight=1)
-        self.frame_buttons.grid_columnconfigure((0,1,2,3), weight=1)
+        self.frame_buttons.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
-        self.button_general_report: tk.Button = tk.Button(self.frame_buttons, text="REPORTE GENERAL")
+        self.button_general_report: tk.Button = tk.Button(
+            self.frame_buttons, text="REPORTE GENERAL")
         self.button_general_report.grid(row=0, column=0, sticky="WENS")
 
-        self.button_change_category: tk.Button = tk.Button(self.frame_buttons, text="CAMBIAR CATEGORÍA")
+        self.button_change_category: tk.Button = tk.Button(
+            self.frame_buttons, text="CAMBIAR CATEGORÍA")
         self.button_change_category.grid(row=0, column=1, sticky="WENS")
 
-        self.button_update: tk.Button = tk.Button(self.frame_buttons, text="MODIFICAR TRABAJADOR")
+        self.button_update: tk.Button = tk.Button(
+            self.frame_buttons, text="MODIFICAR TRABAJADOR")
         self.button_update.grid(row=0, column=2, sticky="WENS")
 
-        self.button_add_worker: tk.Button = tk.Button(self.frame_buttons, text="AÑADIR TRABAJADOR")
+        self.button_add_worker: tk.Button = tk.Button(
+            self.frame_buttons, text="AÑADIR TRABAJADOR")
         self.button_add_worker.grid(row=0, column=3, sticky="WENS")
 
 
@@ -451,7 +456,8 @@ class GUI_newIncome(GUI_categoryButtons):
 
         # frames
         self.frame_income_container: tk.Frame = tk.Frame(self.frame)
-        self.frame_income_container.grid(row=0, column=0, sticky="WENS", padx=20, pady=20)
+        self.frame_income_container.grid(
+            row=0, column=0, sticky="WENS", padx=20, pady=20)
         self.frame_income_container.config(
             bg=guiConfig().getColors()["main_color"]
         )
@@ -460,7 +466,8 @@ class GUI_newIncome(GUI_categoryButtons):
         self.frame_income_container.grid_columnconfigure(0, weight=1)
 
         # for the table and the buttons
-        self.frame_income_components: tk.Frame = tk.Frame(self.frame_income_container)
+        self.frame_income_components: tk.Frame = tk.Frame(
+            self.frame_income_container)
         self.frame_income_components.grid(row=1, column=0, sticky="WENS")
         self.frame_income_components.config(
             bg=guiConfig().getColors()["main_color"]
@@ -470,7 +477,8 @@ class GUI_newIncome(GUI_categoryButtons):
         self.frame_income_components.grid_columnconfigure(0, weight=1)
 
         # Widgets tittle
-        self.label_title: tk.Label = tk.Label(self.frame_income_container, text="TABLA NUEVO INGRESO")
+        self.label_title: tk.Label = tk.Label(
+            self.frame_income_container, text="TABLA NUEVO INGRESO")
         self.label_title.grid(row=0, column=0, sticky="WENS", pady=10)
         self.label_title.config(
             bg=guiConfig().getColors()["main_color"],
@@ -554,7 +562,8 @@ class GUI_newIncome(GUI_categoryButtons):
 
         # search engine
         self.search_engine = SearchEngine(self.table_new_income)
-        self.table_new_income.bind("<Key>", lambda key: self.search_engine.searchCI(key))
+        self.table_new_income.bind(
+            "<Key>", lambda key: self.search_engine.searchCI(key))
 
     def avoidRezisable(self, event):
         if self.table_new_income.identify_region(event.x, event.y) == "separator":
@@ -595,6 +604,7 @@ class GUI_newIncome(GUI_categoryButtons):
                     worker_data[19],
                     worker_data[22],
                 ))
+
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
@@ -648,7 +658,6 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def displayGuiPart(self, guiToDisplay):
         self.clearFrameMainChildren()
         guiToDisplay(self.frame_main)
-
 
     def clearFrameMainChildren(self):
         for children in self.frame_main.winfo_children():

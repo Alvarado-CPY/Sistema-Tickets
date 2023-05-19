@@ -1,6 +1,7 @@
 from tkinter import ttk
 import re
 
+
 class SearchEngine:
     def __init__(self, table: ttk.Treeview):
         self.BACKSPACE = "\x08"
