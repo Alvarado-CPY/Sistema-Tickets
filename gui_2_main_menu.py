@@ -169,10 +169,18 @@ class GUI_lateralmenu(GUI_root):
         self.frame_buttons.grid_rowconfigure((0, 1, 2, 3, 4, 5), weight=1)
         self.frame_buttons.grid_columnconfigure(0, weight=1)
 
+        self.button_general: tk.Button = tk.Button(
+            self.frame_buttons, text="General")
+        self.button_general.grid(
+            row=0, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_general.config(
+            font=[guiConfig().getFonts()["secondary_font"], 15]
+        )
+
         self.button_new_income: tk.Button = tk.Button(
             self.frame_buttons, text="Nuevo Ingreso")
         self.button_new_income.grid(
-            row=0, column=0, sticky="WENS", padx=10, pady=5)
+            row=1, column=0, sticky="WENS", padx=10, pady=5)
         self.button_new_income.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
@@ -180,7 +188,7 @@ class GUI_lateralmenu(GUI_root):
         self.button_reactivation: tk.Button = tk.Button(
             self.frame_buttons, text="Reactivaciones")
         self.button_reactivation.grid(
-            row=1, column=0, sticky="WENS", padx=10, pady=5)
+            row=2, column=0, sticky="WENS", padx=10, pady=5)
         self.button_reactivation.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
@@ -188,7 +196,7 @@ class GUI_lateralmenu(GUI_root):
         self.button_suspension: tk.Button = tk.Button(
             self.frame_buttons, text="Suspensiones")
         self.button_suspension.grid(
-            row=2, column=0, sticky="WENS", padx=10, pady=5)
+            row=3, column=0, sticky="WENS", padx=10, pady=5)
         self.button_suspension.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
@@ -196,7 +204,7 @@ class GUI_lateralmenu(GUI_root):
         self.button_discharge: tk.Button = tk.Button(
             self.frame_buttons, text="Egresos")
         self.button_discharge.grid(
-            row=3, column=0, sticky="WENS", padx=10, pady=5)
+            row=4, column=0, sticky="WENS", padx=10, pady=5)
         self.button_discharge.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
@@ -204,14 +212,14 @@ class GUI_lateralmenu(GUI_root):
         self.button_tickets: tk.Button = tk.Button(
             self.frame_buttons, text="Tickets")
         self.button_tickets.grid(
-            row=4, column=0, sticky="WENS", padx=10, pady=5)
+            row=5, column=0, sticky="WENS", padx=10, pady=5)
         self.button_tickets.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
 
         self.button_users: tk.Button = tk.Button(
             self.frame_buttons, text="Usuarios")
-        self.button_users.grid(row=5, column=0, sticky="WENS", padx=10, pady=5)
+        self.button_users.grid(row=6, column=0, sticky="WENS", padx=10, pady=5)
         self.button_users.config(
             font=[guiConfig().getFonts()["secondary_font"], 15]
         )
@@ -290,15 +298,16 @@ class GUI_workersTableData:
         self.table_workers.column("#19", width=150, anchor="center")
         self.table_workers.column("#20", width=150, anchor="center")
 
-
         # avoid resizing
         self.table_workers.bind("<Button-1>", self.avoidRezisable)
 
         # scroll bars
-        self.scrollbar_x: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="horizontal", command=self.table_workers.xview)
+        self.scrollbar_x: ttk.Scrollbar = ttk.Scrollbar(
+            self.frame_workers, orient="horizontal", command=self.table_workers.xview)
         self.scrollbar_x.grid(row=2, column=0, sticky="WE")
 
-        self.scrollbar_y: ttk.Scrollbar = ttk.Scrollbar(self.frame_workers, orient="vertical", command=self.table_workers.yview)
+        self.scrollbar_y: ttk.Scrollbar = ttk.Scrollbar(
+            self.frame_workers, orient="vertical", command=self.table_workers.yview)
         self.scrollbar_y.grid(row=1, column=1, sticky="NS")
 
         self.table_workers.config(
@@ -342,6 +351,7 @@ class GUI_workersTableData:
                     worker[19],
                 ))
 
+
 class GUI_displayChargeButton:
     def __init__(self, frame: tk.Frame, button_list: list[tk.Button], Menu: tk.Menu) -> None:
         self.frame = frame
@@ -355,7 +365,7 @@ class GUI_displayChargeButton:
             bg=guiConfig().getColors()["main_color"]
         )
 
-        self.frame_widgets.grid_rowconfigure((0,1,2), weight=1)
+        self.frame_widgets.grid_rowconfigure((0, 1, 2), weight=1)
         self.frame_widgets.grid_columnconfigure(0, weight=1)
 
         self.frame_container: tk.Frame = tk.Frame(self.frame_widgets)
@@ -412,6 +422,20 @@ class GUI_displayChargeButton:
         self.frame_widgets.destroy()
 
 
+class GUI_newIncome:
+    def __init__(self, frame):
+        self.frame = frame
+
+        # frames
+        self.frame_income_container: tk.Frame = tk.Frame(self.frame)
+        self.frame_income_container.grid(row=0, column=0, sticky="WENS")
+
+        self.frame_income_container.grid_rowconfigure(1, weight=0)
+        self.frame_income_container.grid_columnconfigure(0, weight=1)
+
+        tk.Label(self.frame_income_container, text="EJEMPLO").grid(row=0, column=0)
+
+
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
         super().__init__(root)
@@ -435,6 +459,8 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
         self.frame_main.grid_rowconfigure(0, weight=1)
         self.frame_main.grid_columnconfigure(0, weight=1)
 
+        self.setLateralFunctions()
+
         # display one frame or another
         self.seeIfThereIsChargedData()
 
@@ -449,6 +475,26 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
                     self.frame_main, button_list=self.button_list, Menu=self.Menu)
             else:
                 GUI_workersTableData(self.frame_main)
+
+    def setLateralFunctions(self):
+        self.button_general.config(
+            command=lambda: self.displayGuiPart(GUI_workersTableData)
+        )
+        self.button_new_income.config(
+            command=lambda: self.displayGuiPart(GUI_newIncome)
+        )
+
+    def displayGuiPart(self, guiToDisplay):
+        self.clearFrameMainChildren()
+        guiToDisplay(self.frame_main)
+
+
+    def clearFrameMainChildren(self):
+        for children in self.frame_main.winfo_children():
+            children.grid_forget()
+            children.grid_remove()
+            children.destroy()
+            del children
 
 
 if __name__ == "__main__":
