@@ -477,6 +477,7 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
         super().__init__(root)
         # variables
         self.button_list: list = [
+            self.button_general,
             self.button_new_income,
             self.button_discharge,
             self.button_reactivation,
