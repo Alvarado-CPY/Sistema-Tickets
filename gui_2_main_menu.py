@@ -550,10 +550,47 @@ class GUI_newIncome(GUI_categoryButtons):
             yscrollcommand=self.scrollbar_y.set
         )
 
+        self.loadNewIncomeData()
+
     def avoidRezisable(self, event):
         if self.table_new_income.identify_region(event.x, event.y) == "separator":
             return "break"
 
+    def loadNewIncomeData(self):
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            cursor.execute(
+                """
+                    SELECT * FROM workers
+                    JOIN newIncome ON workers.worker_ci=newIncome.worker_ci
+                """
+            )
+            newIncomeData = cursor.fetchall()
+
+            for worker_data in newIncomeData:
+                self.table_new_income.insert(parent="", index=tk.END, values=(
+                    worker_data[0],
+                    worker_data[1],
+                    worker_data[2],
+                    worker_data[3],
+                    worker_data[4],
+                    worker_data[5],
+                    worker_data[6],
+                    worker_data[7],
+                    worker_data[8],
+                    worker_data[9],
+                    worker_data[10],
+                    worker_data[11],
+                    worker_data[12],
+                    worker_data[13],
+                    worker_data[14],
+                    worker_data[15],
+                    worker_data[16],
+                    worker_data[17],
+                    worker_data[18],
+                    worker_data[19],
+                    worker_data[22],
+                ))
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
