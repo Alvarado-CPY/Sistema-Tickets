@@ -430,7 +430,7 @@ class GUI_categoryButtons:
         self.frame_buttons.grid(row=0, column=0, sticky="WENS", columnspan=2)
 
         self.frame_buttons.grid_rowconfigure(0, weight=1)
-        self.frame_buttons.grid_columnconfigure((0,1,2,3,4), weight=1)
+        self.frame_buttons.grid_columnconfigure((0,1,2,3), weight=1)
 
         self.button_general_report: tk.Button = tk.Button(self.frame_buttons, text="REPORTE GENERAL")
         self.button_general_report.grid(row=0, column=0, sticky="WENS")
@@ -441,11 +441,8 @@ class GUI_categoryButtons:
         self.button_update: tk.Button = tk.Button(self.frame_buttons, text="MODIFICAR TRABAJADOR")
         self.button_update.grid(row=0, column=2, sticky="WENS")
 
-        self.button_worker_details: tk.Button = tk.Button(self.frame_buttons, text="DETALLES DEL TRABAJADOR")
-        self.button_worker_details.grid(row=0, column=3, sticky="WENS")
-
         self.button_add_worker: tk.Button = tk.Button(self.frame_buttons, text="AÑADIR TRABAJADOR")
-        self.button_add_worker.grid(row=0, column=4, sticky="WENS")
+        self.button_add_worker.grid(row=0, column=3, sticky="WENS")
 
 
 class GUI_newIncome(GUI_categoryButtons):
@@ -474,14 +471,16 @@ class GUI_newIncome(GUI_categoryButtons):
 
         # Widgets tittle
         self.label_title: tk.Label = tk.Label(self.frame_income_container, text="TABLA NUEVO INGRESO")
-        self.label_title.grid(row=0, column=0, sticky="WENS")
+        self.label_title.grid(row=0, column=0, sticky="WENS", pady=10)
         self.label_title.config(
-            bg=guiConfig().getColors()["main_color"]
+            bg=guiConfig().getColors()["main_color"],
+            font=[guiConfig().getFonts()["main_font"], 18]
         )
 
         # Widgest buttons
         super().__init__(self.frame_income_components)
 
+        # table
         self.table_new_income: ttk.Treeview = ttk.Treeview(
             self.frame_income_components, selectmode="browse")
         self.table_new_income.grid(row=1, column=0, sticky="WENS")
