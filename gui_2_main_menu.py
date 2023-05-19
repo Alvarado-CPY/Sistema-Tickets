@@ -422,7 +422,32 @@ class GUI_displayChargeButton:
         self.frame_widgets.destroy()
 
 
-class GUI_newIncome:
+class GUI_categoryButtons:
+    def __init__(self, frame):
+        self.frame = frame
+
+        self.frame_buttons: tk.Frame = tk.Frame(self.frame)
+        self.frame_buttons.grid(row=0, column=0, sticky="WENS")
+
+        self.frame_buttons.grid_rowconfigure(0, weight=1)
+        self.frame_buttons.grid_columnconfigure((0,1,2,3,4), weight=1)
+
+        self.button_general_report: tk.Button = tk.Button(self.frame_buttons, text="REPORTE GENERAL")
+        self.button_general_report.grid(row=0, column=0, sticky="WENS")
+
+        self.button_change_category: tk.Button = tk.Button(self.frame_buttons, text="CAMBIAR CATEGORÍA")
+        self.button_change_category.grid(row=0, column=1, sticky="WENS")
+
+        self.button_update: tk.Button = tk.Button(self.frame_buttons, text="MODIFICAR TRABAJADOR")
+        self.button_update.grid(row=0, column=2, sticky="WENS")
+
+        self.button_worker_details: tk.Button = tk.Button(self.frame_buttons, text="DETALLES DEL TRABAJADOR")
+        self.button_worker_details.grid(row=0, column=3, sticky="WENS")
+
+        self.button_add_worker: tk.Button = tk.Button(self.frame_buttons, text="AÑADIR TRABAJADOR")
+        self.button_add_worker.grid(row=0, column=4, sticky="WENS")
+
+class GUI_newIncome(GUI_categoryButtons):
     def __init__(self, frame):
         self.frame = frame
 
@@ -433,8 +458,19 @@ class GUI_newIncome:
         self.frame_income_container.grid_rowconfigure(1, weight=0)
         self.frame_income_container.grid_columnconfigure(0, weight=1)
 
-        tk.Label(self.frame_income_container, text="EJEMPLO").grid(row=0, column=0)
+        # for the table and the buttons
+        self.frame_income_components: tk.Frame = tk.Frame(self.frame_income_container)
+        self.frame_income_components.grid(row=1, column=0, sticky="WENS")
 
+        self.frame_income_components.grid_rowconfigure((0,1), weight=1)
+        self.frame_income_components.grid_columnconfigure(0, weight=1)
+
+        # Widgets tittle
+        self.label_title: tk.Label = tk.Label(self.frame_income_container, text="TABLA NUEVO INGRESO")
+        self.label_title.grid(row=0, column=0, sticky="WENS")
+
+        # Widgest buttons
+        super().__init__(self.frame_income_components)
 
 class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
