@@ -8,6 +8,7 @@ from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
 from gui_3_interface_worker import GUI_workerForm
 
+
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
 
@@ -428,35 +429,40 @@ class GUI_categoryButtons:
         self.frame = frame
 
         self.frame_buttons: tk.Frame = tk.Frame(self.frame)
-        self.frame_buttons.grid(row=0, column=0, sticky="WENS", columnspan=2, pady=5)
+        self.frame_buttons.grid(
+            row=0, column=0, sticky="WENS", columnspan=2, pady=5)
 
         self.frame_buttons.grid_rowconfigure(0, weight=1)
         self.frame_buttons.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
         self.button_first_category_function: tk.Button = tk.Button(
             self.frame_buttons)
-        self.button_first_category_function.grid(row=0, column=0, sticky="WENS", padx=2)
+        self.button_first_category_function.grid(
+            row=0, column=0, sticky="WENS", padx=2)
         self.button_first_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
         self.button_second_category_function: tk.Button = tk.Button(
             self.frame_buttons)
-        self.button_second_category_function.grid(row=0, column=1, sticky="WENS", padx=2)
+        self.button_second_category_function.grid(
+            row=0, column=1, sticky="WENS", padx=2)
         self.button_second_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
         self.button_third_category_function: tk.Button = tk.Button(
             self.frame_buttons)
-        self.button_third_category_function.grid(row=0, column=2, sticky="WENS", padx=2)
+        self.button_third_category_function.grid(
+            row=0, column=2, sticky="WENS", padx=2)
         self.button_third_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
         self.button_four_category_function: tk.Button = tk.Button(
             self.frame_buttons)
-        self.button_four_category_function.grid(row=0, column=3, sticky="WENS", padx=2)
+        self.button_four_category_function.grid(
+            row=0, column=3, sticky="WENS", padx=2)
         self.button_four_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
@@ -633,13 +639,14 @@ class GUI_newIncome(GUI_categoryButtons):
 
         self.button_four_category_function.config(
             text="AÑADIR TRABAJADOR",
-            command= lambda: self.loadGUI(option="add")
+            command=lambda: self.loadGUI(option="add")
         )
 
     def loadGUI(self, option: str):
         sub_root = tk.Tk()
         GUI_workerForm(sub_root, option=option)
         sub_root.mainloop()
+
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
@@ -11,9 +12,11 @@ class GUI_root:
         self.root.quit()
         self.root.destroy()
 
+
 class GUI_addWorker(GUI_root):
     def __init__(self, root: tk.Tk) -> None:
         super().__init__(root)
+
 
 class GUI_workerForm:
     def __init__(self, root: tk.Tk, option: str) -> None:
@@ -23,6 +26,7 @@ class GUI_workerForm:
     def setRequiredFormClass(self, option):
         if option == "add":
             GUI_addWorker(self.root)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
