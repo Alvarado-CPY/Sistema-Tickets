@@ -621,7 +621,7 @@ class GUI_newIncome(GUI_categoryButtons):
                     formatAddMissingZero(worker_data[17]),
                     formatAddMissingZero(worker_data[18]),
                     worker_data[19],
-                    worker_data[22],
+                    worker_data[21],
                 ))
 
     def setFunctionalityToCategoryButtons(self):

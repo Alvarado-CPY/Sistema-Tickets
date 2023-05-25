@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 from helpers.encrypt import comparePassword
-from gui_2_main_menu import GUI_mainmenu
+from gui_2_main_menu import GUI_mainMenu
 from app_global_variables import guiConfig, dbPath
 
 
@@ -139,7 +139,7 @@ class GUI_login(GUI_root):
     def loadMainMenu(self):
         self.destroyRoot()
         root2 = tk.Tk()
-        GUI_mainmenu(root2)
+        GUI_mainMenu(root2)
         root2.mainloop()
 
 

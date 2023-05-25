@@ -78,8 +78,7 @@ class BBDD:
             state STRING,
             bank_account STRING,
             bank_code STRING,
-            bank STRING,
-            worker_classification INTEGER
+            bank STRING
         )"""
 
     def tableNewIncome(self):

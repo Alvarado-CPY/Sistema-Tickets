@@ -59,7 +59,6 @@ class ImportData:
 
             row = list(row)
             row[0] = int(row[0])
-            row.append(0)
 
             info_worker.append(row)
 
@@ -67,7 +66,7 @@ class ImportData:
             cursor = bd.cursor()
             cursor.executemany(
                 """INSERT INTO workers VALUES
-                (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 info_worker
             )
             bd.commit()
