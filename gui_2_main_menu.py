@@ -6,7 +6,7 @@ from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
-
+from gui_3_add_worker import GUI_workerForm
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -434,7 +434,7 @@ class GUI_categoryButtons:
         self.frame_buttons.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
         self.button_general_report: tk.Button = tk.Button(
-            self.frame_buttons, text="REPORTE GENERAL")
+            self.frame_buttons, text="REPORTE")
         self.button_general_report.grid(row=0, column=0, sticky="WENS", padx=2)
         self.button_general_report.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
@@ -571,6 +571,7 @@ class GUI_newIncome(GUI_categoryButtons):
         )
 
         self.loadNewIncomeData()
+        self.setFunctionalityToCategoryButtons()
 
         # search engine
         self.search_engine = SearchEngine(self.table_new_income)
@@ -617,8 +618,17 @@ class GUI_newIncome(GUI_categoryButtons):
                     worker_data[22],
                 ))
 
+    def setFunctionalityToCategoryButtons(self):
+        self.button_add_worker.config(
+            command= lambda: self.loadGUI(GUI_workerForm)
+        )
 
-class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
+    def loadGUI(self, guiToLoad):
+        sub_root = tk.Tk()
+        guiToLoad(sub_root)
+        sub_root.mainloop()
+
+class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
         super().__init__(root)
         # variables
@@ -681,5 +691,5 @@ class GUI_mainmenu(GUI_barmenu, GUI_lateralmenu):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    GUI_mainmenu(root)
+    GUI_mainMenu(root)
     root.mainloop()
