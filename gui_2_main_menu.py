@@ -625,9 +625,7 @@ class GUI_newIncome(GUI_categoryButtons):
 
     def loadGUI(self, option: str):
         sub_root = tk.Tk()
-        if option == "add":
-            GUI_workerForm(sub_root, option=option)
-
+        GUI_workerForm(sub_root, option=option)
         sub_root.mainloop()
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
