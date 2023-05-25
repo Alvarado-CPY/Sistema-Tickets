@@ -433,31 +433,31 @@ class GUI_categoryButtons:
         self.frame_buttons.grid_rowconfigure(0, weight=1)
         self.frame_buttons.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
-        self.button_general_report: tk.Button = tk.Button(
-            self.frame_buttons, text="REPORTE")
-        self.button_general_report.grid(row=0, column=0, sticky="WENS", padx=2)
-        self.button_general_report.config(
+        self.button_first_category_function: tk.Button = tk.Button(
+            self.frame_buttons)
+        self.button_first_category_function.grid(row=0, column=0, sticky="WENS", padx=2)
+        self.button_first_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
-        self.button_change_category: tk.Button = tk.Button(
-            self.frame_buttons, text="CAMBIAR CATEGORÍA")
-        self.button_change_category.grid(row=0, column=1, sticky="WENS", padx=2)
-        self.button_change_category.config(
+        self.button_second_category_function: tk.Button = tk.Button(
+            self.frame_buttons)
+        self.button_second_category_function.grid(row=0, column=1, sticky="WENS", padx=2)
+        self.button_second_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
-        self.button_update: tk.Button = tk.Button(
-            self.frame_buttons, text="MODIFICAR TRABAJADOR")
-        self.button_update.grid(row=0, column=2, sticky="WENS", padx=2)
-        self.button_update.config(
+        self.button_third_category_function: tk.Button = tk.Button(
+            self.frame_buttons)
+        self.button_third_category_function.grid(row=0, column=2, sticky="WENS", padx=2)
+        self.button_third_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
-        self.button_add_worker: tk.Button = tk.Button(
-            self.frame_buttons, text="AÑADIR TRABAJADOR")
-        self.button_add_worker.grid(row=0, column=3, sticky="WENS", padx=2)
-        self.button_add_worker.config(
+        self.button_four_category_function: tk.Button = tk.Button(
+            self.frame_buttons)
+        self.button_four_category_function.grid(row=0, column=3, sticky="WENS", padx=2)
+        self.button_four_category_function.config(
             font=[guiConfig().getFonts()["secondary_font"], 12]
         )
 
@@ -619,7 +619,20 @@ class GUI_newIncome(GUI_categoryButtons):
                 ))
 
     def setFunctionalityToCategoryButtons(self):
-        self.button_add_worker.config(
+        self.button_first_category_function.config(
+            text="REPORTE"
+        )
+
+        self.button_second_category_function.config(
+            text="CAMBIAR CATEGORÍA"
+        )
+
+        self.button_third_category_function.config(
+            text="MODIFICIAR"
+        )
+
+        self.button_four_category_function.config(
+            text="AÑADIR TRABAJADOR",
             command= lambda: self.loadGUI(option="add")
         )
 
