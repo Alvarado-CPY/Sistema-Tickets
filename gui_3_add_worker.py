@@ -11,9 +11,18 @@ class GUI_root:
         self.root.quit()
         self.root.destroy()
 
-class GUI_workerForm(GUI_root):
+class GUI_addWorker(GUI_root):
     def __init__(self, root: tk.Tk) -> None:
         super().__init__(root)
+
+class GUI_workerForm:
+    def __init__(self, root: tk.Tk, option: str) -> None:
+        self.root = root
+        self.setRequiredFormClass(option)
+
+    def setRequiredFormClass(self, option):
+        if option == "add":
+            GUI_addWorker(self.root)
 
 if __name__ == "__main__":
     root = tk.Tk()

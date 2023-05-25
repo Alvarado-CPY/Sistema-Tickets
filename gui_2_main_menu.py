@@ -464,7 +464,7 @@ class GUI_categoryButtons:
 
 class GUI_newIncome(GUI_categoryButtons):
     def __init__(self, frame):
-        self.frame = frame
+        self.frame: tk.Frame = frame
 
         # frames
         self.frame_income_container: tk.Frame = tk.Frame(self.frame)
@@ -620,12 +620,14 @@ class GUI_newIncome(GUI_categoryButtons):
 
     def setFunctionalityToCategoryButtons(self):
         self.button_add_worker.config(
-            command= lambda: self.loadGUI(GUI_workerForm)
+            command= lambda: self.loadGUI(option="add")
         )
 
-    def loadGUI(self, guiToLoad):
+    def loadGUI(self, option: str):
         sub_root = tk.Tk()
-        guiToLoad(sub_root)
+        if option == "add":
+            GUI_workerForm(sub_root, option=option)
+
         sub_root.mainloop()
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
