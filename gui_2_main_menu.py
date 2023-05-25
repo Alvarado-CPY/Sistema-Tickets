@@ -6,7 +6,7 @@ from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
-from gui_3_add_worker import GUI_workerForm
+from gui_3_interface_worker import GUI_workerForm
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
