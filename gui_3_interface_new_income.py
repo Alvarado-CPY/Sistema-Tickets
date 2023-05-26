@@ -221,6 +221,12 @@ class GUI_addWorker(GUI_root):
         for children in self.frame_container.winfo_children():
             children.destroy()
 
+    def updateButtonWhenFrameIsDisplayed(self):
+        if self.button_next_frame["text"] == "Siguiente":
+            self.button_next_frame["text"] = "GUARDAR"
+        else:
+            self.button_next_frame["text"] = "Siguiente"
+
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
             self.setTitle("DATOS DE TRABAJO")
@@ -234,12 +240,18 @@ class GUI_addWorker(GUI_root):
         if self.displayed_frame == "work data":
             self.setTitle("DATOS DE PAGO")
             self.displayed_frame = "pay data"
+
+            self.updateButtonWhenFrameIsDisplayed()
+
             return True
 
     def displayLastFrame(self):
         if self.displayed_frame == "pay data":
             self.setTitle("DATOS DE TRABAJO")
             self.displayed_frame = "work data"
+
+            self.updateButtonWhenFrameIsDisplayed()
+
             return True
 
         if self.displayed_frame == "work data":
