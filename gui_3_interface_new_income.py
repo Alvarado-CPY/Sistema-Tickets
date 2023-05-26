@@ -104,7 +104,8 @@ class GUI_framePersonalData:
         )
 
         # gender
-        self.label_gender: tk.Label = tk.Label(self.frame, text="GENERO", pady=5)
+        self.label_gender: tk.Label = tk.Label(
+            self.frame, text="GENERO", pady=5)
         self.label_gender.grid(row=10, column=0, sticky="WNS")
         self.label_gender.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
@@ -122,8 +123,9 @@ class GUI_frameWorkData:
         self.frame = frame
 
         # admission date
-        self.label_admission_date: tk.Label = tk.Label(self.frame, text="FECHA DE INGRESO")
-        self.label_admission_date.grid(row=0, column=0 , sticky="WNS", pady=5)
+        self.label_admission_date: tk.Label = tk.Label(
+            self.frame, text="FECHA DE INGRESO")
+        self.label_admission_date.grid(row=0, column=0, sticky="WNS", pady=5)
         self.label_admission_date.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
@@ -168,9 +170,11 @@ class GUI_addWorker(GUI_root):
         self.frame_title.grid_columnconfigure(0, weight=1)
 
         self.frame_container: tk.Frame = tk.Frame(self.root)
-        self.frame_container.grid(row=1, column=0, sticky="WENS", padx=20, pady=10)
+        self.frame_container.grid(
+            row=1, column=0, sticky="WENS", padx=20, pady=10)
 
-        self.frame_container.grid_rowconfigure((0,1,2,3,4,5,6,7,8,9,10, 11), weight=1)
+        self.frame_container.grid_rowconfigure(
+            (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), weight=1)
         self.frame_container.grid_columnconfigure(0, weight=1)
 
         self.frame_buttons: tk.Frame = tk.Frame(self.root)
@@ -186,9 +190,6 @@ class GUI_addWorker(GUI_root):
         self.label_title.config(
             font=[guiConfig().getFonts()["main_font"], 18]
         )
-
-        # changable frame
-        self.setDefaultFrame()
 
         # buttons
         self.button_last_frame: tk.Button = tk.Button(
@@ -209,10 +210,14 @@ class GUI_addWorker(GUI_root):
             command=self.displayNextFrame
         )
 
+        # changable frame
+        self.setDefaultFrame()
+
     def setDefaultFrame(self):
         self.setTitle("DATOS PERSONALES")
         self.displayed_frame = "personal data"
         GUI_framePersonalData(self.frame_container, self.worker_data)
+        self.toggleOrDisableLastButton()
 
     def setTitle(self, title):
         self.label_title["text"] = title
@@ -221,11 +226,17 @@ class GUI_addWorker(GUI_root):
         for children in self.frame_container.winfo_children():
             children.destroy()
 
-    def updateButtonWhenFrameIsDisplayed(self):
+    def updateNextButtonWhenFrameIsDisplayed(self):
         if self.button_next_frame["text"] == "Siguiente":
-            self.button_next_frame["text"] = "GUARDAR"
+            self.button_next_frame["text"] = "Guardar"
         else:
             self.button_next_frame["text"] = "Siguiente"
+
+    def toggleOrDisableLastButton(self):
+        if self.button_last_frame["state"] == "normal":
+            self.button_last_frame["state"] = "disable"
+        else:
+            self.button_last_frame["state"] = "normal"
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
@@ -234,6 +245,7 @@ class GUI_addWorker(GUI_root):
 
             self.clearContainerFrame()
             GUI_frameWorkData(self.frame_container, self.worker_data)
+            self.toggleOrDisableLastButton()
 
             return True
 
@@ -241,7 +253,7 @@ class GUI_addWorker(GUI_root):
             self.setTitle("DATOS DE PAGO")
             self.displayed_frame = "pay data"
 
-            self.updateButtonWhenFrameIsDisplayed()
+            self.updateNextButtonWhenFrameIsDisplayed()
 
             return True
 
@@ -250,7 +262,7 @@ class GUI_addWorker(GUI_root):
             self.setTitle("DATOS DE TRABAJO")
             self.displayed_frame = "work data"
 
-            self.updateButtonWhenFrameIsDisplayed()
+            self.updateNextButtonWhenFrameIsDisplayed()
 
             return True
 
@@ -260,8 +272,10 @@ class GUI_addWorker(GUI_root):
 
             self.clearContainerFrame()
             GUI_framePersonalData(self.frame_container, self.worker_data)
+            self.toggleOrDisableLastButton()
 
             return True
+
 
 class GUI_workerForm:
     def __init__(self, root: tk.Tk, option: str) -> None:
