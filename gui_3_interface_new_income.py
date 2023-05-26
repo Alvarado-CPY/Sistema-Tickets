@@ -139,13 +139,15 @@ class GUI_frameWorkData:
         # tittle of position
         self.label_title_of_position: tk.Label = tk.Label(
             self.frame, text="DENOMINACIÓN DE CARGO")
-        self.label_title_of_position.grid(row=2, column=0, sticky="WNS", pady=5)
+        self.label_title_of_position.grid(
+            row=2, column=0, sticky="WNS", pady=5)
         self.label_title_of_position.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
         self.entry_title_of_position: tk.Entry = tk.Entry(self.frame)
-        self.entry_title_of_position.grid(row=3, column=0, sticky="WENS", ipady=5)
+        self.entry_title_of_position.grid(
+            row=3, column=0, sticky="WENS", ipady=5)
         self.entry_title_of_position.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
@@ -206,6 +208,7 @@ class GUI_frameWorkData:
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
+
 class GUI_framePayData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.frame = frame
@@ -213,7 +216,8 @@ class GUI_framePayData:
         # admission date
         self.label_administrative_location: tk.Label = tk.Label(
             self.frame, text="UBICACIÓN ADMINISTRATIVA")
-        self.label_administrative_location.grid(row=0, column=0, sticky="WNS", pady=5)
+        self.label_administrative_location.grid(
+            row=0, column=0, sticky="WNS", pady=5)
         self.label_administrative_location.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
