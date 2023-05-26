@@ -130,6 +130,82 @@ class GUI_frameWorkData:
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
+        self.entry_admission_date: tk.Entry = tk.Entry(self.frame)
+        self.entry_admission_date.grid(row=1, column=0, sticky="WENS", ipady=5)
+        self.entry_admission_date.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # tittle of position
+        self.label_title_of_position: tk.Label = tk.Label(
+            self.frame, text="DENOMINACIÓN DE CARGO")
+        self.label_title_of_position.grid(row=2, column=0, sticky="WNS", pady=5)
+        self.label_title_of_position.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_title_of_position: tk.Entry = tk.Entry(self.frame)
+        self.entry_title_of_position.grid(row=3, column=0, sticky="WENS", ipady=5)
+        self.entry_title_of_position.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # workload
+        self.label_workload: tk.Label = tk.Label(
+            self.frame, text="CARGA LABORAL")
+        self.label_workload.grid(row=4, column=0, sticky="WNS", pady=5)
+        self.label_workload.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_workload: tk.Entry = tk.Entry(self.frame)
+        self.entry_workload.grid(row=5, column=0, sticky="WENS", ipady=5)
+        self.entry_workload.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # working hours
+        self.label_working_hours: tk.Label = tk.Label(
+            self.frame, text="HORARIO LABORAL")
+        self.label_working_hours.grid(row=6, column=0, sticky="WNS", pady=5)
+        self.label_working_hours.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_working_hours: tk.Entry = tk.Entry(self.frame)
+        self.entry_working_hours.grid(row=7, column=0, sticky="WENS", ipady=5)
+        self.entry_working_hours.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # speciality
+        self.label_speciality: tk.Label = tk.Label(
+            self.frame, text="ESPECIALIDAD")
+        self.label_speciality.grid(row=8, column=0, sticky="WNS", pady=5)
+        self.label_speciality.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_speciality: tk.Entry = tk.Entry(self.frame)
+        self.entry_speciality.grid(row=9, column=0, sticky="WENS", ipady=5)
+        self.entry_speciality.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # type of staff
+        self.label_type_off_staff: tk.Label = tk.Label(
+            self.frame, text="TIPO DE PERSONAL")
+        self.label_type_off_staff.grid(row=10, column=0, sticky="WNS", pady=5)
+        self.label_type_off_staff.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_type_of_staff: tk.Entry = tk.Entry(self.frame)
+        self.entry_type_of_staff.grid(row=11, column=0, sticky="WENS", ipady=5)
+        self.entry_type_of_staff.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
 class GUI_framePayData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.frame = frame
