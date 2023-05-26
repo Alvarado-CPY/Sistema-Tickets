@@ -117,6 +117,18 @@ class GUI_framePersonalData:
         )
 
 
+class GUI_frameWorkData:
+    def __init__(self, frame: tk.Frame, data: dict) -> None:
+        self.frame = frame
+
+        # admission date
+        self.label_admission_date: tk.Label = tk.Label(self.frame, text="FECHA DE INGRESO")
+        self.label_admission_date.grid(row=0, column=0 , sticky="WNS", pady=5)
+        self.label_admission_date.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+
 class GUI_addWorker(GUI_root):
     def __init__(self, root: tk.Tk) -> None:
         super().__init__(root)
@@ -143,6 +155,7 @@ class GUI_addWorker(GUI_root):
             "bank_code": "",
             "bank": ""
         }
+        self.displayed_frame = ""
 
         # initial frames
         self.frame_main: tk.Frame = tk.Frame(self.root)
@@ -183,7 +196,8 @@ class GUI_addWorker(GUI_root):
         self.button_last_frame.grid(row=0, column=0)
         self.button_last_frame.config(
             width=10,
-            font=[guiConfig().getFonts()["main_font"], 15]
+            font=[guiConfig().getFonts()["main_font"], 15],
+            command=self.displayLastFrame
         )
 
         self.button_next_frame: tk.Button = tk.Button(
@@ -191,15 +205,51 @@ class GUI_addWorker(GUI_root):
         self.button_next_frame.grid(row=0, column=1)
         self.button_next_frame.config(
             width=10,
-            font=[guiConfig().getFonts()["main_font"], 15]
+            font=[guiConfig().getFonts()["main_font"], 15],
+            command=self.displayNextFrame
         )
 
     def setDefaultFrame(self):
         self.setTitle("DATOS PERSONALES")
+        self.displayed_frame = "personal data"
         GUI_framePersonalData(self.frame_container, self.worker_data)
 
     def setTitle(self, title):
         self.label_title["text"] = title
+
+    def clearContainerFrame(self):
+        for children in self.frame_container.winfo_children():
+            children.destroy()
+
+    def displayNextFrame(self):
+        if self.displayed_frame == "personal data":
+            self.setTitle("DATOS DE TRABAJO")
+            self.displayed_frame = "work data"
+
+            self.clearContainerFrame()
+            GUI_frameWorkData(self.frame_container, self.worker_data)
+
+            return True
+
+        if self.displayed_frame == "work data":
+            self.setTitle("DATOS DE PAGO")
+            self.displayed_frame = "pay data"
+            return True
+
+    def displayLastFrame(self):
+        if self.displayed_frame == "pay data":
+            self.setTitle("DATOS DE TRABAJO")
+            self.displayed_frame = "work data"
+            return True
+
+        if self.displayed_frame == "work data":
+            self.setTitle("DATOS PERSONALES")
+            self.displayed_frame = "personal data"
+
+            self.clearContainerFrame()
+            GUI_framePersonalData(self.frame_container, self.worker_data)
+
+            return True
 
 class GUI_workerForm:
     def __init__(self, root: tk.Tk, option: str) -> None:
