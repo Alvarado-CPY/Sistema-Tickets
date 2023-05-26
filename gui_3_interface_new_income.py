@@ -213,13 +213,96 @@ class GUI_framePayData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.frame = frame
 
-        # admission date
+        # administrative location
         self.label_administrative_location: tk.Label = tk.Label(
             self.frame, text="UBICACIÓN ADMINISTRATIVA")
         self.label_administrative_location.grid(
             row=0, column=0, sticky="WNS", pady=5)
         self.label_administrative_location.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_administrative_location: tk.Entry = tk.Entry(self.frame)
+        self.entry_administrative_location.grid(
+            row=1, column=0, sticky="WENS", ipady=5)
+        self.entry_administrative_location.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # physical location
+        self.label_physical_location: tk.Label = tk.Label(
+            self.frame, text="UBICACIÓN FÍSICA")
+        self.label_physical_location.grid(
+            row=2, column=0, sticky="WNS", pady=5)
+        self.label_physical_location.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_physical_location: tk.Entry = tk.Entry(self.frame)
+        self.entry_physical_location.grid(
+            row=3, column=0, sticky="WENS", ipady=5)
+        self.entry_physical_location.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # state
+        self.label_state: tk.Label = tk.Label(
+            self.frame, text="ESTADO")
+        self.label_state.grid(
+            row=4, column=0, sticky="WNS", pady=5)
+        self.label_state.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_state: tk.Entry = tk.Entry(self.frame)
+        self.entry_state.grid(row=5, column=0, sticky="WENS", ipady=5)
+        self.entry_state.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # bank account
+        self.label_bank_account: tk.Label = tk.Label(
+            self.frame, text="CUENTA BANCARIA")
+        self.label_bank_account.grid(
+            row=6, column=0, sticky="WNS", pady=5)
+        self.label_bank_account.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_bank_account: tk.Entry = tk.Entry(self.frame)
+        self.entry_bank_account.grid(row=7, column=0, sticky="WENS", ipady=5)
+        self.entry_bank_account.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # bank code
+        self.label_bank_code: tk.Label = tk.Label(
+            self.frame, text="CÓDIGO DEL BANCO")
+        self.label_bank_code.grid(
+            row=8, column=0, sticky="WNS", pady=5)
+        self.label_bank_code.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_bank_code: tk.Entry = tk.Entry(self.frame)
+        self.entry_bank_code.grid(row=9, column=0, sticky="WENS", ipady=5)
+        self.entry_bank_code.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
+        )
+
+        # bank
+        self.label_bank: tk.Label = tk.Label(
+            self.frame, text="BANCO")
+        self.label_bank.grid(
+            row=10, column=0, sticky="WNS", pady=5)
+        self.label_bank.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_bank: tk.Entry = tk.Entry(self.frame)
+        self.entry_bank.grid(row=11, column=0, sticky="WENS", ipady=5)
+        self.entry_bank.config(
+            font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
 
