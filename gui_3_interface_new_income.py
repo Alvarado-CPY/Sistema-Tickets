@@ -130,6 +130,18 @@ class GUI_frameWorkData:
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
+class GUI_framePayData:
+    def __init__(self, frame: tk.Frame, data: dict) -> None:
+        self.frame = frame
+
+        # admission date
+        self.label_administrative_location: tk.Label = tk.Label(
+            self.frame, text="UBICACIÓN ADMINISTRATIVA")
+        self.label_administrative_location.grid(row=0, column=0, sticky="WNS", pady=5)
+        self.label_administrative_location.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
 
 class GUI_addWorker(GUI_root):
     def __init__(self, root: tk.Tk) -> None:
@@ -253,6 +265,8 @@ class GUI_addWorker(GUI_root):
             self.setTitle("DATOS DE PAGO")
             self.displayed_frame = "pay data"
 
+            self.clearContainerFrame()
+            GUI_framePayData(self.frame_container, self.worker_data)
             self.updateNextButtonWhenFrameIsDisplayed()
 
             return True
@@ -262,6 +276,8 @@ class GUI_addWorker(GUI_root):
             self.setTitle("DATOS DE TRABAJO")
             self.displayed_frame = "work data"
 
+            self.clearContainerFrame()
+            GUI_frameWorkData(self.frame_container, self.worker_data)
             self.updateNextButtonWhenFrameIsDisplayed()
 
             return True
