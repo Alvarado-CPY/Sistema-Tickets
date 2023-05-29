@@ -245,6 +245,13 @@ class GUI_frameWorkData(INTERFACE_writer):
 
         self.loadDataToEntrys()
 
+        self.entry_admission_date.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "admission_date"))
+        self.entry_title_of_position.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "title"))
+        self.entry_workload.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "workload"))
+        self.entry_working_hours.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "working_hours"))
+        self.entry_speciality.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "speciality"))
+        self.entry_type_of_staff.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "type_of_staff"))
+
     def loadDataToEntrys(self):
         self.entry_admission_date.insert(0, self.data["admission_date"])
         self.entry_title_of_position.insert(0, self.data["title"])
