@@ -33,6 +33,7 @@ class GUI_root:
 
 class GUI_framePersonalData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
+        self.data = data
         self.frame = frame
 
         # ci
@@ -117,9 +118,20 @@ class GUI_framePersonalData:
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
+        self.loadDataToEntrys()
+
+    def loadDataToEntrys(self):
+        self.entry_ci.insert(0, self.data["ci"])
+        self.entry_fullname.insert(0, self.data["fullname"])
+        self.entry_nacionality.insert(0, self.data["nacionality"])
+        self.entry_birthday.insert(0, self.data["birthday"])
+        self.entry_age.insert(0, self.data["age"])
+        self.entry_gender.insert(0, self.data["gender"])
+
 
 class GUI_frameWorkData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
+        self.data = data
         self.frame = frame
 
         # admission date
@@ -208,9 +220,20 @@ class GUI_frameWorkData:
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
+        self.loadDataToEntrys()
+
+    def loadDataToEntrys(self):
+        self.data["title"] = "hola"
+        self.entry_admission_date.insert(0, self.data["admission_date"])
+        self.entry_title_of_position.insert(0, self.data["title"])
+        self.entry_workload.insert(0, self.data["workload"])
+        self.entry_working_hours.insert(0, self.data["working_hours"])
+        self.entry_speciality.insert(0, self.data["speciality"])
+        self.entry_type_of_staff.insert(0, self.data["type_of_staff"])
 
 class GUI_framePayData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
+        self.data = data
         self.frame = frame
 
         # administrative location
@@ -305,6 +328,16 @@ class GUI_framePayData:
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
+        self.loadDataToEntrys()
+
+    def loadDataToEntrys(self):
+        self.entry_administrative_location.insert(0, self.data["administrative_location"])
+        self.entry_physical_location.insert(0, self.data["physical_location"])
+        self.entry_state.insert(0, self.data["state"])
+        self.entry_bank_account.insert(0, self.data["bank_account"])
+        self.entry_bank_code.insert(0, self.data["bank_code"])
+        self.entry_bank.insert(0, self.data["bank"])
+
 
 class GUI_addWorker(GUI_root):
     def __init__(self, root: tk.Tk) -> None:
@@ -312,25 +345,25 @@ class GUI_addWorker(GUI_root):
 
         # variables
         self.worker_data = {
-            "ci": "",
-            "fullname": "",
-            "nacionality": "",
-            "birthday": "",
-            "age": "",
-            "gender": "",
-            "admission_date": "",
-            "title": "",
-            "workload": "",
-            "working_hours": "",
-            "speciality": "",
-            "type_of_staff": "",
-            "administrative_location": "",
-            "physical_location": "",
-            "service_commission": "",
-            "state": "",
-            "bank_account": "",
-            "bank_code": "",
-            "bank": ""
+            "ci": "30253132",
+            "fullname": "carlos alvarado",
+            "nacionality": "V",
+            "birthday": "2003/11/19",
+            "age": "19",
+            "gender": "M",
+            "admission_date": "1",
+            "title": "2",
+            "workload": "3",
+            "working_hours": "4",
+            "speciality": "5",
+            "type_of_staff": "6",
+            "administrative_location": "7",
+            "physical_location": "8",
+            "service_commission": "9",
+            "state": "10",
+            "bank_account": "11",
+            "bank_code": "12",
+            "bank": "13"
         }
         self.displayed_frame = ""
 
