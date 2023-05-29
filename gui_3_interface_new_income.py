@@ -231,6 +231,7 @@ class GUI_frameWorkData:
         self.entry_speciality.insert(0, self.data["speciality"])
         self.entry_type_of_staff.insert(0, self.data["type_of_staff"])
 
+
 class GUI_framePayData:
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.data = data
@@ -331,7 +332,8 @@ class GUI_framePayData:
         self.loadDataToEntrys()
 
     def loadDataToEntrys(self):
-        self.entry_administrative_location.insert(0, self.data["administrative_location"])
+        self.entry_administrative_location.insert(
+            0, self.data["administrative_location"])
         self.entry_physical_location.insert(0, self.data["physical_location"])
         self.entry_state.insert(0, self.data["state"])
         self.entry_bank_account.insert(0, self.data["bank_account"])
@@ -345,25 +347,25 @@ class GUI_addWorker(GUI_root):
 
         # variables
         self.worker_data = {
-            "ci": "30253132",
-            "fullname": "carlos alvarado",
-            "nacionality": "V",
-            "birthday": "2003/11/19",
-            "age": "19",
-            "gender": "M",
-            "admission_date": "1",
-            "title": "2",
-            "workload": "3",
-            "working_hours": "4",
-            "speciality": "5",
-            "type_of_staff": "6",
-            "administrative_location": "7",
-            "physical_location": "8",
-            "service_commission": "9",
-            "state": "10",
-            "bank_account": "11",
-            "bank_code": "12",
-            "bank": "13"
+            "ci": "",
+            "fullname": "",
+            "nacionality": "",
+            "birthday": "",
+            "age": "",
+            "gender": "",
+            "admission_date": "",
+            "title": "",
+            "workload": "",
+            "working_hours": "",
+            "speciality": "",
+            "type_of_staff": "",
+            "administrative_location": "",
+            "physical_location": "",
+            "service_commission": "",
+            "state": "",
+            "bank_account": "",
+            "bank_code": "",
+            "bank": ""
         }
         self.displayed_frame = ""
 
