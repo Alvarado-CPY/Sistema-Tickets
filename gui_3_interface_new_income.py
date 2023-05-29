@@ -245,12 +245,18 @@ class GUI_frameWorkData(INTERFACE_writer):
 
         self.loadDataToEntrys()
 
-        self.entry_admission_date.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "admission_date"))
-        self.entry_title_of_position.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "title"))
-        self.entry_workload.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "workload"))
-        self.entry_working_hours.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "working_hours"))
-        self.entry_speciality.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "speciality"))
-        self.entry_type_of_staff.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "type_of_staff"))
+        self.entry_admission_date.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "admission_date"))
+        self.entry_title_of_position.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "title"))
+        self.entry_workload.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "workload"))
+        self.entry_working_hours.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "working_hours"))
+        self.entry_speciality.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "speciality"))
+        self.entry_type_of_staff.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "type_of_staff"))
 
     def loadDataToEntrys(self):
         self.entry_admission_date.insert(0, self.data["admission_date"])
@@ -360,12 +366,18 @@ class GUI_framePayData(INTERFACE_writer):
 
         self.loadDataToEntrys()
 
-        self.entry_administrative_location.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "administrative_location"))
-        self.entry_physical_location.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "physical_location"))
-        self.entry_state.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "state"))
-        self.entry_bank_account.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_account"))
-        self.entry_bank_code.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_code"))
-        self.entry_bank.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank"))
+        self.entry_administrative_location.bind("<Key>", lambda key: self.writeDataToHashMap(
+            key, self.data, "administrative_location"))
+        self.entry_physical_location.bind("<Key>", lambda key: self.writeDataToHashMap(
+            key, self.data, "physical_location"))
+        self.entry_state.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "state"))
+        self.entry_bank_account.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_account"))
+        self.entry_bank_code.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_code"))
+        self.entry_bank.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank"))
 
     def loadDataToEntrys(self):
         self.entry_administrative_location.insert(
