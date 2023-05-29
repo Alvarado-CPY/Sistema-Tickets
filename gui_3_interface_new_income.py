@@ -5,7 +5,6 @@ from app_global_variables import dbPath, guiConfig
 
 class INTERFACE_writer:
     def writeDataToHashMap(self, key, map, key_map):
-        print(key)
         if key.char == "\x08":
             map[key_map] = map[key_map][:-1]
         elif key.char == "\t":
