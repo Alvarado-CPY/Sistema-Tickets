@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig
 
+class INTERFACE_writer:
+    def writeDataToHashMap(self, key, map, key_map):
+        map[key_map] += key.char
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -31,7 +34,7 @@ class GUI_root:
         self.root.destroy()
 
 
-class GUI_framePersonalData:
+class GUI_framePersonalData(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.data = data
         self.frame = frame
@@ -120,6 +123,8 @@ class GUI_framePersonalData:
 
         self.loadDataToEntrys()
 
+        self.entry_ci.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "ci"))
+
     def loadDataToEntrys(self):
         self.entry_ci.insert(0, self.data["ci"])
         self.entry_fullname.insert(0, self.data["fullname"])
@@ -128,8 +133,7 @@ class GUI_framePersonalData:
         self.entry_age.insert(0, self.data["age"])
         self.entry_gender.insert(0, self.data["gender"])
 
-
-class GUI_frameWorkData:
+class GUI_frameWorkData(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.data = data
         self.frame = frame
@@ -223,7 +227,6 @@ class GUI_frameWorkData:
         self.loadDataToEntrys()
 
     def loadDataToEntrys(self):
-        self.data["title"] = "hola"
         self.entry_admission_date.insert(0, self.data["admission_date"])
         self.entry_title_of_position.insert(0, self.data["title"])
         self.entry_workload.insert(0, self.data["workload"])
@@ -232,7 +235,7 @@ class GUI_frameWorkData:
         self.entry_type_of_staff.insert(0, self.data["type_of_staff"])
 
 
-class GUI_framePayData:
+class GUI_framePayData(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         self.data = data
         self.frame = frame
