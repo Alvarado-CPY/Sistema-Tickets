@@ -2,9 +2,17 @@ import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig
 
+
 class INTERFACE_writer:
     def writeDataToHashMap(self, key, map, key_map):
-        map[key_map] += key.char
+        print(key)
+        if key.char == "\x08":
+            map[key_map] = map[key_map][:-1]
+        elif key.char == "\t":
+            return
+        else:
+            map[key_map] += key.char
+
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -121,9 +129,20 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        self.loadDataToEntrys()
+        self.entry_ci.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "ci"))
+        self.entry_fullname.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "fullname"))
+        self.entry_nacionality.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "nacionality"))
+        self.entry_birthday.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "birthday"))
+        self.entry_age.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "age"))
+        self.entry_gender.bind(
+            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "gender"))
 
-        self.entry_ci.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "ci"))
+        self.loadDataToEntrys()
 
     def loadDataToEntrys(self):
         self.entry_ci.insert(0, self.data["ci"])
@@ -132,6 +151,7 @@ class GUI_framePersonalData(INTERFACE_writer):
         self.entry_birthday.insert(0, self.data["birthday"])
         self.entry_age.insert(0, self.data["age"])
         self.entry_gender.insert(0, self.data["gender"])
+
 
 class GUI_frameWorkData(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
