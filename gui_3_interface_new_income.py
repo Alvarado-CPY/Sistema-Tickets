@@ -360,6 +360,13 @@ class GUI_framePayData(INTERFACE_writer):
 
         self.loadDataToEntrys()
 
+        self.entry_administrative_location.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "administrative_location"))
+        self.entry_physical_location.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "physical_location"))
+        self.entry_state.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "state"))
+        self.entry_bank_account.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_account"))
+        self.entry_bank_code.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_code"))
+        self.entry_bank.bind("<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank"))
+
     def loadDataToEntrys(self):
         self.entry_administrative_location.insert(
             0, self.data["administrative_location"])
