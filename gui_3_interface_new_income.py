@@ -136,7 +136,7 @@ class GUI_frameWorkData:
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        # tittle of position
+        # title of position
         self.label_title_of_position: tk.Label = tk.Label(
             self.frame, text="DENOMINACIÓN DE CARGO")
         self.label_title_of_position.grid(
