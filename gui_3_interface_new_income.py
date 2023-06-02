@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig
-
+from helpers.validate_worker_data import validateNoEmptyEntrys
 
 class INTERFACE_writer:
     def writeDataToHashMap(self, key, map, key_map):
@@ -496,16 +496,9 @@ class GUI_addWorker(GUI_root):
         else:
             self.button_last_frame["state"] = "normal"
 
-    def validateNoEmptyEntrys(self, group: tuple[str]):
-        for key in group:
-            if len(self.worker_data[key].strip()) == 0:
-                return False
-
-        return True
-
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
-            if self.validateNoEmptyEntrys(group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
+            if validateNoEmptyEntrys(worker_data=self.worker_data, group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
                 messagebox.showerror("Error", "No puede dejar los datos personales vacios")
                 return False
 
@@ -520,7 +513,7 @@ class GUI_addWorker(GUI_root):
 
         if self.displayed_frame == "work data":
             #commition of service is an exception, that can be empty
-            if self.validateNoEmptyEntrys(group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
+            if validateNoEmptyEntrys(worker_data=self.worker_data, group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
                 messagebox.showerror("Error", "No puede dejar los datos de trabajo vacios")
                 return False
 
