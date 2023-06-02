@@ -598,26 +598,6 @@ class GUI_addWorker(GUI_root):
         if validateNotSpecialCharacters(self.worker_data["gender"]) == False:
             return "El genero no debe tener carácteres especiales"
 
-        # "ci": "",
-        #     "fullname": "",
-        #     "nacionality": "",
-        #     "birthday": "",
-        #     "age": "",
-        #     "gender": "",
-        #     "admission_date": "",
-        #     "title": "",
-        #     "workload": "",
-        #     "working_hours": "",
-        #     "speciality": "",
-        #     "type_of_staff": "",
-        #     "administrative_location": "",
-        #     "physical_location": "",
-        #     "service_commission": "",
-        #     "state": "",
-        #     "bank_account": "",
-        #     "bank_code": "",
-        #     "bank": ""
-
         return "No Errors"
 
     def displayNextFrame(self):
