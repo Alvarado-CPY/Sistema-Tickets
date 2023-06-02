@@ -1,17 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig
-from helpers.validate_worker_data import validateNoEmptyEntrys
+from helpers.validate_worker_data import *
 
 class INTERFACE_writer:
-    def writeDataToHashMap(self, key, map, key_map):
-        if key.char == "\x08":
-            map[key_map] = map[key_map][:-1]
-        elif key.char == "\t":
-            return
-        else:
-            map[key_map] += key.char
-
+    def writeDataToHashMap(self, map: dict, key_map: str, variable: tk.StringVar):
+        map[key_map] = variable.get()
+        print(map)
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -46,6 +41,14 @@ class GUI_framePersonalData(INTERFACE_writer):
         self.data = data
         self.frame = frame
 
+        # variables
+        self.variable_ci = tk.StringVar()
+        self.variable_fullname = tk.StringVar()
+        self.variable_nacionality = tk.StringVar()
+        self.variable_birthday = tk.StringVar()
+        self.variable_age = tk.StringVar()
+        self.variable_gender = tk.StringVar()
+
         # ci
         self.label_ci: tk.Label = tk.Label(self.frame, text="CÉDULA")
         self.label_ci.grid(row=0, column=0, sticky="WNS", pady=5)
@@ -53,7 +56,7 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_ci: tk.Entry = tk.Entry(self.frame)
+        self.entry_ci: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_ci)
         self.entry_ci.grid(row=1, column=0, sticky="WENS", ipady=5)
         self.entry_ci.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -67,7 +70,7 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_fullname: tk.Entry = tk.Entry(self.frame)
+        self.entry_fullname: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_fullname)
         self.entry_fullname.grid(row=3, column=0, sticky="WENS", ipady=5)
         self.entry_fullname.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -81,7 +84,7 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_nacionality: tk.Entry = tk.Entry(self.frame)
+        self.entry_nacionality: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_nacionality)
         self.entry_nacionality.grid(row=5, column=0, sticky="WENS", ipady=5)
         self.entry_nacionality.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -95,7 +98,7 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_birthday: tk.Entry = tk.Entry(self.frame)
+        self.entry_birthday: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_birthday)
         self.entry_birthday.grid(row=7, column=0, sticky="WENS", ipady=5)
         self.entry_birthday.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -108,7 +111,7 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_age: tk.Entry = tk.Entry(self.frame)
+        self.entry_age: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_age)
         self.entry_age.grid(row=9, column=0, sticky="WENS", ipady=5)
         self.entry_age.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -122,26 +125,24 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_gender: tk.Entry = tk.Entry(self.frame)
+        self.entry_gender: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_gender)
         self.entry_gender.grid(row=11, column=0, sticky="WENS", ipady=5)
         self.entry_gender.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        self.entry_ci.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "ci"))
-        self.entry_fullname.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "fullname"))
-        self.entry_nacionality.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "nacionality"))
-        self.entry_birthday.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "birthday"))
-        self.entry_age.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "age"))
-        self.entry_gender.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "gender"))
+        self.variable_ci.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="ci", variable=self.variable_ci))
+        self.variable_fullname.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="fullname", variable=self.variable_fullname))
+        self.variable_nacionality.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="nacionality", variable=self.variable_nacionality))
+        self.variable_birthday.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="birthday", variable=self.variable_birthday))
+        self.variable_age.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="age", variable=self.variable_age))
+        self.variable_gender.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="gender", variable=self.variable_gender))
 
         self.loadDataToEntrys()
+
+    def callback(self, variable, map, key_map):
+        map[key_map] = variable.get()
+        print(map)
 
     def loadDataToEntrys(self):
         self.entry_ci.insert(0, self.data["ci"])
@@ -496,10 +497,66 @@ class GUI_addWorker(GUI_root):
         else:
             self.button_last_frame["state"] = "normal"
 
+    def validateFirstEntryGroup(self) -> str:
+        # ci
+        if validateInteger(self.worker_data["ci"]) == False:
+            return "La cédula solo debe contener numeros enteros"
+
+        if validateLen(5, self.worker_data["ci"]) == False:
+            return "La cédula no puede ser menor a 5 carácteres"
+
+        # name
+        if validateNotSpecialCharacters(self.worker_data["fullname"]) == False:
+            return "El nombre no debe tener carácteres especiales"
+
+        if validateNotNumbers(self.worker_data["fullname"]) == False:
+            return "El nombre no debe tener números"
+
+        # nacionality
+        if validateNotSpecialCharacters(self.worker_data["nacionality"]) == False:
+            return "La nacionalidad no debe tener carácteres especiales"
+
+        if validateNotNumbers(self.worker_data["nacionality"]) == False:
+            return "La nacionalidad no debe tener números"
+
+        # birthday
+
+
+        # age
+
+        # gender
+
+        # "ci": "",
+        #     "fullname": "",
+        #     "nacionality": "",
+        #     "birthday": "",
+        #     "age": "",
+        #     "gender": "",
+        #     "admission_date": "",
+        #     "title": "",
+        #     "workload": "",
+        #     "working_hours": "",
+        #     "speciality": "",
+        #     "type_of_staff": "",
+        #     "administrative_location": "",
+        #     "physical_location": "",
+        #     "service_commission": "",
+        #     "state": "",
+        #     "bank_account": "",
+        #     "bank_code": "",
+        #     "bank": ""
+
+        return "No Errors"
+
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
             if validateNoEmptyEntrys(worker_data=self.worker_data, group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
                 messagebox.showerror("Error", "No puede dejar los datos personales vacios")
+                return False
+
+            validationResults = self.validateFirstEntryGroup()
+            if validationResults != "No Errors":
+                messagebox.showerror("Error", validationResults)
                 return False
 
             self.setTitle("DATOS DE TRABAJO")
