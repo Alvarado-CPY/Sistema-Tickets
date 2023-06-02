@@ -581,6 +581,8 @@ class GUI_addWorker(GUI_root):
             return "La nacionalidad no debe tener números"
 
         # birthday
+        if validateDateFormat(self.worker_data["birthday"]) == False:
+            return "El formato de las fechas debe ser DD/MM/AAAA"
 
         # age
 
