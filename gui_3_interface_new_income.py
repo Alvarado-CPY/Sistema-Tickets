@@ -3,10 +3,12 @@ from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig
 from helpers.validate_worker_data import *
 
+
 class INTERFACE_writer:
     def writeDataToHashMap(self, map: dict, key_map: str, variable: tk.StringVar):
         map[key_map] = variable.get()
         print(map)
+
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -56,7 +58,8 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_ci: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_ci)
+        self.entry_ci: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_ci)
         self.entry_ci.grid(row=1, column=0, sticky="WENS", ipady=5)
         self.entry_ci.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -70,7 +73,8 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_fullname: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_fullname)
+        self.entry_fullname: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_fullname)
         self.entry_fullname.grid(row=3, column=0, sticky="WENS", ipady=5)
         self.entry_fullname.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -84,7 +88,8 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_nacionality: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_nacionality)
+        self.entry_nacionality: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_nacionality)
         self.entry_nacionality.grid(row=5, column=0, sticky="WENS", ipady=5)
         self.entry_nacionality.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -98,7 +103,8 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_birthday: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_birthday)
+        self.entry_birthday: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_birthday)
         self.entry_birthday.grid(row=7, column=0, sticky="WENS", ipady=5)
         self.entry_birthday.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -111,7 +117,8 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_age: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_age)
+        self.entry_age: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_age)
         self.entry_age.grid(row=9, column=0, sticky="WENS", ipady=5)
         self.entry_age.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -125,18 +132,31 @@ class GUI_framePersonalData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_gender: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_gender)
+        self.entry_gender: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_gender)
         self.entry_gender.grid(row=11, column=0, sticky="WENS", ipady=5)
         self.entry_gender.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        self.variable_ci.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="ci", variable=self.variable_ci))
-        self.variable_fullname.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="fullname", variable=self.variable_fullname))
-        self.variable_nacionality.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="nacionality", variable=self.variable_nacionality))
-        self.variable_birthday.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="birthday", variable=self.variable_birthday))
-        self.variable_age.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="age", variable=self.variable_age))
-        self.variable_gender.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="gender", variable=self.variable_gender))
+        # keeping track of user input
+        self.variable_ci.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="ci", variable=self.variable_ci))
+
+        self.variable_fullname.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="fullname", variable=self.variable_fullname))
+
+        self.variable_nacionality.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="nacionality", variable=self.variable_nacionality))
+
+        self.variable_birthday.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="birthday", variable=self.variable_birthday))
+
+        self.variable_age.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="age", variable=self.variable_age))
+
+        self.variable_gender.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="gender", variable=self.variable_gender))
 
         self.loadDataToEntrys()
 
@@ -158,6 +178,14 @@ class GUI_frameWorkData(INTERFACE_writer):
         self.data = data
         self.frame = frame
 
+        # variables
+        self.variable_admission_date = tk.StringVar()
+        self.variable_title_of_position = tk.StringVar()
+        self.variable_workload = tk.StringVar()
+        self.variable_working_hours = tk.StringVar()
+        self.variable_speciality = tk.StringVar()
+        self.variable_type_of_staff = tk.StringVar()
+
         # admission date
         self.label_admission_date: tk.Label = tk.Label(
             self.frame, text="FECHA DE INGRESO")
@@ -166,7 +194,8 @@ class GUI_frameWorkData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_admission_date: tk.Entry = tk.Entry(self.frame)
+        self.entry_admission_date: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_admission_date)
         self.entry_admission_date.grid(row=1, column=0, sticky="WENS", ipady=5)
         self.entry_admission_date.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -181,7 +210,8 @@ class GUI_frameWorkData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_title_of_position: tk.Entry = tk.Entry(self.frame)
+        self.entry_title_of_position: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_title_of_position)
         self.entry_title_of_position.grid(
             row=3, column=0, sticky="WENS", ipady=5)
         self.entry_title_of_position.config(
@@ -196,7 +226,8 @@ class GUI_frameWorkData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_workload: tk.Entry = tk.Entry(self.frame)
+        self.entry_workload: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_workload)
         self.entry_workload.grid(row=5, column=0, sticky="WENS", ipady=5)
         self.entry_workload.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -210,7 +241,8 @@ class GUI_frameWorkData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_working_hours: tk.Entry = tk.Entry(self.frame)
+        self.entry_working_hours: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_working_hours)
         self.entry_working_hours.grid(row=7, column=0, sticky="WENS", ipady=5)
         self.entry_working_hours.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -224,7 +256,8 @@ class GUI_frameWorkData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_speciality: tk.Entry = tk.Entry(self.frame)
+        self.entry_speciality: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_speciality)
         self.entry_speciality.grid(row=9, column=0, sticky="WENS", ipady=5)
         self.entry_speciality.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -238,26 +271,33 @@ class GUI_frameWorkData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_type_of_staff: tk.Entry = tk.Entry(self.frame)
+        self.entry_type_of_staff: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_type_of_staff)
         self.entry_type_of_staff.grid(row=11, column=0, sticky="WENS", ipady=5)
         self.entry_type_of_staff.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        self.loadDataToEntrys()
+        # keeping track of user input
+        self.variable_admission_date.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="admission_date", variable=self.variable_admission_date))
 
-        self.entry_admission_date.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "admission_date"))
-        self.entry_title_of_position.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "title"))
-        self.entry_workload.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "workload"))
-        self.entry_working_hours.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "working_hours"))
-        self.entry_speciality.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "speciality"))
-        self.entry_type_of_staff.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "type_of_staff"))
+        self.variable_title_of_position.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="title", variable=self.variable_title_of_position))
+
+        self.variable_workload.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="workload", variable=self.variable_workload))
+
+        self.variable_working_hours.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="working_hours", variable=self.variable_working_hours))
+
+        self.variable_speciality.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="speciality", variable=self.variable_speciality))
+
+        self.variable_type_of_staff.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="type_of_staff", variable=self.variable_type_of_staff))
+
+        self.loadDataToEntrys()
 
     def loadDataToEntrys(self):
         self.entry_admission_date.insert(0, self.data["admission_date"])
@@ -521,7 +561,6 @@ class GUI_addWorker(GUI_root):
 
         # birthday
 
-
         # age
 
         # gender
@@ -551,7 +590,8 @@ class GUI_addWorker(GUI_root):
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
             if validateNoEmptyEntrys(worker_data=self.worker_data, group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
-                messagebox.showerror("Error", "No puede dejar los datos personales vacios")
+                messagebox.showerror(
+                    "Error", "No puede dejar los datos personales vacios")
                 return False
 
             validationResults = self.validateFirstEntryGroup()
@@ -569,9 +609,10 @@ class GUI_addWorker(GUI_root):
             return True
 
         if self.displayed_frame == "work data":
-            #commition of service is an exception, that can be empty
+            # commition of service is an exception, that can be empty
             if validateNoEmptyEntrys(group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
-                messagebox.showerror("Error", "No puede dejar los datos de trabajo vacios")
+                messagebox.showerror(
+                    "Error", "No puede dejar los datos de trabajo vacios")
                 return False
 
             self.setTitle("DATOS DE PAGO")
