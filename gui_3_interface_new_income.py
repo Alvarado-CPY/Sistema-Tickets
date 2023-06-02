@@ -589,6 +589,14 @@ class GUI_addWorker(GUI_root):
             return "La edad debe solo contener números"
 
         # gender
+        if validateUniqueCharacter(self.worker_data["gender"]) == False:
+            return "El genero debe de ser de un único carácter"
+
+        if validateNotNumbers(self.worker_data["gender"]) == False:
+            return "El genero no puede contener números"
+
+        if validateNotSpecialCharacters(self.worker_data)["gender"] == False:
+            return "El genero no debe tener carácteres especiales"
 
         # "ci": "",
         #     "fullname": "",
