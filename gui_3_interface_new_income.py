@@ -571,6 +571,8 @@ class GUI_addWorker(GUI_root):
             return "El nombre no debe tener números"
 
         # nacionality
+
+
         if validateNotSpecialCharacters(self.worker_data["nacionality"]) == False:
             return "La nacionalidad no debe tener carácteres especiales"
 

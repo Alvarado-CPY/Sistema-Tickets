@@ -27,6 +27,12 @@ def validateLen(desired_len: int, data: str) -> bool:
 
     return True
 
+def validateUniqueCharacter(data: str) -> bool:
+    if len(data) != 1:
+        return False
+
+    return True
+
 
 def validateNotSpecialCharacters(data: str) -> bool:
     for character in data:
