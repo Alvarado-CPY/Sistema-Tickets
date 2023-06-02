@@ -496,8 +496,19 @@ class GUI_addWorker(GUI_root):
         else:
             self.button_last_frame["state"] = "normal"
 
+    def validateNoEmptyEntrys(self, group: tuple[str]):
+        for key in group:
+            if len(self.worker_data[key].strip()) == 0:
+                return False
+
+        return True
+
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
+            if self.validateNoEmptyEntrys(group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
+                messagebox.showerror("Error", "No puede dejar los datos personales vacios")
+                return False
+
             self.setTitle("DATOS DE TRABAJO")
             self.displayed_frame = "work data"
 
@@ -508,6 +519,10 @@ class GUI_addWorker(GUI_root):
             return True
 
         if self.displayed_frame == "work data":
+            if self.validateNoEmptyEntrys(group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
+                messagebox.showerror("Error", "No puede dejar los datos de trabajo vacios")
+                return False
+
             self.setTitle("DATOS DE PAGO")
             self.displayed_frame = "pay data"
 
