@@ -595,7 +595,7 @@ class GUI_addWorker(GUI_root):
         if validateNotNumbers(self.worker_data["gender"]) == False:
             return "El genero no puede contener números"
 
-        if validateNotSpecialCharacters(self.worker_data)["gender"] == False:
+        if validateNotSpecialCharacters(self.worker_data["gender"]) == False:
             return "El genero no debe tener carácteres especiales"
 
         # "ci": "",
