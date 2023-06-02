@@ -313,6 +313,13 @@ class GUI_framePayData(INTERFACE_writer):
         self.data = data
         self.frame = frame
 
+        self.variable_administrative_location = tk.StringVar()
+        self.variable_physical_location = tk.StringVar()
+        self.variable_state = tk.StringVar()
+        self.variable_bank_account = tk.StringVar()
+        self.variable_bank_code = tk.StringVar()
+        self.variable_bank = tk.StringVar()
+
         # administrative location
         self.label_administrative_location: tk.Label = tk.Label(
             self.frame, text="UBICACIÓN ADMINISTRATIVA")
@@ -322,7 +329,8 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_administrative_location: tk.Entry = tk.Entry(self.frame)
+        self.entry_administrative_location: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_administrative_location)
         self.entry_administrative_location.grid(
             row=1, column=0, sticky="WENS", ipady=5)
         self.entry_administrative_location.config(
@@ -338,7 +346,8 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_physical_location: tk.Entry = tk.Entry(self.frame)
+        self.entry_physical_location: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_physical_location)
         self.entry_physical_location.grid(
             row=3, column=0, sticky="WENS", ipady=5)
         self.entry_physical_location.config(
@@ -354,7 +363,8 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_state: tk.Entry = tk.Entry(self.frame)
+        self.entry_state: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_state)
         self.entry_state.grid(row=5, column=0, sticky="WENS", ipady=5)
         self.entry_state.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -369,7 +379,8 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_bank_account: tk.Entry = tk.Entry(self.frame)
+        self.entry_bank_account: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_bank_account)
         self.entry_bank_account.grid(row=7, column=0, sticky="WENS", ipady=5)
         self.entry_bank_account.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -384,7 +395,8 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_bank_code: tk.Entry = tk.Entry(self.frame)
+        self.entry_bank_code: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_bank_code)
         self.entry_bank_code.grid(row=9, column=0, sticky="WENS", ipady=5)
         self.entry_bank_code.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -399,26 +411,33 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_bank: tk.Entry = tk.Entry(self.frame)
+        self.entry_bank: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_bank)
         self.entry_bank.grid(row=11, column=0, sticky="WENS", ipady=5)
         self.entry_bank.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        self.loadDataToEntrys()
+        # keeping track of user input
+        self.variable_administrative_location.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="administrative_location", variable=self.variable_administrative_location))
 
-        self.entry_administrative_location.bind("<Key>", lambda key: self.writeDataToHashMap(
-            key, self.data, "administrative_location"))
-        self.entry_physical_location.bind("<Key>", lambda key: self.writeDataToHashMap(
-            key, self.data, "physical_location"))
-        self.entry_state.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "state"))
-        self.entry_bank_account.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_account"))
-        self.entry_bank_code.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank_code"))
-        self.entry_bank.bind(
-            "<Key>", lambda key: self.writeDataToHashMap(key, self.data, "bank"))
+        self.variable_physical_location.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="physical_location", variable=self.variable_physical_location))
+
+        self.variable_state.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="state", variable=self.variable_state))
+
+        self.variable_bank_account.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="bank_account", variable=self.variable_bank_account))
+
+        self.variable_bank_code.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="bank_code", variable=self.variable_bank_code))
+
+        self.variable_bank.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="bank", variable=self.variable_bank))
+
+        self.loadDataToEntrys()
 
     def loadDataToEntrys(self):
         self.entry_administrative_location.insert(
@@ -610,7 +629,7 @@ class GUI_addWorker(GUI_root):
 
         if self.displayed_frame == "work data":
             # commition of service is an exception, that can be empty
-            if validateNoEmptyEntrys(group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
+            if validateNoEmptyEntrys(worker_data=self.worker_data, group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
                 messagebox.showerror(
                     "Error", "No puede dejar los datos de trabajo vacios")
                 return False
