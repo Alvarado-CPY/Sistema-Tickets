@@ -585,6 +585,8 @@ class GUI_addWorker(GUI_root):
             return "El formato de las fechas debe ser DD/MM/AAAA"
 
         # age
+        if validateInteger(self.worker_data["age"]) == False:
+            return "La edad debe solo contener números"
 
         # gender
 
