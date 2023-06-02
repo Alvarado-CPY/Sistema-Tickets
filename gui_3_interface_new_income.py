@@ -519,6 +519,7 @@ class GUI_addWorker(GUI_root):
             return True
 
         if self.displayed_frame == "work data":
+            #commition of service is an exception, that can be empty
             if self.validateNoEmptyEntrys(group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
                 messagebox.showerror("Error", "No puede dejar los datos de trabajo vacios")
                 return False
