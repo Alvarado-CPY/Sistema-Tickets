@@ -1,10 +1,10 @@
 import bcrypt
 
 
-def encryptPassword(password):
+def encryptPassword(password: str):
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode(), salt)
 
 
-def comparePassword(password, stored_password):
+def comparePassword(password: str, stored_password: str):
     return bcrypt.checkpw(password.encode(), stored_password)

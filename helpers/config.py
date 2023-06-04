@@ -3,7 +3,7 @@ import os
 
 
 class GetGUIConfig:
-    def __init__(self, path):
+    def __init__(self, path) -> None:
         self.json_path = path
         self.colors = {}
         self.fonts = {}
