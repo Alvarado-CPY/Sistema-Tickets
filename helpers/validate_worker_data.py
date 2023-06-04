@@ -2,7 +2,7 @@ import string
 from datetime import datetime
 
 
-def validateNoEmptyEntrys(group: tuple[str], worker_data: dict = None) -> bool:
+def validateNoEmptyEntrys(group, worker_data):
     if worker_data == None:
         raise Exception("Data dictorinary Not Provided")
 
@@ -13,7 +13,7 @@ def validateNoEmptyEntrys(group: tuple[str], worker_data: dict = None) -> bool:
     return True
 
 
-def validateInteger(data: str) -> bool:
+def validateInteger(data):
     for character in data:
         if character in string.ascii_letters or character in string.punctuation:
             return False
@@ -21,21 +21,21 @@ def validateInteger(data: str) -> bool:
     return True
 
 
-def validateLen(desired_len: int, data: str) -> bool:
+def validateLen(desired_len, data):
     if len(data) < desired_len:
         return False
 
     return True
 
 
-def validateUniqueCharacter(data: str) -> bool:
+def validateUniqueCharacter(data):
     if len(data) != 1:
         return False
 
     return True
 
 
-def validateNotSpecialCharacters(data: str) -> bool:
+def validateNotSpecialCharacters(data):
     for character in data:
         if character in string.punctuation:
             return False
@@ -43,7 +43,7 @@ def validateNotSpecialCharacters(data: str) -> bool:
     return True
 
 
-def validateNotNumbers(data: str) -> bool:
+def validateNotNumbers(data):
     for character in data:
         if character in string.digits:
             return False
@@ -51,7 +51,7 @@ def validateNotNumbers(data: str) -> bool:
     return True
 
 
-def validateDateFormat(data: str) -> bool:
+def validateDateFormat(data):
     try:
         datetime.strptime(data, "%d/%m/%Y")
     except ValueError:

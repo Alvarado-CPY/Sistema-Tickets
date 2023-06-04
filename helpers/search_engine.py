@@ -3,7 +3,7 @@ import re
 
 
 class SearchEngine:
-    def __init__(self, table: ttk.Treeview):
+    def __init__(self, table):
         self.BACKSPACE = "\x08"
 
         self.search_ci = ""

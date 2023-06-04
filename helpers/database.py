@@ -3,7 +3,7 @@ import os
 
 
 class BBDD:
-    def __init__(self) -> None:
+    def __init__(self):
         self.db_path = os.path.join(".", "database", "workers.db")
 
     def generateDatabaseTables(self):

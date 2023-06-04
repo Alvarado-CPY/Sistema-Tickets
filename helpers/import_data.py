@@ -6,7 +6,7 @@ import sqlite3
 
 
 class ImportData:
-    def __init__(self, db_path: str) -> None:
+    def __init__(self, db_path) -> None:
         self.db_path = db_path
 
         # Excel File
@@ -20,7 +20,7 @@ class ImportData:
         self.sheet_discharge = ""
         self.sheet_workers = ""
 
-    def setWorkBook(self) -> bool:
+    def setWorkBook(self):
         filename = filedialog.askopenfilename()
 
         if filename == "":
