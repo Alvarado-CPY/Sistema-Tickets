@@ -546,8 +546,14 @@ class GUI_addWorker(GUI_root):
     def updateNextButtonWhenFrameIsDisplayed(self):
         if self.button_next_frame["text"] == "Siguiente":
             self.button_next_frame["text"] = "Guardar"
+            self.button_next_frame.config(
+                command= lambda: print("Hola")
+            )
         else:
             self.button_next_frame["text"] = "Siguiente"
+            self.button_next_frame.config(
+                 command=self.displayNextFrame
+            )
 
     def toggleOrDisableLastButton(self):
         if self.button_last_frame["state"] == "normal":
