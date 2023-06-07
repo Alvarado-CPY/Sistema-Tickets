@@ -606,6 +606,20 @@ class GUI_addWorker(GUI_root):
 
         return "No Errors"
 
+    def validateSecondEntryGroup(self):
+        #fecha de ingreso
+
+        # denominacion de cargo
+
+        # carga laboral
+
+        # horario laboral
+
+        # especialidad
+
+        # tipo de personal
+        ...
+
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
             if validateNoEmptyEntrys(worker_data=self.worker_data, group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
