@@ -638,7 +638,7 @@ class GUI_addWorker(GUI_root):
             return "El tipo de personal no puede llevar carácteres especiales"
 
         if validateNotNumbers(self.worker_data["type_of_staff"]) == False:
-            return "El tipo de personal no puede llevar números"`
+            return "El tipo de personal no puede llevar números"
 
         return "No Errors"
 
