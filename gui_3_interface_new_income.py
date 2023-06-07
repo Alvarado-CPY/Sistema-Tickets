@@ -613,10 +613,10 @@ class GUI_addWorker(GUI_root):
 
         # title of position
         if validateNotNumbers(self.worker_data["title"]) == False:
-            return "El titulo no puede llevar numeros"
+            return "El cargo no puede llevar numeros"
 
         if validateNotSpecialCharacters(self.worker_data["title"]) == False:
-            return "El titulo no puede llevar carácteres especiales"
+            return "El cargo no puede llevar carácteres especiales"
 
         # workload
         if validateNotSpecialCharacters(self.worker_data["workload"]) == False:
@@ -627,7 +627,9 @@ class GUI_addWorker(GUI_root):
         # speciality
 
         # type of staff
-        ...
+
+
+        return "No Errors"
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
@@ -655,6 +657,11 @@ class GUI_addWorker(GUI_root):
             if validateNoEmptyEntrys(worker_data=self.worker_data, group=("admission_date", "title", "workload", "working_hours", "speciality", "type_of_staff")) == False:
                 messagebox.showerror(
                     "Error", "No puede dejar los datos de trabajo vacios")
+                return False
+
+            validationResults = self.validateSecondEntryGroup()
+            if validationResults != "No Errors":
+                messagebox.showerror("Error", validationResults)
                 return False
 
             self.setTitle("DATOS DE PAGO")
