@@ -608,8 +608,15 @@ class GUI_addWorker(GUI_root):
 
     def validateSecondEntryGroup(self):
         # admission date
+        if validateDateFormat(self.worker_data["admission_date"]) == False:
+            return "El formato de las fechas debe ser DD/MM/AAAA"
 
         # title of position
+        if validateNotNumbers(self.worker_data["title"]) == False:
+            return "El titulo no puede llevar numeros"
+
+        if validateNotSpecialCharacters(self.worker_data["title"]) == False:
+            return "El titulo no puede llevar carácteres especiales"
 
         # workload
 
