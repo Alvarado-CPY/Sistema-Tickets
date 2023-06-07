@@ -613,7 +613,7 @@ class GUI_addWorker(GUI_root):
 
         # title of position
         if validateNotNumbers(self.worker_data["title"]) == False:
-            return "El cargo no puede llevar numeros"
+            return "El cargo no puede llevar números"
 
         if validateNotSpecialCharacters(self.worker_data["title"]) == False:
             return "El cargo no puede llevar carácteres especiales"
@@ -631,10 +631,14 @@ class GUI_addWorker(GUI_root):
             return "La especialidad no puede llevar carácteres especiales"
 
         if validateNotNumbers(self.worker_data["speciality"]) == False:
-            return "La especialidad no puede llevar numeros"
+            return "La especialidad no puede llevar números"
 
         # type of staff
+        if validateNotSpecialCharacters(self.worker_data["type_of_staff"]) == False:
+            return "El tipo de personal no puede llevar carácteres especiales"
 
+        if validateNotNumbers(self.worker_data["type_of_staff"]) == False:
+            return "El tipo de personal no puede llevar números"`
 
         return "No Errors"
 
