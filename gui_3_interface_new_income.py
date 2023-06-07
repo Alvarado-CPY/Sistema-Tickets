@@ -619,6 +619,8 @@ class GUI_addWorker(GUI_root):
             return "El titulo no puede llevar carácteres especiales"
 
         # workload
+        if validateNotSpecialCharacters(self.worker_data["workload"]) == False:
+            return "La carga laboral no puede tener carácteres especiales"
 
         # working hours
 
