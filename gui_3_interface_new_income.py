@@ -607,17 +607,17 @@ class GUI_addWorker(GUI_root):
         return "No Errors"
 
     def validateSecondEntryGroup(self):
-        #fecha de ingreso
+        # admission date
 
-        # denominacion de cargo
+        # title of position
 
-        # carga laboral
+        # workload
 
-        # horario laboral
+        # working hours
 
-        # especialidad
+        # speciality
 
-        # tipo de personal
+        # type of staff
         ...
 
     def displayNextFrame(self):
