@@ -1,3 +1,4 @@
+import sqlite3
 import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig, bankCodesPath
@@ -715,29 +716,48 @@ class GUI_addWorker(GUI_root):
             messagebox.showerror("Error", validationResults)
             return False
 
+
         # save data to db
         data_to_save_in_worker_table = [
-            self.worker_data["nacionality"],
-            self.worker_data["ci"],
-            self.worker_data["fullname"],
+            self.worker_data["nacionality"].upper(),
+            int(self.worker_data["ci"]),
+            self.worker_data["fullname"].upper(),
             self.worker_data["birthday"],
-            self.worker_data["age"],
-            self.worker_data["gender"],
+            int(self.worker_data["age"]),
+            self.worker_data["gender"].upper(),
             self.worker_data["admission_date"],
-            self.worker_data["title"],
-            self.worker_data["workload"],
-            self.worker_data["working_hours"],
-            self.worker_data["speciality"],
-            self.worker_data["type_of_staff"],
-            self.worker_data["administrative_location"],
-            self.worker_data["physical_location"],
+            self.worker_data["title"].upper(),
+            self.worker_data["workload"].upper(),
+            self.worker_data["working_hours"].upper(),
+            self.worker_data["speciality"].upper(),
+            self.worker_data["type_of_staff"].upper(),
+            self.worker_data["administrative_location"].upper(),
+            self.worker_data["physical_location"].upper(),
             self.worker_data["service_commission"],
-            self.worker_data["state"],
+            self.worker_data["state"].upper(),
             self.worker_data["bank_account"],
             self.worker_data["bank_code"],
             GetBankConfig(bankCodesPath()).getBankValueByCode(
-                self.worker_data["bank_code"])
+                self.worker_data["bank_code"]).upper()
         ]
+
+        data_to_save_in_new_income_table = [
+            int(self.worker_data["ci"]),
+            self.worker_data["account_type"].upper()
+        ]
+
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            cursor.execute(
+                "INSERT INTO workers VALUES(NULL, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                data_to_save_in_worker_table
+            )
+            cursor.execute(
+                "INSERT INTO newIncome VALUES (?,?)",
+                data_to_save_in_new_income_table
+            )
+            bd.commit()
+            messagebox.showinfo("Atención", "Datos guardados éxitosamente")
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
