@@ -81,7 +81,7 @@ class GUI_barmenu(GUI_root):
 
     def addCommandsToNewMenu(self):
         functions = {
-            "Nuevo Ingreso": lambda: print("1"),
+            "Nuevo Ingreso": lambda: self.loadGUI(option="add"),
             "Nuevo Reactivación": lambda: print("2"),
             "Nuevo Suspensión": lambda: print("3"),
             "Nuevo Egreso": lambda: print("4"),
@@ -110,6 +110,11 @@ class GUI_barmenu(GUI_root):
                 label=key,
                 command=functions[key]
             )
+
+    def loadGUI(self, option: str):
+        sub_root = tk.Tk()
+        GUI_workerForm(sub_root, option=option)
+        sub_root.mainloop()
 
     def addCommandsToExportMenu(self):
         functions = {

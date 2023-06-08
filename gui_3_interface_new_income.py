@@ -711,6 +711,7 @@ class GUI_addWorker(GUI_root):
         return "No Errors"
 
     def saveInformation(self):
+        # validate first the last group of entrys
         validationResults = self.validateThirdEntryGroup()
         if validationResults != "No Errors":
             messagebox.showerror("Error", validationResults)
