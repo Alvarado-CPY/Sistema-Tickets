@@ -6,6 +6,7 @@ from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
+from helpers.guiLoader import loadGUI, setfullScreen
 from gui_3_interface_new_income import GUI_workerForm
 
 
@@ -15,17 +16,11 @@ class GUI_root:
         self.root = root
         self.root.title(
             "Sistema De Gestión Automatizada De Tickets De Alimentación")
-        self.setfullScreen()
+        setfullScreen(self.root)
         self.root.protocol("WM_DELETE_WINDOW", self.destroyRoot)
 
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_columnconfigure(1, weight=1)
-
-    def setfullScreen(self):
-        if os.name == "nt":
-            self.root.state("zoomed")
-        else:
-            self.root.attributes("-fullscreen", True)
 
     def destroyRoot(self):
         if messagebox.askyesno("Atención", "¿Está seguro de salir de la aplicación?"):
@@ -81,7 +76,7 @@ class GUI_barmenu(GUI_root):
 
     def addCommandsToNewMenu(self):
         functions = {
-            "Nuevo Ingreso": lambda: self.loadGUI(option="add"),
+            "Nuevo Ingreso": lambda: loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add"),
             "Nuevo Reactivación": lambda: print("2"),
             "Nuevo Suspensión": lambda: print("3"),
             "Nuevo Egreso": lambda: print("4"),
@@ -110,11 +105,6 @@ class GUI_barmenu(GUI_root):
                 label=key,
                 command=functions[key]
             )
-
-    def loadGUI(self, option: str):
-        sub_root = tk.Tk()
-        GUI_workerForm(sub_root, option=option)
-        sub_root.mainloop()
 
     def addCommandsToExportMenu(self):
         functions = {
@@ -233,7 +223,7 @@ class GUI_lateralmenu(GUI_root):
 
 
 class GUI_workersTableData:
-    def __init__(self, frame: tk.Frame):
+    def __init__(self, frame: tk.Frame, root):
         self.frame = frame
 
         # widgets
@@ -479,8 +469,9 @@ class GUI_categoryButtons:
 
 
 class GUI_newIncome(GUI_categoryButtons):
-    def __init__(self, frame):
+    def __init__(self, frame, root: tk.Tk):
         self.frame: tk.Frame = frame
+        self.root = root
 
         # frames
         self.frame_income_container: tk.Frame = tk.Frame(self.frame)
@@ -649,14 +640,8 @@ class GUI_newIncome(GUI_categoryButtons):
 
         self.button_four_category_function.config(
             text="AÑADIR TRABAJADOR",
-            command=lambda: self.loadGUI(option="add")
+            command=lambda: loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add")
         )
-
-    def loadGUI(self, option: str):
-        sub_root = tk.Tk()
-        GUI_workerForm(sub_root, option=option)
-        sub_root.mainloop()
-
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
@@ -697,19 +682,19 @@ class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
                 GUI_displayChargeButton(
                     self.frame_main, button_list=self.button_list, Menu=self.Menu)
             else:
-                GUI_workersTableData(self.frame_main)
+                GUI_workersTableData(self.frame_main, self.root)
 
     def setLateralFunctions(self):
         self.button_general.config(
-            command=lambda: self.displayGuiPart(GUI_workersTableData)
+            command=lambda: self.displayGuiPart(GUI_workersTableData, root=self.root)
         )
         self.button_new_income.config(
-            command=lambda: self.displayGuiPart(GUI_newIncome)
+            command=lambda: self.displayGuiPart(GUI_newIncome, root=self.root)
         )
 
-    def displayGuiPart(self, guiToDisplay):
+    def displayGuiPart(self, guiToDisplay, root):
         self.clearFrameMainChildren()
-        guiToDisplay(self.frame_main)
+        guiToDisplay(self.frame_main, root=self.root)
 
     def clearFrameMainChildren(self):
         for children in self.frame_main.winfo_children():
