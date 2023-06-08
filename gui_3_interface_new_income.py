@@ -649,6 +649,18 @@ class GUI_addWorker(GUI_root):
 
         return "No Errors"
 
+    def validateThirthEntryGroup(self):
+        # no empty
+        if validateNoEmptyEntrys(worker_data=self.worker_data, group=("administrative_location", "physical_location", "state", "bank_account", "bank_code", "account_type")) == False:
+            return "No puede dejar los datos de pago vacíos"
+
+        # administrative_location
+        if validateNotSpecialCharacters(self.worker_data["administrative_location"]) == False:
+            return "La ubicación administrativa no puede llevar carácteres especiales"
+
+        if validateNotNumbers(self.worker_data["administrative_location"]) == False:
+            return "La ubicación administrativa no puede llevar números "
+
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
 
