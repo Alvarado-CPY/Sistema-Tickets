@@ -689,6 +689,12 @@ class GUI_addWorker(GUI_root):
         if validateLen(4, self.worker_data["bank_code"], limit=True) == False:
             return "El codigo del banco debe tener 4 carácteres de largo"
 
+        if validateInteger(self.worker_data["bank_code"]) == False:
+            return "El codigo del banco solo puede tener números"
+
+        if self.worker_data["bank_code"][0] != "0":
+            return "El codigo del banco debe empezar por cero"
+
         return "No Errors"
 
     def saveInformation(self):
