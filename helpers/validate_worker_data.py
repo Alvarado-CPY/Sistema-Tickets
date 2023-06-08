@@ -1,6 +1,6 @@
 import string
 from datetime import datetime
-
+import json
 
 def validateNoEmptyEntrys(group: tuple[str], worker_data: dict = None) -> bool:
     if worker_data == None:
@@ -60,5 +60,16 @@ def validateDateFormat(data: str) -> bool:
         datetime.strptime(data, "%d/%m/%Y")
     except ValueError:
         return False
+
+    return True
+
+def validateBankCode(data: str, path: str) -> bool:
+    bank_code_list: dict = {}
+    with open(path, "r") as file:
+        jsonDict = json.loads(file.read())
+        bank_code_list = jsonDict["banks"]
+
+        if data not in bank_code_list.keys():
+            return False
 
     return True

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from app_global_variables import dbPath, guiConfig
+from app_global_variables import dbPath, guiConfig, bankCodesPath
 from helpers.validate_worker_data import *
 
 
@@ -694,6 +694,9 @@ class GUI_addWorker(GUI_root):
 
         if self.worker_data["bank_code"][0] != "0":
             return "El codigo del banco debe empezar por cero"
+
+        if validateBankCode(self.worker_data["bank_code"], bankCodesPath()) == False:
+            return "El codigo del banco es un codigo no valido"
 
         return "No Errors"
 
