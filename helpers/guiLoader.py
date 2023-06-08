@@ -1,11 +1,13 @@
 import tkinter as tk
 import os
 
+
 def setfullScreen(root: tk.Tk):
     if os.name == "nt":
         root.state("zoomed")
     else:
         root.attributes("-fullscreen", True)
+
 
 def loadGUI(root: tk, GUI_to_load: object, option: str = None):
     root.withdraw()

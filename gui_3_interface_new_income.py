@@ -574,7 +574,8 @@ class GUI_addWorker(GUI_root):
         # validate then if the ci that the user is trying to insert already exists
         with sqlite3.connect(dbPath()) as bd:
             cursor = bd.cursor()
-            worker = cursor.execute("SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
+            worker = cursor.execute(
+                "SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
             if worker != None:
                 return "La cédula que usted marcó ya se encuentra registrada"
 
@@ -722,7 +723,6 @@ class GUI_addWorker(GUI_root):
         if validationResults != "No Errors":
             messagebox.showerror("Error", validationResults)
             return False
-
 
         # save data to db
         data_to_save_in_worker_table = [

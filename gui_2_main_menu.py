@@ -640,8 +640,10 @@ class GUI_newIncome(GUI_categoryButtons):
 
         self.button_four_category_function.config(
             text="AÑADIR TRABAJADOR",
-            command=lambda: loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add")
+            command=lambda: loadGUI(
+                root=self.root, GUI_to_load=GUI_workerForm, option="add")
         )
+
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
@@ -686,7 +688,8 @@ class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
 
     def setLateralFunctions(self):
         self.button_general.config(
-            command=lambda: self.displayGuiPart(GUI_workersTableData, root=self.root)
+            command=lambda: self.displayGuiPart(
+                GUI_workersTableData, root=self.root)
         )
         self.button_new_income.config(
             command=lambda: self.displayGuiPart(GUI_newIncome, root=self.root)
