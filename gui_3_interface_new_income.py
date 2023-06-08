@@ -659,7 +659,15 @@ class GUI_addWorker(GUI_root):
             return "La ubicación administrativa no puede llevar carácteres especiales"
 
         if validateNotNumbers(self.worker_data["administrative_location"]) == False:
-            return "La ubicación administrativa no puede llevar números "
+            return "La ubicación administrativa no puede llevar números"
+
+        # physical_location
+        if validateNotSpecialCharacters(self.worker_data["physical_location"]) == False:
+            return "La ubicación física no puede llevar carácteres especiales"
+
+        if validateNotNumbers(self.worker_data["physical_location"]) == False:
+            return "La ubicación físcia no puede llevar números"
+
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
