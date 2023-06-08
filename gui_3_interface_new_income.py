@@ -546,7 +546,7 @@ class GUI_addWorker(GUI_root):
         if self.button_next_frame["text"] == "Siguiente":
             self.button_next_frame["text"] = "Guardar"
             self.button_next_frame.config(
-                command= lambda: print("Hola")
+                command=self.saveInformation
             )
         else:
             self.button_next_frame["text"] = "Siguiente"
@@ -675,6 +675,23 @@ class GUI_addWorker(GUI_root):
         if validateNotNumbers(self.worker_data["state"]) == False:
             return "El estado no puede llevar números"
 
+        # bank_account
+        if validateInteger(self.worker_data["bank_account"]) == False:
+            return "La cuenta bancaria solo puede tener números"
+
+        if self.worker_data["bank_account"][0] != "0":
+            return "La cuenta bancaria debe empezar por cero"
+
+        if validateLen(20, self.worker_data["bank_account"]) == False:
+            return "La cuenta bancaria debe tener 20 carácteres de largo"
+
+        return "No Errors"
+
+    def saveInformation(self):
+        validationResults = self.validateThirdEntryGroup()
+        if validationResults != "No Errors":
+            messagebox.showerror("Error", validationResults)
+            return False
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
