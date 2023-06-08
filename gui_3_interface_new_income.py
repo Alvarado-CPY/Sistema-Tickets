@@ -597,7 +597,7 @@ class GUI_addWorker(GUI_root):
 
         # birthday
         if validateDateFormat(self.worker_data["birthday"]) == False:
-            return "El formato de las fechas debe ser DD/MM/AAAA"
+            return "El formato de las fechas debe ser DD-MM-AAAA"
 
         # age
         if validateInteger(self.worker_data["age"]) == False:
@@ -622,7 +622,7 @@ class GUI_addWorker(GUI_root):
 
         # admission date
         if validateDateFormat(self.worker_data["admission_date"]) == False:
-            return "El formato de las fechas debe ser DD/MM/AAAA"
+            return "El formato de las fechas debe ser DD-MM-AAAA"
 
         # title of position
         if validateNotNumbers(self.worker_data["title"]) == False:

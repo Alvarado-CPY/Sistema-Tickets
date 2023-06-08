@@ -58,7 +58,7 @@ def validateNotNumbers(data: str) -> bool:
 
 def validateDateFormat(data: str) -> bool:
     try:
-        datetime.strptime(data, "%d/%m/%Y")
+        datetime.strptime(data, "%d-%m-%Y")
     except ValueError:
         return False
 
