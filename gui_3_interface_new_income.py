@@ -159,10 +159,6 @@ class GUI_framePersonalData(INTERFACE_writer):
 
         self.loadDataToEntrys()
 
-    def callback(self, variable, map, key_map):
-        map[key_map] = variable.get()
-        print(map)
-
     def loadDataToEntrys(self):
         self.entry_ci.insert(0, self.data["ci"])
         self.entry_fullname.insert(0, self.data["fullname"])
