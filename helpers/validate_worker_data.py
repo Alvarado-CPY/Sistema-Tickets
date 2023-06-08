@@ -21,9 +21,13 @@ def validateInteger(data: str) -> bool:
     return True
 
 
-def validateLen(desired_len: int, data: str) -> bool:
-    if len(data) < desired_len:
-        return False
+def validateLen(desired_len: int, data: str, limit=False) -> bool:
+    if limit == False:
+        if len(data) < desired_len:
+            return False
+    else:
+        if len(data) < desired_len or len(data) > desired_len:
+            return False
 
     return True
 

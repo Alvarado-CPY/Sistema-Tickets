@@ -682,8 +682,12 @@ class GUI_addWorker(GUI_root):
         if self.worker_data["bank_account"][0] != "0":
             return "La cuenta bancaria debe empezar por cero"
 
-        if validateLen(20, self.worker_data["bank_account"]) == False:
+        if validateLen(20, self.worker_data["bank_account"], limit=True) == False:
             return "La cuenta bancaria debe tener 20 carácteres de largo"
+
+        # bank_code
+        if validateLen(4, self.worker_data["bank_code"], limit=True) == False:
+            return "El codigo del banco debe tener 4 carácteres de largo"
 
         return "No Errors"
 
