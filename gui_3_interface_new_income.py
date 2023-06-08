@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig, bankCodesPath
+from helpers.config import GetBankConfig
 from helpers.validate_worker_data import *
 
 
@@ -713,6 +714,30 @@ class GUI_addWorker(GUI_root):
         if validationResults != "No Errors":
             messagebox.showerror("Error", validationResults)
             return False
+
+        # save data to db
+        data_to_save_in_worker_table = [
+            self.worker_data["nacionality"],
+            self.worker_data["ci"],
+            self.worker_data["fullname"],
+            self.worker_data["birthday"],
+            self.worker_data["age"],
+            self.worker_data["gender"],
+            self.worker_data["admission_date"],
+            self.worker_data["title"],
+            self.worker_data["workload"],
+            self.worker_data["working_hours"],
+            self.worker_data["speciality"],
+            self.worker_data["type_of_staff"],
+            self.worker_data["administrative_location"],
+            self.worker_data["physical_location"],
+            self.worker_data["service_commission"],
+            self.worker_data["state"],
+            self.worker_data["bank_account"],
+            self.worker_data["bank_code"],
+            GetBankConfig(bankCodesPath()).getBankValueByCode(
+                self.worker_data["bank_code"])
+        ]
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
