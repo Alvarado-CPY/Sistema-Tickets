@@ -698,6 +698,16 @@ class GUI_addWorker(GUI_root):
         if validateBankCode(self.worker_data["bank_code"], bankCodesPath()) == False:
             return "El codigo del banco es un codigo no valido"
 
+        # account type
+        if validateUniqueCharacter(self.worker_data["account_type"]) == False:
+            return "El tipo de cuenta debe de ser de un único carácter"
+
+        if validateNotNumbers(self.worker_data["account_type"]) == False:
+            return "El tipo de cuenta no puede llevar números"
+
+        if validateNotSpecialCharacters(self.worker_data["account_type"]) == False:
+            return "El tipo de cuenta no puede llevar carácteres especiales"
+
         return "No Errors"
 
     def saveInformation(self):
