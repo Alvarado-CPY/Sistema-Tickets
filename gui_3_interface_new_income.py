@@ -571,6 +571,13 @@ class GUI_addWorker(GUI_root):
         if validateLen(5, self.worker_data["ci"]) == False:
             return "La cédula no puede ser menor a 5 carácteres"
 
+        # validate then if the ci that the user is trying to insert already exists
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            worker = cursor.execute("SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
+            if worker != None:
+                return "La cédula que usted marcó ya se encuentra registrada"
+
         # name
         if validateNotSpecialCharacters(self.worker_data["fullname"]) == False:
             return "El nombre no debe tener carácteres especiales"
