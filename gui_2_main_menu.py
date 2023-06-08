@@ -300,6 +300,10 @@ class GUI_workersTableData:
         self.table_workers.column("#19", width=150, anchor="center")
         self.table_workers.column("#20", width=150, anchor="center")
 
+        # search engine
+        self.search_engine = SearchEngine(self.table_workers)
+        self.table_workers.bind("<Key>", lambda key: self.search_engine.searchCI(key))
+
         # avoid resizing
         self.table_workers.bind("<Button-1>", self.avoidRezisable)
 
