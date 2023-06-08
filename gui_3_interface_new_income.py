@@ -561,6 +561,10 @@ class GUI_addWorker(GUI_root):
             self.button_last_frame["state"] = "normal"
 
     def validateFirstEntryGroup(self) -> str:
+        # no empty
+        if validateNoEmptyEntrys(worker_data=self.worker_data, group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
+            return "No puede dejar los datos personales vacios"
+
         # ci
         if validateInteger(self.worker_data["ci"]) == False:
             return "La cédula solo debe contener numeros enteros"
@@ -606,6 +610,10 @@ class GUI_addWorker(GUI_root):
         return "No Errors"
 
     def validateSecondEntryGroup(self):
+        # commition of service and speciality are exceptions, those can be empty
+        if validateNoEmptyEntrys(worker_data=self.worker_data, group=("admission_date", "title", "workload", "working_hours", "type_of_staff")) == False:
+            return "No puede dejar los datos de trabajo vacios"
+
         # admission date
         if validateDateFormat(self.worker_data["admission_date"]) == False:
             return "El formato de las fechas debe ser DD/MM/AAAA"
@@ -643,10 +651,6 @@ class GUI_addWorker(GUI_root):
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
-            if validateNoEmptyEntrys(worker_data=self.worker_data, group=("ci", "fullname", "nacionality", "birthday", "age", "gender")) == False:
-                messagebox.showerror(
-                    "Error", "No puede dejar los datos personales vacios")
-                return False
 
             validationResults = self.validateFirstEntryGroup()
             if validationResults != "No Errors":
@@ -663,11 +667,6 @@ class GUI_addWorker(GUI_root):
             return True
 
         if self.displayed_frame == "work data":
-            # commition of service is an exception, that can be empty
-            if validateNoEmptyEntrys(worker_data=self.worker_data, group=("admission_date", "title", "workload", "working_hours", "type_of_staff")) == False:
-                messagebox.showerror(
-                    "Error", "No puede dejar los datos de trabajo vacios")
-                return False
 
             validationResults = self.validateSecondEntryGroup()
             if validationResults != "No Errors":
