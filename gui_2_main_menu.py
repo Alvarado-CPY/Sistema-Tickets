@@ -307,7 +307,8 @@ class GUI_workersTableData:
 
         # search engine
         self.search_engine = SearchEngine(self.table_workers)
-        self.table_workers.bind("<Key>", lambda key: self.search_engine.searchCI(key))
+        self.table_workers.bind(
+            "<Key>", lambda key: self.search_engine.searchCI(key))
 
         # avoid resizing
         self.table_workers.bind("<Button-1>", self.avoidRezisable)

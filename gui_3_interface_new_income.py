@@ -410,7 +410,8 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_account_type: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_account_type)
+        self.entry_account_type: tk.Entry = tk.Entry(
+            self.frame, textvariable=self.variable_account_type)
         self.entry_account_type.grid(row=11, column=0, sticky="WENS", ipady=5)
         self.entry_account_type.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
@@ -551,7 +552,7 @@ class GUI_addWorker(GUI_root):
         else:
             self.button_next_frame["text"] = "Siguiente"
             self.button_next_frame.config(
-                 command=self.displayNextFrame
+                command=self.displayNextFrame
             )
 
     def toggleOrDisableLastButton(self):

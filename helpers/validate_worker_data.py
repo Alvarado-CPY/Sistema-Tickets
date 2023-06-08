@@ -2,6 +2,7 @@ import string
 from datetime import datetime
 import json
 
+
 def validateNoEmptyEntrys(group: tuple[str], worker_data: dict = None) -> bool:
     if worker_data == None:
         raise Exception("Data dictorinary Not Provided")
@@ -62,6 +63,7 @@ def validateDateFormat(data: str) -> bool:
         return False
 
     return True
+
 
 def validateBankCode(data: str, path: str) -> bool:
     bank_code_list: dict = {}

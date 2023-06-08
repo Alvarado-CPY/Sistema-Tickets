@@ -3,5 +3,6 @@ def formatDate(date: str) -> str:
         return "None"
     return date.split()[0]
 
+
 def formatAddMissingZero(bank_number: int) -> str:
     return f"0{bank_number}"
