@@ -317,7 +317,7 @@ class GUI_framePayData(INTERFACE_writer):
         self.variable_state = tk.StringVar()
         self.variable_bank_account = tk.StringVar()
         self.variable_bank_code = tk.StringVar()
-        self.variable_bank = tk.StringVar()
+        self.variable_account_type = tk.StringVar()
 
         # administrative location
         self.label_administrative_location: tk.Label = tk.Label(
@@ -401,19 +401,18 @@ class GUI_framePayData(INTERFACE_writer):
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
-        # bank
-        self.label_bank: tk.Label = tk.Label(
-            self.frame, text="BANCO")
-        self.label_bank.grid(
+        # account type
+        self.label_account_type: tk.Label = tk.Label(
+            self.frame, text="TIPO DE CUENTA")
+        self.label_account_type.grid(
             row=10, column=0, sticky="WNS", pady=5)
-        self.label_bank.config(
+        self.label_account_type.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
-        self.entry_bank: tk.Entry = tk.Entry(
-            self.frame, textvariable=self.variable_bank)
-        self.entry_bank.grid(row=11, column=0, sticky="WENS", ipady=5)
-        self.entry_bank.config(
+        self.entry_account_type: tk.Entry = tk.Entry(self.frame, textvariable=self.variable_account_type)
+        self.entry_account_type.grid(row=11, column=0, sticky="WENS", ipady=5)
+        self.entry_account_type.config(
             font=[guiConfig().getFonts()["terciary_font"], 13]
         )
 
@@ -433,8 +432,8 @@ class GUI_framePayData(INTERFACE_writer):
         self.variable_bank_code.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
             map=self.data, key_map="bank_code", variable=self.variable_bank_code))
 
-        self.variable_bank.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
-            map=self.data, key_map="bank", variable=self.variable_bank))
+        self.variable_account_type.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="account_type", variable=self.variable_account_type))
 
         self.loadDataToEntrys()
 
@@ -445,7 +444,7 @@ class GUI_framePayData(INTERFACE_writer):
         self.entry_state.insert(0, self.data["state"])
         self.entry_bank_account.insert(0, self.data["bank_account"])
         self.entry_bank_code.insert(0, self.data["bank_code"])
-        self.entry_bank.insert(0, self.data["bank"])
+        self.entry_account_type.insert(0, self.data["account_type"])
 
 
 class GUI_addWorker(GUI_root):
@@ -472,7 +471,7 @@ class GUI_addWorker(GUI_root):
             "state": "",
             "bank_account": "",
             "bank_code": "",
-            "bank": ""
+            "account_type": "",
         }
         self.displayed_frame = ""
 
