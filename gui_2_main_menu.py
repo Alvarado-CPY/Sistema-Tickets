@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3
-import os
 from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
