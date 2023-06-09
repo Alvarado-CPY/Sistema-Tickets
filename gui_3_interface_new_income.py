@@ -765,6 +765,7 @@ class GUI_addWorker(GUI_root):
             )
             bd.commit()
             messagebox.showinfo("Atención", "Datos guardados éxitosamente")
+            self.destroyRoot()
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
