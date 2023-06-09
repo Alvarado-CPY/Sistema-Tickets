@@ -767,7 +767,40 @@ class GUI_addWorker(GUI_root):
                     data_to_save_in_new_income_table
                 )
             elif self.option == "update":
-                ...
+                cursor.execute(
+                    """UPDATE workers SET
+                    nationality=?,
+                    worker_ci=?,
+                    worker_fullname=?,
+                    birthday=?,
+                    age=?,
+                    gender=?,
+                    admission_date=?,
+                    title_of_position=?,
+                    workload=?,
+                    working_hours=?,
+                    specialty=?,
+                    type_of_staff=?,
+                    administrative_location=?,
+                    physical_location=?,
+                    service_commission=?,
+                    state=?,
+                    bank_account=?,
+                    bank_code=?,
+                    bank=?
+                    WHERE worker_ci=?
+                    """,
+                    (*data_to_save_in_worker_table, self.worker_data["ci"])
+                )
+
+                cursor.execute(
+                    """UPDATE newIncome SET
+                    worker_ci=?,
+                    account_type=?
+                    WHERE worker_ci=?
+                    """,
+                    (*data_to_save_in_new_income_table, self.worker_data["ci"])
+                )
 
             bd.commit()
             messagebox.showinfo("Atención", "Datos guardados éxitosamente")
