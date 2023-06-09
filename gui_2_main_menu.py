@@ -704,13 +704,13 @@ class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def setLateralFunctions(self):
         self.button_general.config(
             command=lambda: self.displayGuiPart(
-                GUI_workersTableData, root=self.root)
+                GUI_workersTableData)
         )
         self.button_new_income.config(
-            command=lambda: self.displayGuiPart(GUI_newIncome, root=self.root)
+            command=lambda: self.displayGuiPart(GUI_newIncome)
         )
 
-    def displayGuiPart(self, guiToDisplay, root):
+    def displayGuiPart(self, guiToDisplay):
         self.clearFrameMainChildren()
         guiToDisplay(self.frame_main, root=self.root)
 
