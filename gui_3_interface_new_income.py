@@ -821,15 +821,27 @@ class GUI_addWorker(GUI_root):
 
             return True
 
+    def loadExistingDataFromUserInWorkerDict(self):
+        """THIS METHOND WILL ONLY BE TRIGGED WHEN THE USER WANTS TO MODIFY AN EXISTING WORKER
+            IT WILL LOAD THE DATA FROM THAT WORKER INTO THE DICTIONARY TO THEN LOAD IT INTO THE GUI
+        """
+        # with sqlite3.connect
+        print("hola")
+
 
 class GUI_workerForm:
-    def __init__(self, root: tk.Tk, option: str) -> None:
+    def __init__(self, root: tk.Tk, option: str, data = None) -> None:
         self.root = root
+        self.worker_info = data
         self.setRequiredFormClass(option)
 
     def setRequiredFormClass(self, option):
-        if option == "add":
-            GUI_addWorker(self.root)
+        gui_interface = GUI_addWorker(self.root)
+        if option == "update":
+            if self.worker_info == None:
+                raise Exception("No worker data passed to be update")
+            else:
+                gui_interface.loadExistingDataFromUserInWorkerDict()
 
 
 if __name__ == "__main__":
