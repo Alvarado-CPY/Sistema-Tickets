@@ -525,8 +525,6 @@ class GUI_addWorker(GUI_root):
             command=self.displayNextFrame
         )
 
-        # changable frame
-        self.setDefaultFrame()
 
     def setDefaultFrame(self):
         self.setTitle("DATOS PERSONALES")
@@ -821,12 +819,35 @@ class GUI_addWorker(GUI_root):
 
             return True
 
-    def loadExistingDataFromUserInWorkerDict(self):
+    def loadExistingDataFromUserInWorkerDict(self, data):
         """THIS METHOND WILL ONLY BE TRIGGED WHEN THE USER WANTS TO MODIFY AN EXISTING WORKER
             IT WILL LOAD THE DATA FROM THAT WORKER INTO THE DICTIONARY TO THEN LOAD IT INTO THE GUI
         """
-        # with sqlite3.connect
-        print("hola")
+        # load data into temp memory
+        self.worker_data["nacionality"] = str(data[1])
+        self.worker_data["ci"] = str(data[2])
+        self.worker_data["fullname"] = str(data[3])
+        self.worker_data["birthday"] = str(data[4])
+        self.worker_data["age"] = str(data[5])
+        self.worker_data["gender"] = str(data[6])
+        self.worker_data["admission_date"] = str(data[7])
+        self.worker_data["title"] = str(data[8])
+        self.worker_data["workload"] = str(data[9])
+        self.worker_data["working_hours"] = str(data[10])
+        self.worker_data["speciality"] = str(data[11])
+        self.worker_data["type_of_staff"] = str(data[12])
+        self.worker_data["administrative_location"] = str(data[13])
+        self.worker_data["physical_location"] = str(data[14])
+        self.worker_data["service_commission"] = str(data[15])
+        self.worker_data["state"] = str(data[16])
+        self.worker_data["bank_account"] = f"0{data[17]}"
+        self.worker_data["bank_code"] = f"0{data[18]}"
+        self.worker_data["account_type"] = str(data[20])
+
+        # load data into gui
+
+        print(data)
+        print(self.worker_data)
 
 
 class GUI_workerForm:
@@ -841,7 +862,9 @@ class GUI_workerForm:
             if self.worker_info == None:
                 raise Exception("No worker data passed to be update")
             else:
-                gui_interface.loadExistingDataFromUserInWorkerDict()
+                gui_interface.loadExistingDataFromUserInWorkerDict(self.worker_info)
+
+        gui_interface.setDefaultFrame()
 
 
 if __name__ == "__main__":
