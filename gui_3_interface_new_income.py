@@ -447,7 +447,7 @@ class GUI_framePayData(INTERFACE_writer):
 
 
 class GUI_addWorker(GUI_root):
-    def __init__(self, root: tk.Tk) -> None:
+    def __init__(self, root: tk.Tk, option:str) -> None:
         super().__init__(root)
 
         # variables
@@ -473,6 +473,7 @@ class GUI_addWorker(GUI_root):
             "account_type": "",
         }
         self.displayed_frame = ""
+        self.option = option
 
         # initial frames
         self.frame_main: tk.Frame = tk.Frame(self.root)
@@ -570,12 +571,14 @@ class GUI_addWorker(GUI_root):
             return "La cédula no puede ser menor a 5 carácteres"
 
         # validate then if the ci that the user is trying to insert already exists
-        with sqlite3.connect(dbPath()) as bd:
-            cursor = bd.cursor()
-            worker = cursor.execute(
-                "SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
-            if worker != None:
-                return "La cédula que usted marcó ya se encuentra registrada"
+        # except when the users tries to update
+        if self.option == "add":
+            with sqlite3.connect(dbPath()) as bd:
+                cursor = bd.cursor()
+                worker = cursor.execute(
+                    "SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
+                if worker != None:
+                    return "La cédula que usted marcó ya se encuentra registrada"
 
         # name
         if validateNotSpecialCharacters(self.worker_data["fullname"]) == False:
@@ -753,17 +756,23 @@ class GUI_addWorker(GUI_root):
 
         with sqlite3.connect(dbPath()) as bd:
             cursor = bd.cursor()
-            cursor.execute(
-                "INSERT INTO workers VALUES(NULL, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                data_to_save_in_worker_table
-            )
-            cursor.execute(
-                "INSERT INTO newIncome VALUES (?,?)",
-                data_to_save_in_new_income_table
-            )
+
+            if self.option == "add":
+                cursor.execute(
+                    "INSERT INTO workers VALUES(NULL, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    data_to_save_in_worker_table
+                )
+                cursor.execute(
+                    "INSERT INTO newIncome VALUES (?,?)",
+                    data_to_save_in_new_income_table
+                )
+            elif self.option == "update":
+                ...
+
             bd.commit()
             messagebox.showinfo("Atención", "Datos guardados éxitosamente")
             self.destroyRoot()
+
 
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
@@ -844,11 +853,6 @@ class GUI_addWorker(GUI_root):
         self.worker_data["bank_code"] = f"0{data[18]}"
         self.worker_data["account_type"] = str(data[20])
 
-        # load data into gui
-
-        print(data)
-        print(self.worker_data)
-
 
 class GUI_workerForm:
     def __init__(self, root: tk.Tk, option: str, data = None) -> None:
@@ -857,7 +861,7 @@ class GUI_workerForm:
         self.setRequiredFormClass(option)
 
     def setRequiredFormClass(self, option):
-        gui_interface = GUI_addWorker(self.root)
+        gui_interface = GUI_addWorker(self.root, option=option)
         if option == "update":
             if self.worker_info == None:
                 raise Exception("No worker data passed to be update")
