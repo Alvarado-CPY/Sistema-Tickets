@@ -641,9 +641,12 @@ class GUI_newIncome(GUI_categoryButtons):
 
         self.button_four_category_function.config(
             text="AÑADIR TRABAJADOR",
-            command=lambda: loadGUI(
-                root=self.root, GUI_to_load=GUI_workerForm, option="add")
+            command=self.loadWorkerFormToInsertNewWorker
         )
+
+    def loadWorkerFormToInsertNewWorker(self):
+        loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add")
+        self.loadNewIncomeData()
 
     def getWorkerDataToUpdate(self):
         focus = self.table_new_income.item(self.table_new_income.focus())
@@ -653,6 +656,7 @@ class GUI_newIncome(GUI_categoryButtons):
 
         worker_data = focus["values"]
         loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="update", data=worker_data)
+        self.loadNewIncomeData()
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:
