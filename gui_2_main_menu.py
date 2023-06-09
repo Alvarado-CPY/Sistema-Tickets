@@ -651,12 +651,15 @@ class GUI_newIncome(GUI_categoryButtons):
     def getWorkerDataToUpdate(self):
         focus = self.table_new_income.item(self.table_new_income.focus())
         if focus['values'] == '':
-            messagebox.showerror("Error", "Debe seleccionar a un trabajador para poder actualizar sus datos")
+            messagebox.showerror(
+                "Error", "Debe seleccionar a un trabajador para poder actualizar sus datos")
             return False
 
         worker_data = focus["values"]
-        loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="update", data=worker_data)
+        loadGUI(root=self.root, GUI_to_load=GUI_workerForm,
+                option="update", data=worker_data)
         self.loadNewIncomeData()
+
 
 class GUI_mainMenu(GUI_barmenu, GUI_lateralmenu):
     def __init__(self, root) -> None:

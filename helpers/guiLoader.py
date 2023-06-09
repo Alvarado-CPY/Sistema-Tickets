@@ -9,7 +9,7 @@ def setfullScreen(root: tk.Tk):
         root.attributes("-fullscreen", True)
 
 
-def loadGUI(root: tk, GUI_to_load: object, option: str = None, data = None):
+def loadGUI(root: tk, GUI_to_load: object, option: str = None, data=None):
     root.withdraw()
     sub_root = tk.Toplevel(root)
 

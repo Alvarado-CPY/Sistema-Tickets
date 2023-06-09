@@ -447,7 +447,7 @@ class GUI_framePayData(INTERFACE_writer):
 
 
 class GUI_addWorker(GUI_root):
-    def __init__(self, root: tk.Tk, option:str) -> None:
+    def __init__(self, root: tk.Tk, option: str) -> None:
         super().__init__(root)
 
         # variables
@@ -525,7 +525,6 @@ class GUI_addWorker(GUI_root):
             font=[guiConfig().getFonts()["main_font"], 15],
             command=self.displayNextFrame
         )
-
 
     def setDefaultFrame(self):
         self.setTitle("DATOS PERSONALES")
@@ -806,7 +805,6 @@ class GUI_addWorker(GUI_root):
             messagebox.showinfo("Atención", "Datos guardados éxitosamente")
             self.destroyRoot()
 
-
     def displayNextFrame(self):
         if self.displayed_frame == "personal data":
 
@@ -888,7 +886,7 @@ class GUI_addWorker(GUI_root):
 
 
 class GUI_workerForm:
-    def __init__(self, root: tk.Tk, option: str, data = None) -> None:
+    def __init__(self, root: tk.Tk, option: str, data=None) -> None:
         self.root = root
         self.worker_info = data
         self.setRequiredFormClass(option)
@@ -899,7 +897,8 @@ class GUI_workerForm:
             if self.worker_info == None:
                 raise Exception("No worker data passed to be update")
             else:
-                gui_interface.loadExistingDataFromUserInWorkerDict(self.worker_info)
+                gui_interface.loadExistingDataFromUserInWorkerDict(
+                    self.worker_info)
 
         gui_interface.setDefaultFrame()
 
