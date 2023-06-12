@@ -7,7 +7,7 @@ from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
 from helpers.guiLoader import loadGUI, setfullScreen
 from gui_3_interface_new_income import GUI_workerForm
-
+from gui_4_interface_change_category import GUI_change_category
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -630,7 +630,8 @@ class GUI_newIncome(GUI_categoryButtons):
         )
 
         self.button_second_category_function.config(
-            text="CAMBIAR CATEGORÍA"
+            text="CAMBIAR CATEGORÍA",
+            command=self.changeCategory
         )
 
         self.button_third_category_function.config(
@@ -642,6 +643,16 @@ class GUI_newIncome(GUI_categoryButtons):
             text="AÑADIR TRABAJADOR",
             command=self.loadWorkerFormToInsertNewWorker
         )
+
+    def changeCategory(self):
+        focus = self.table_new_income.item(self.table_new_income.focus())
+        if focus['values'] == '':
+            messagebox.showerror("Error", "Debe seleccionar a un trabajador para poder cambiar su categoría")
+            return False
+
+        worker_data = focus['values']
+        loadGUI(root=self.root, GUI_to_load=GUI_change_category, data=(worker_data, "Nuevo Ingreso"))
+
 
     def loadWorkerFormToInsertNewWorker(self):
         loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add")

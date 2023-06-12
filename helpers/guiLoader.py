@@ -20,7 +20,10 @@ def loadGUI(root: tk, GUI_to_load: object, option: str = None, data=None):
             GUI_to_load(sub_root, option=option)
 
     else:
-        GUI_to_load(sub_root)
+        if data != None:
+            GUI_to_load(sub_root, data=data)
+        else:
+            GUI_to_load(sub_root)
 
     sub_root.mainloop()
 
