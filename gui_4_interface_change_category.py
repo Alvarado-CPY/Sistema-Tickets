@@ -19,7 +19,23 @@ class GUI_change_category(GUI_root):
         super().__init__(root)
 
         # variables
-        self.worker_data_to_change_category = data
+        self.worker_data_to_change_category = data[0]
+        self.worker_origin_category = data[1]
+
+        # initial validation before everything loads
+        self.validateIfOptionIsValid()
+
+    def validateIfOptionIsValid(self):
+        valid_options = [
+            "Nuevo Ingreso",
+            "Reactivacion",
+            "Suspension",
+            "Egreso"
+        ]
+        if self.worker_origin_category not in valid_options:
+            self.destroyRoot()
+            raise Exception("Opción de categoría no soportada")
+
 
 if __name__ == "__main__":
     root: tk.Tk = tk.Tk()
