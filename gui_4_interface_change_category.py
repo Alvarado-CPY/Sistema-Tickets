@@ -26,12 +26,12 @@ class GUI_change_category(GUI_root):
         self.validateIfOptionIsValid()
 
     def validateIfOptionIsValid(self):
-        valid_options = [
+        valid_options = (
             "Nuevo Ingreso",
             "Reactivacion",
             "Suspension",
             "Egreso"
-        ]
+        )
         if self.worker_origin_category not in valid_options:
             self.destroyRoot()
             raise Exception("Opción de categoría no soportada")
