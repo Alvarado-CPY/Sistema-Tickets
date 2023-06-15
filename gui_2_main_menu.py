@@ -223,7 +223,7 @@ class GUI_lateralmenu(GUI_root):
 
 
 class GUI_workersTableData:
-    def __init__(self, frame: tk.Frame, root):
+    def __init__(self, frame: tk.Frame, root=None):
         self.frame = frame
 
         # widgets
@@ -592,15 +592,17 @@ class GUI_newIncome(GUI_categoryButtons):
     def loadNewIncomeData(self):
         with sqlite3.connect(dbPath()) as bd:
             cursor = bd.cursor()
-            cursor.execute(
-                """
-                    SELECT * FROM workers
-                    JOIN newIncome ON workers.worker_ci=newIncome.worker_ci
-                """
-            )
-            newIncomeData = cursor.fetchall()
+            new_income = cursor.execute("SELECT * FROM newIncome").fetchall()
+            new_income_data = []
 
-            for worker_data in newIncomeData:
+            for worker in new_income:
+                data = cursor.execute("SELECT * FROM workers where worker_ci=?", (worker[0],)).fetchall()
+                data.append(worker[1])
+                new_income_data.append(data)
+
+            for worker_data in new_income_data:
+                account_type = worker_data[1]
+                worker_data = worker_data[0]
                 self.table_new_income.insert(parent="", index=tk.END, values=(
                     worker_data[0],
                     worker_data[1],
@@ -622,7 +624,7 @@ class GUI_newIncome(GUI_categoryButtons):
                     formatAddMissingZero(worker_data[17]),
                     formatAddMissingZero(worker_data[18]),
                     worker_data[19],
-                    worker_data[21],
+                    account_type,
                 ))
 
     def setFunctionalityToCategoryButtons(self):
