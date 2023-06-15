@@ -74,7 +74,8 @@ class GUI_categoryOptions:
         self.frame = frame
 
         # inner frame
-        
+        self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(self.frame, text="Elegir Nueva Categoría")
+        self.frame_category_choice.grid(row=1, column=0, sticky="WENS")
 
 
 class GUI_change_category(GUI_root):
@@ -92,7 +93,7 @@ class GUI_change_category(GUI_root):
         self.frame_main: tk.Frame = tk.Frame(self.root)
         self.frame_main.grid(row=0, column=0, sticky="WENS")
 
-        self.frame_main.grid_rowconfigure((1,2,3), weight=1)
+        self.frame_main.grid_rowconfigure(1, weight=1)
         self.frame_main.grid_columnconfigure(0, weight=1)
 
         print(self.worker_data_to_change_category)
@@ -113,4 +114,5 @@ class GUI_change_category(GUI_root):
 
     def loadDefaultFrames(self):
         GUI_frameWorkerData(frame=self.frame_main, data=self.worker_data_to_change_category)
+        GUI_categoryOptions(frame=self.frame_main)
 
