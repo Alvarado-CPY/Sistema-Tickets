@@ -652,7 +652,7 @@ class GUI_newIncome(GUI_categoryButtons):
                 "Error", "Debe seleccionar a un trabajador para poder cambiar su categoría")
             return False
 
-        worker_data = focus['values']
+        worker_data = (focus['values'][2], focus['values'][3], focus['values'][-1])
         loadGUI(root=self.root, GUI_to_load=GUI_change_category,
                 data=(worker_data, "Nuevo Ingreso"))
 

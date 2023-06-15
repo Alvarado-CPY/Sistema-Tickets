@@ -142,8 +142,3 @@ class GUI_login(GUI_root):
         GUI_mainMenu(root2)
         root2.mainloop()
 
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    GUI_login(root)
-    root.mainloop()

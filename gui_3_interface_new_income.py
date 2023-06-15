@@ -901,9 +901,3 @@ class GUI_workerForm:
                     self.worker_info)
 
         gui_interface.setDefaultFrame()
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    GUI_workerForm(root, option="add")
-    root.mainloop()
