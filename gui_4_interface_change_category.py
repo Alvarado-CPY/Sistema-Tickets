@@ -69,14 +69,51 @@ class GUI_frameWorkerData:
 
 
 class GUI_categoryOptions:
-    def __init__(self, frame: tk.Frame) -> None:
+    def __init__(self, frame: tk.Frame, origin_category: str) -> None:
         # frame master
         self.frame = frame
+        self.origin_category = origin_category
 
         # inner frame
         self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(self.frame, text="Elegir Nueva Categoría")
         self.frame_category_choice.grid(row=1, column=0, sticky="WENS")
 
+        # widgets
+        # category choicer
+        self.label_cagetory: tk.Label = tk.Label(self.frame_category_choice, text="Cambiar a")
+        self.label_cagetory.grid(row=0, column=0)
+
+        self.combobox_categories: ttk.Combobox = ttk.Combobox(self.frame_category_choice)
+        self.combobox_categories.grid(row=1, column=0, sticky="WENS")
+
+        self.insertComboBoxChoices()
+
+    def insertComboBoxChoices(self):
+        choices = ()
+        if self.origin_category == "Nuevo Ingreso":
+            choices = (
+                "Suspension",
+                "Egreso"
+            )
+        elif self.origin_category == "Reactivacion":
+            choices = (
+                "Suspension",
+                "Egreso"
+            )
+        elif self.origin_category == "Suspension":
+            choices = (
+                "Reactivacion",
+                "Egreso"
+            )
+        else:
+            choices = (
+                "Reactivacion"
+            )
+
+        self.combobox_categories.config(
+            values=choices
+        )
+        self.combobox_categories.set(choices[0])
 
 class GUI_change_category(GUI_root):
     def __init__(self, root: tk.Tk, data: str) -> None:
@@ -114,5 +151,5 @@ class GUI_change_category(GUI_root):
 
     def loadDefaultFrames(self):
         GUI_frameWorkerData(frame=self.frame_main, data=self.worker_data_to_change_category)
-        GUI_categoryOptions(frame=self.frame_main)
+        GUI_categoryOptions(frame=self.frame_main, origin_category=self.worker_origin_category)
 
