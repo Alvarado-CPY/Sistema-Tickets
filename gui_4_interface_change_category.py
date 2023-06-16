@@ -68,6 +68,19 @@ class GUI_frameWorkerData:
         self.entry_name.config(state="readonly")
 
 
+class GUI_SuspensionOption:
+    def __init__(self, frame: tk.Frame) -> None:
+        # frame master
+        self.frame = frame
+
+        # inner frame
+        self.frame_suspension_option: tk.LabelFrame = tk.LabelFrame(self.frame, text="Datos Necesarios Para Suspender")
+        self.frame_suspension_option.grid(row=0, column=0, sticky="WENS")
+
+        self.label = tk.Label(self.frame_suspension_option, text="Hola")
+        self.label.grid(row=0, column=0)
+
+
 class GUI_categoryOptions:
     def __init__(self, frame: tk.Frame, origin_category: str) -> None:
         # frame master
@@ -78,18 +91,43 @@ class GUI_categoryOptions:
         self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(self.frame, text="Elegir Nueva Categoría")
         self.frame_category_choice.grid(row=1, column=0, sticky="WENS")
 
+        self.frame_category_choice.grid_rowconfigure(1, weight=1)
+        self.frame_category_choice.grid_columnconfigure((0,1), weight=1)
+
         # widgets
         # category choicer
-        self.label_cagetory: tk.Label = tk.Label(self.frame_category_choice, text="Cambiar a")
+        self.label_cagetory: tk.Label = tk.Label(self.frame_category_choice, text="CAMBIAR A")
         self.label_cagetory.grid(row=0, column=0)
 
         self.combobox_categories: ttk.Combobox = ttk.Combobox(self.frame_category_choice)
-        self.combobox_categories.grid(row=1, column=0, sticky="WENS")
+        self.combobox_categories.grid(row=0, column=1, sticky="WENS", padx=5)
+
+        # changable frame
+        self.frame_category_container: tk.Frame = tk.Frame(self.frame_category_choice)
+        self.frame_category_container.grid(row=1, column=0, sticky="WENS", columnspan=2, padx=5, pady=5)
+
+        self.frame_category_container.grid_rowconfigure(0, weight=1)
+        self.frame_category_container.grid_columnconfigure(0, weight=1)
 
         self.insertComboBoxChoices()
 
+        # events
+        self.combobox_categories.bind("<<ComboboxSelected>>", lambda e: self.getComboBoxToChange())
+
+    def cleanContainerFrame(self):
+        for children in self.frame_category_container.winfo_children():
+            children.destroy()
+
+    def setCorrespondingCategoryOptions(self, category: str):
+        self.cleanContainerFrame()
+        if category == "Suspension":
+            GUI_SuspensionOption(self.frame_category_container)
+
+    def getComboBoxToChange(self):
+        self.setCorrespondingCategoryOptions(self.combobox_categories.get())
+
     def insertComboBoxChoices(self):
-        choices = ()
+        choices = []
         if self.origin_category == "Nuevo Ingreso":
             choices = (
                 "Suspension",
@@ -106,14 +144,18 @@ class GUI_categoryOptions:
                 "Egreso"
             )
         else:
-            choices = (
+            choices = [
                 "Reactivacion"
-            )
+            ]
 
         self.combobox_categories.config(
             values=choices
         )
-        self.combobox_categories.set(choices[0])
+        if len(choices) > 1:
+            choices = choices[0]
+
+        self.combobox_categories.set(choices)
+        self.setCorrespondingCategoryOptions(choices)
 
 class GUI_change_category(GUI_root):
     def __init__(self, root: tk.Tk, data: str) -> None:
@@ -128,12 +170,10 @@ class GUI_change_category(GUI_root):
 
         # frames
         self.frame_main: tk.Frame = tk.Frame(self.root)
-        self.frame_main.grid(row=0, column=0, sticky="WENS")
+        self.frame_main.grid(row=0, column=0, sticky="WENS", pady=5, padx=5)
 
         self.frame_main.grid_rowconfigure(1, weight=1)
         self.frame_main.grid_columnconfigure(0, weight=1)
-
-        print(self.worker_data_to_change_category)
 
         # functions
         self.loadDefaultFrames()
