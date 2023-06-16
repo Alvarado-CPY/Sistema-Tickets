@@ -141,4 +141,3 @@ class GUI_login(GUI_root):
         root2 = tk.Tk()
         GUI_mainMenu(root2)
         root2.mainloop()
-

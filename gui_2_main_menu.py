@@ -596,7 +596,8 @@ class GUI_newIncome(GUI_categoryButtons):
             new_income_data = []
 
             for worker in new_income:
-                data = cursor.execute("SELECT * FROM workers where worker_ci=?", (worker[0],)).fetchall()
+                data = cursor.execute(
+                    "SELECT * FROM workers where worker_ci=?", (worker[0],)).fetchall()
                 data.append(worker[1])
                 new_income_data.append(data)
 
@@ -654,7 +655,8 @@ class GUI_newIncome(GUI_categoryButtons):
                 "Error", "Debe seleccionar a un trabajador para poder cambiar su categoría")
             return False
 
-        worker_data = (focus['values'][2], focus['values'][3], focus['values'][-1])
+        worker_data = (focus['values'][2], focus['values']
+                       [3], focus['values'][-1])
         loadGUI(root=self.root, GUI_to_load=GUI_change_category,
                 data=(worker_data, "Nuevo Ingreso"))
 

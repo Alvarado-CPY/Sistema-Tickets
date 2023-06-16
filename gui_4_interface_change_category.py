@@ -30,6 +30,7 @@ class GUI_root:
         self.root.quit()
         self.root.destroy()
 
+
 class GUI_frameWorkerData:
     def __init__(self, frame: tk.Frame, data: tuple) -> None:
         # frame master
@@ -37,21 +38,24 @@ class GUI_frameWorkerData:
         self.data = data
 
         # inner frame
-        self.frame_worker_data: tk.LabelFrame = tk.LabelFrame(self.frame, text="Datos del Trabajador")
+        self.frame_worker_data: tk.LabelFrame = tk.LabelFrame(
+            self.frame, text="Datos del Trabajador")
         self.frame_worker_data.grid(row=0, column=0, sticky="WENS")
 
-        self.frame_worker_data.grid_columnconfigure((0,1), weight=1)
+        self.frame_worker_data.grid_columnconfigure((0, 1), weight=1)
 
         # widgets
         # ci
-        self.label_ci: tk.Label = tk.Label(self.frame_worker_data, text="CÉDULA")
+        self.label_ci: tk.Label = tk.Label(
+            self.frame_worker_data, text="CÉDULA")
         self.label_ci.grid(row=0, column=0)
 
         self.entry_ci: tk.Entry = tk.Entry(self.frame_worker_data)
         self.entry_ci.grid(row=0, column=1, sticky="WENS", pady=5, padx=5)
 
         # name
-        self.label_name: tk.Label = tk.Label(self.frame_worker_data, text="NOMBRE")
+        self.label_name: tk.Label = tk.Label(
+            self.frame_worker_data, text="NOMBRE")
         self.label_name.grid(row=1, column=0)
 
         self.entry_name: tk.Entry = tk.Entry(self.frame_worker_data)
@@ -74,32 +78,43 @@ class GUI_SuspensionOption:
         self.frame = frame
 
         # inner frame
-        self.frame_suspension_option: tk.LabelFrame = tk.LabelFrame(self.frame, text="Datos Necesarios Para Suspender")
+        self.frame_suspension_option: tk.LabelFrame = tk.LabelFrame(
+            self.frame, text="Datos Necesarios Para Suspender")
         self.frame_suspension_option.grid(row=0, column=0, sticky="WENS")
 
         self.frame_suspension_option.grid_columnconfigure(0, weight=1)
 
         # widgets
         # desincorporation date
-        self.label_desincorporation_date: tk.Label = tk.Label(self.frame_suspension_option, text="FECHA DE DESINCORPORACIÓN")
-        self.label_desincorporation_date.grid(row=0, column=0, sticky="W", pady=5)
+        self.label_desincorporation_date: tk.Label = tk.Label(
+            self.frame_suspension_option, text="FECHA DE DESINCORPORACIÓN")
+        self.label_desincorporation_date.grid(
+            row=0, column=0, sticky="W", pady=5)
 
-        self.entry_desincorporation_date: tk.Entry = tk.Entry(self.frame_suspension_option)
-        self.entry_desincorporation_date.grid(row=1, column=0, sticky="WENS", ipadx=5)
+        self.entry_desincorporation_date: tk.Entry = tk.Entry(
+            self.frame_suspension_option)
+        self.entry_desincorporation_date.grid(
+            row=1, column=0, sticky="WENS", ipadx=5)
 
         # suspension reason
-        self.label_suspension_reason: tk.Label = tk.Label(self.frame_suspension_option, text="RAZÓN DE SUSPENSIÓN")
+        self.label_suspension_reason: tk.Label = tk.Label(
+            self.frame_suspension_option, text="RAZÓN DE SUSPENSIÓN")
         self.label_suspension_reason.grid(row=2, column=0, sticky="W", pady=5)
 
-        self.entry_suspension_reason: tk.Entry = tk.Entry(self.frame_suspension_option)
-        self.entry_suspension_reason.grid(row=3, column=0, sticky="WENS", ipadx=5)
+        self.entry_suspension_reason: tk.Entry = tk.Entry(
+            self.frame_suspension_option)
+        self.entry_suspension_reason.grid(
+            row=3, column=0, sticky="WENS", ipadx=5)
 
         # support number
-        self.label_support_number: tk.Label = tk.Label(self.frame_suspension_option, text="NÚMERO DE SOPORTE")
+        self.label_support_number: tk.Label = tk.Label(
+            self.frame_suspension_option, text="NÚMERO DE SOPORTE")
         self.label_support_number.grid(row=4, column=0, sticky="W", pady=5)
 
-        self.entry_support_number: tk.Entry = tk.Entry(self.frame_suspension_option)
+        self.entry_support_number: tk.Entry = tk.Entry(
+            self.frame_suspension_option)
         self.entry_support_number.grid(row=5, column=0, sticky="WENS", ipadx=5)
+
 
 class GUI_categoryOptions:
     def __init__(self, frame: tk.Frame, origin_category: str) -> None:
@@ -108,23 +123,28 @@ class GUI_categoryOptions:
         self.origin_category = origin_category
 
         # inner frame
-        self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(self.frame, text="Elegir Nueva Categoría")
+        self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(
+            self.frame, text="Elegir Nueva Categoría")
         self.frame_category_choice.grid(row=1, column=0, sticky="WENS")
 
         self.frame_category_choice.grid_rowconfigure(1, weight=1)
-        self.frame_category_choice.grid_columnconfigure((0,1), weight=1)
+        self.frame_category_choice.grid_columnconfigure((0, 1), weight=1)
 
         # widgets
         # category choicer
-        self.label_cagetory: tk.Label = tk.Label(self.frame_category_choice, text="CAMBIAR A")
+        self.label_cagetory: tk.Label = tk.Label(
+            self.frame_category_choice, text="CAMBIAR A")
         self.label_cagetory.grid(row=0, column=0)
 
-        self.combobox_categories: ttk.Combobox = ttk.Combobox(self.frame_category_choice)
+        self.combobox_categories: ttk.Combobox = ttk.Combobox(
+            self.frame_category_choice)
         self.combobox_categories.grid(row=0, column=1, sticky="WENS", padx=5)
 
         # changable frame
-        self.frame_category_container: tk.Frame = tk.Frame(self.frame_category_choice)
-        self.frame_category_container.grid(row=1, column=0, sticky="WENS", columnspan=2, padx=5, pady=5)
+        self.frame_category_container: tk.Frame = tk.Frame(
+            self.frame_category_choice)
+        self.frame_category_container.grid(
+            row=1, column=0, sticky="WENS", columnspan=2, padx=5, pady=5)
 
         self.frame_category_container.grid_rowconfigure(0, weight=1)
         self.frame_category_container.grid_columnconfigure(0, weight=1)
@@ -132,7 +152,8 @@ class GUI_categoryOptions:
         self.insertComboBoxChoices()
 
         # events
-        self.combobox_categories.bind("<<ComboboxSelected>>", lambda e: self.getComboBoxToChange())
+        self.combobox_categories.bind(
+            "<<ComboboxSelected>>", lambda e: self.getComboBoxToChange())
 
     def cleanContainerFrame(self):
         for children in self.frame_category_container.winfo_children():
@@ -177,6 +198,7 @@ class GUI_categoryOptions:
         self.combobox_categories.set(choices)
         self.setCorrespondingCategoryOptions(choices)
 
+
 class GUI_change_category(GUI_root):
     def __init__(self, root: tk.Tk, data: str) -> None:
         super().__init__(root)
@@ -198,6 +220,11 @@ class GUI_change_category(GUI_root):
         # functions
         self.loadDefaultFrames()
 
+        # button
+        self.button_save_data: tk.Button = tk.Button(
+            self.frame_main, text="CAMBIAR CATEGORÍA")
+        self.button_save_data.grid(row=2, column=0)
+
     def validateIfOptionIsValid(self):
         valid_options = (
             "Nuevo Ingreso",
@@ -210,6 +237,7 @@ class GUI_change_category(GUI_root):
             raise Exception("Opción de categoría no soportada")
 
     def loadDefaultFrames(self):
-        GUI_frameWorkerData(frame=self.frame_main, data=self.worker_data_to_change_category)
-        GUI_categoryOptions(frame=self.frame_main, origin_category=self.worker_origin_category)
-
+        GUI_frameWorkerData(frame=self.frame_main,
+                            data=self.worker_data_to_change_category)
+        GUI_categoryOptions(frame=self.frame_main,
+                            origin_category=self.worker_origin_category)
