@@ -77,9 +77,29 @@ class GUI_SuspensionOption:
         self.frame_suspension_option: tk.LabelFrame = tk.LabelFrame(self.frame, text="Datos Necesarios Para Suspender")
         self.frame_suspension_option.grid(row=0, column=0, sticky="WENS")
 
-        self.label = tk.Label(self.frame_suspension_option, text="Hola")
-        self.label.grid(row=0, column=0)
+        self.frame_suspension_option.grid_columnconfigure(0, weight=1)
 
+        # widgets
+        # desincorporation date
+        self.label_desincorporation_date: tk.Label = tk.Label(self.frame_suspension_option, text="FECHA DE DESINCORPORACIÓN")
+        self.label_desincorporation_date.grid(row=0, column=0, sticky="W", pady=5)
+
+        self.entry_desincorporation_date: tk.Entry = tk.Entry(self.frame_suspension_option)
+        self.entry_desincorporation_date.grid(row=1, column=0, sticky="WENS", ipadx=5)
+
+        # suspension reason
+        self.label_suspension_reason: tk.Label = tk.Label(self.frame_suspension_option, text="RAZÓN DE SUSPENSIÓN")
+        self.label_suspension_reason.grid(row=2, column=0, sticky="W", pady=5)
+
+        self.entry_suspension_reason: tk.Entry = tk.Entry(self.frame_suspension_option)
+        self.entry_suspension_reason.grid(row=3, column=0, sticky="WENS", ipadx=5)
+
+        # support number
+        self.label_support_number: tk.Label = tk.Label(self.frame_suspension_option, text="NÚMERO DE SOPORTE")
+        self.label_support_number.grid(row=4, column=0, sticky="W", pady=5)
+
+        self.entry_support_number: tk.Entry = tk.Entry(self.frame_suspension_option)
+        self.entry_support_number.grid(row=5, column=0, sticky="WENS", ipadx=5)
 
 class GUI_categoryOptions:
     def __init__(self, frame: tk.Frame, origin_category: str) -> None:
