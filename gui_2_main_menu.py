@@ -43,7 +43,6 @@ class GUI_barmenu(GUI_root):
         self.root.config(menu=self.Menu)
 
         # creating menu functions
-        self.Menu_function_new: tk.Menu = tk.Menu(self.Menu, tearoff=False)
         self.Menu_function_report: tk.Menu = tk.Menu(self.Menu, tearoff=False)
         self.Menu_function_export: tk.Menu = tk.Menu(self.Menu, tearoff=False)
         self.Menu_function_help: tk.Menu = tk.Menu(self.Menu, tearoff=False)
@@ -51,10 +50,6 @@ class GUI_barmenu(GUI_root):
         self.addCommandsToMenus()
 
         # adding menu functions to menubar
-        self.Menu.add_cascade(
-            label="Nuevo",
-            menu=self.Menu_function_new
-        )
         self.Menu.add_cascade(
             label="Reporte",
             menu=self.Menu_function_report
@@ -69,25 +64,9 @@ class GUI_barmenu(GUI_root):
         )
 
     def addCommandsToMenus(self):
-        self.addCommandsToNewMenu()
         self.addCommandsToReportMenu()
         self.addCommandsToExportMenu()
         self.addCommadsToHelpMenu()
-
-    def addCommandsToNewMenu(self):
-        functions = {
-            "Nuevo Ingreso": lambda: loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add"),
-            "Nuevo Reactivación": lambda: print("2"),
-            "Nuevo Suspensión": lambda: print("3"),
-            "Nuevo Egreso": lambda: print("4"),
-            "Nuevo Usuario": lambda: print("5")
-        }
-
-        for key in functions.keys():
-            self.Menu_function_new.add_command(
-                label=key,
-                command=functions[key]
-            )
 
     def addCommandsToReportMenu(self):
         functions = {
