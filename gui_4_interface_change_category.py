@@ -74,9 +74,10 @@ class GUI_frameWorkerData:
 
 
 class GUI_suspensionOption:
-    def __init__(self, frame: tk.Frame) -> None:
+    def __init__(self, frame: tk.Frame, data: dict) -> None:
         # frame master
         self.frame = frame
+        self.data = data
 
         # inner frame
         self.frame_suspension_option: tk.LabelFrame = tk.LabelFrame(
@@ -137,9 +138,10 @@ class GUI_suspensionOption:
 
 
 class GUI_dischargeOption:
-    def __init__(self, frame: tk.Frame) -> None:
+    def __init__(self, frame: tk.Frame, data: dict) -> None:
         # frame master
         self.frame = frame
+        self.data = data
 
         # inner frame
         self.frame_discharge_option: tk.LabelFrame = tk.LabelFrame(
@@ -190,17 +192,19 @@ class GUI_dischargeOption:
 
         self.entry_support_number: tk.Entry = tk.Entry(
             self.frame_discharge_option)
-        self.entry_support_number.grid(row=5, column=0, sticky="WENS", ipadx=5, padx=5)
+        self.entry_support_number.grid(
+            row=5, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_support_number.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
 
 class GUI_categoryOptions:
-    def __init__(self, frame: tk.Frame, origin_category: str) -> None:
+    def __init__(self, frame: tk.Frame, origin_category: str, data_set: list[dict]) -> None:
         # frame master
         self.frame = frame
         self.origin_category = origin_category
+        self.data_set = data_set
 
         # inner frame
         self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(
@@ -242,9 +246,13 @@ class GUI_categoryOptions:
     def setCorrespondingCategoryOptions(self, category: str):
         self.cleanContainerFrame()
         if category == "Suspension":
-            GUI_suspensionOption(self.frame_category_container)
+            GUI_suspensionOption(
+                self.frame_category_container, data=self.data_set[0])
         elif category == "Egreso":
-            GUI_dischargeOption(self.frame_category_container)
+            GUI_dischargeOption(
+                self.frame_category_container, data=self.data_set[1])
+
+        print(self.data_set[0], self.data_set[1])
 
     def getComboBoxToChange(self):
         self.setCorrespondingCategoryOptions(self.combobox_categories.get())
@@ -289,6 +297,23 @@ class GUI_change_category(GUI_root):
         self.worker_data_to_change_category = data[0]
         self.worker_origin_category = data[1]
 
+        self.suspension_data_set = {
+            "desincorporation_date": "1",
+            "supension_reason": "2",
+            "support_number": "3"
+        }
+
+        self.discharge_data_set = {
+            "discharge_date": "4",
+            "discharge_reason": "5",
+            "support_number": "6"
+        }
+
+        self.data_set = [
+            self.suspension_data_set,
+            self.discharge_data_set
+        ]
+
         # initial validation before everything loads
         self.validateIfOptionIsValid()
 
@@ -325,4 +350,5 @@ class GUI_change_category(GUI_root):
         GUI_frameWorkerData(frame=self.frame_main,
                             data=self.worker_data_to_change_category)
         GUI_categoryOptions(frame=self.frame_main,
-                            origin_category=self.worker_origin_category)
+                            origin_category=self.worker_origin_category,
+                            data_set=self.data_set)
