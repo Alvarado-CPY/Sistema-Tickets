@@ -3,12 +3,8 @@ import tkinter as tk
 from tkinter import messagebox
 from app_global_variables import dbPath, guiConfig, bankCodesPath
 from helpers.config import GetBankConfig
+from helpers.writer_interface import INTERFACE_writer
 from helpers.validate_worker_data import *
-
-
-class INTERFACE_writer:
-    def writeDataToHashMap(self, map: dict, key_map: str, variable: tk.StringVar):
-        map[key_map] = variable.get()
 
 
 class GUI_root:
