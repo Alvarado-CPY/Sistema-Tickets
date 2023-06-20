@@ -163,6 +163,11 @@ class GUI_suspensionOption(INTERFACE_writer):
 
 class GUI_dischargeOption(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
+        # variables
+        self.variable_discharge_date: tk.StringVar = tk.StringVar()
+        self.variable_discharge_reason: tk.StringVar = tk.StringVar()
+        self.variable_support_number: tk.StringVar = tk.StringVar()
+
         # frame master
         self.frame = frame
         self.data = data
@@ -183,7 +188,7 @@ class GUI_dischargeOption(INTERFACE_writer):
         )
 
         self.entry_discharge_date: tk.Entry = tk.Entry(
-            self.frame_discharge_option)
+            self.frame_discharge_option, textvariable=self.variable_discharge_date)
         self.entry_discharge_date.grid(
             row=1, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_discharge_date.config(
@@ -199,7 +204,7 @@ class GUI_dischargeOption(INTERFACE_writer):
         )
 
         self.entry_discharge_reason: tk.Entry = tk.Entry(
-            self.frame_discharge_option)
+            self.frame_discharge_option, textvariable=self.variable_discharge_reason)
         self.entry_discharge_reason.grid(
             row=3, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_discharge_reason.config(
@@ -215,12 +220,28 @@ class GUI_dischargeOption(INTERFACE_writer):
         )
 
         self.entry_support_number: tk.Entry = tk.Entry(
-            self.frame_discharge_option)
+            self.frame_discharge_option, textvariable=self.variable_support_number)
         self.entry_support_number.grid(
             row=5, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_support_number.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
+
+        # functions
+        self.loadInfoToEntrys()
+
+        # events
+        self.variable_discharge_date.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="discharge_date", variable=self.variable_discharge_date))
+
+        self.variable_discharge_reason.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="discharge_reason", variable=self.variable_discharge_reason))
+
+        self.variable_support_number.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="support_number", variable=self.variable_support_number))
+
+    def loadInfoToEntrys(self):
+        self.entry_discharge_date.insert(0, self.data["discharge_date"])
+        self.entry_discharge_reason.insert(0, self.data["discharge_reason"])
+        self.entry_support_number.insert(0, self.data["support_number"])
+
 
 
 class GUI_categoryOptions:
