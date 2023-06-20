@@ -5,7 +5,7 @@ from app_global_variables import guiConfig, dbPath
 from helpers.import_data import ImportData
 from helpers.format import formatDate, formatAddMissingZero
 from helpers.search_engine import SearchEngine
-from helpers.guiLoader import loadGUI, setfullScreen
+from helpers.gui_loader import loadGUI, setfullScreen
 from gui_3_interface_new_income import GUI_workerForm
 from gui_4_interface_change_category import GUI_change_category
 
