@@ -142,6 +142,9 @@ class GUI_suspensionOption(INTERFACE_writer):
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
+        # functions
+        self.loadInfoToEntrys()
+
         # events
         self.variable_desincorporation_date.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
             map=self.data, key_map="desincorporation_date", variable=self.variable_desincorporation_date))
@@ -151,6 +154,11 @@ class GUI_suspensionOption(INTERFACE_writer):
 
         self.variable_support_number.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
             map=self.data, key_map="support_number", variable=self.variable_support_number))
+
+    def loadInfoToEntrys(self):
+        self.entry_desincorporation_date.insert(0, self.data["desincorporation_date"])
+        self.entry_suspension_reason.insert(0, self.data["suspension_reason"])
+        self.entry_support_number.insert(0, self.data["support_number"])
 
 
 class GUI_dischargeOption(INTERFACE_writer):
@@ -314,15 +322,15 @@ class GUI_change_category(GUI_root):
         self.worker_origin_category = data[1]
 
         self.suspension_data_set = {
-            "desincorporation_date": "1",
-            "suspension_reason": "2",
-            "support_number": "3"
+            "desincorporation_date": "",
+            "suspension_reason": "",
+            "support_number": ""
         }
 
         self.discharge_data_set = {
-            "discharge_date": "4",
-            "discharge_reason": "5",
-            "support_number": "6"
+            "discharge_date": "",
+            "discharge_reason": "",
+            "support_number": ""
         }
 
         self.data_set = [
