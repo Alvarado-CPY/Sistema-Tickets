@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
-from app_global_variables import guiConfig
 import sqlite3
+from app_global_variables import guiConfig
+from helpers.writer_interface import INTERFACE_writer
 
 
 class GUI_root:
@@ -73,8 +74,13 @@ class GUI_frameWorkerData:
         self.entry_name.config(state="readonly")
 
 
-class GUI_suspensionOption:
+class GUI_suspensionOption(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
+        # variables
+        self.variable_desincorporation_date: tk.StringVar = tk.StringVar()
+        self.variable_suspension_reason: tk.StringVar = tk.StringVar()
+        self.variable_support_number: tk.StringVar = tk.StringVar()
+
         # frame master
         self.frame = frame
         self.data = data
@@ -97,7 +103,7 @@ class GUI_suspensionOption:
         )
 
         self.entry_desincorporation_date: tk.Entry = tk.Entry(
-            self.frame_suspension_option)
+            self.frame_suspension_option, textvariable=self.variable_desincorporation_date)
         self.entry_desincorporation_date.grid(
             row=1, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_desincorporation_date.config(
@@ -113,7 +119,7 @@ class GUI_suspensionOption:
         )
 
         self.entry_suspension_reason: tk.Entry = tk.Entry(
-            self.frame_suspension_option)
+            self.frame_suspension_option, textvariable=self.variable_suspension_reason)
         self.entry_suspension_reason.grid(
             row=3, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_suspension_reason.config(
@@ -129,15 +135,25 @@ class GUI_suspensionOption:
         )
 
         self.entry_support_number: tk.Entry = tk.Entry(
-            self.frame_suspension_option)
+            self.frame_suspension_option, textvariable=self.variable_support_number)
         self.entry_support_number.grid(
             row=5, column=0, sticky="WENS", ipadx=5, padx=5)
         self.entry_support_number.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
         )
 
+        # events
+        self.variable_desincorporation_date.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="desincorporation_date", variable=self.variable_desincorporation_date))
 
-class GUI_dischargeOption:
+        self.variable_suspension_reason.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="suspension_reason", variable=self.variable_suspension_reason))
+
+        self.variable_support_number.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="support_number", variable=self.variable_support_number))
+
+
+class GUI_dischargeOption(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         # frame master
         self.frame = frame
@@ -299,7 +315,7 @@ class GUI_change_category(GUI_root):
 
         self.suspension_data_set = {
             "desincorporation_date": "1",
-            "supension_reason": "2",
+            "suspension_reason": "2",
             "support_number": "3"
         }
 
