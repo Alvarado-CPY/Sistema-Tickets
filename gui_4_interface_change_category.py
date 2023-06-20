@@ -156,7 +156,8 @@ class GUI_suspensionOption(INTERFACE_writer):
             map=self.data, key_map="support_number", variable=self.variable_support_number))
 
     def loadInfoToEntrys(self):
-        self.entry_desincorporation_date.insert(0, self.data["desincorporation_date"])
+        self.entry_desincorporation_date.insert(
+            0, self.data["desincorporation_date"])
         self.entry_suspension_reason.insert(0, self.data["suspension_reason"])
         self.entry_support_number.insert(0, self.data["support_number"])
 
@@ -231,17 +232,19 @@ class GUI_dischargeOption(INTERFACE_writer):
         self.loadInfoToEntrys()
 
         # events
-        self.variable_discharge_date.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="discharge_date", variable=self.variable_discharge_date))
+        self.variable_discharge_date.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="discharge_date", variable=self.variable_discharge_date))
 
-        self.variable_discharge_reason.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="discharge_reason", variable=self.variable_discharge_reason))
+        self.variable_discharge_reason.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="discharge_reason", variable=self.variable_discharge_reason))
 
-        self.variable_support_number.trace_add("write", lambda x,y,z: self.writeDataToHashMap(map=self.data, key_map="support_number", variable=self.variable_support_number))
+        self.variable_support_number.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="support_number", variable=self.variable_support_number))
 
     def loadInfoToEntrys(self):
         self.entry_discharge_date.insert(0, self.data["discharge_date"])
         self.entry_discharge_reason.insert(0, self.data["discharge_reason"])
         self.entry_support_number.insert(0, self.data["support_number"])
-
 
 
 class GUI_categoryOptions:
