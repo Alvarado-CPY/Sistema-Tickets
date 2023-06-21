@@ -198,7 +198,7 @@ class GUI_dischargeOption(INTERFACE_writer):
 
         # discharge reason
         self.label_discharge_reason: tk.Label = tk.Label(
-            self.frame_discharge_option, text="RAZÓN DE DESINCORPORACIÓN")
+            self.frame_discharge_option, text="RAZÓN DE EGRESO")
         self.label_discharge_reason.grid(row=2, column=0, sticky="W", pady=5)
         self.label_discharge_reason.config(
             font=[guiConfig().getFonts()["secondary_font"], 13]
@@ -367,6 +367,30 @@ class GUI_categoryOptions:
 
         return "No Errors"
 
+    def validateDischargeCategory(self):
+        discharge_data = self.data_set[1]
+
+        # no empty fields
+        if validateNoEmptyEntrys(("discharge_date", "discharge_reason", "support_number"), discharge_data) == False:
+            return "Ningún campo puede estar vacío"
+
+        # desincorporation date
+        if validateDateFormat(discharge_data["discharge_date"]) == False:
+            return "La fecha de egreso debe tener el formato DD-MM-YYYY"
+
+        # suspension reason
+        if validateNotSpecialCharacters(discharge_data["discharge_reason"]) == False:
+            return "La razón de egreso no debe tener carácteres especiales"
+
+        if validateNotNumbers(discharge_data["discharge_reason"]) == False:
+            return "La razón de egreso no debe tener números"
+
+        # support number
+        if validateInteger(discharge_data["support_number"]) == False:
+            return "El número de soporte solo debe contener números enteros"
+
+        return "No Errors"
+
     def validateWhatCategoryTheUserChoiced(self):
         category = self.combobox_categories.get()
         validationResult = ""
@@ -375,7 +399,7 @@ class GUI_categoryOptions:
             validationResult = self.validateSuspensionCategory()
 
         elif category == "Egreso":
-            ...
+            validationResult = self.validateDischargeCategory()
 
         if validationResult != "No Errors":
             messagebox.showerror("Error", validationResult)
