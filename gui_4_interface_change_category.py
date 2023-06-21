@@ -1,9 +1,9 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import sqlite3
 from app_global_variables import guiConfig
 from helpers.writer_interface import INTERFACE_writer
-
+from helpers.validate_worker_data import *
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -289,7 +289,7 @@ class GUI_categoryOptions:
         self.button_save_data.grid(row=2, column=0)
         self.button_save_data.config(
             font=[guiConfig().getFonts()["main_font"], 15],
-            command=lambda: print(self.combobox_categories.get())
+            command=self.validateWhatCategoryTheUserChoiced
         )
 
         # events
@@ -342,6 +342,44 @@ class GUI_categoryOptions:
 
         self.combobox_categories.set(choices)
         self.setCorrespondingCategoryOptions(choices)
+
+    def validateSuspensionCategory(self):
+        suspension_data = self.data_set[0]
+
+        # no empty fields
+        if validateNoEmptyEntrys(("desincorporation_date", "suspension_reason", "support_number"), suspension_data) == False:
+            return "Ningún campo puede estar vacío"
+
+        # desincorporation date
+        if validateDateFormat(suspension_data["desincorporation_date"]) == False:
+            return "La fecha de desincorporación debe tener el formato DD-MM-YYYY"
+
+        # suspension reason
+        if validateNotSpecialCharacters(suspension_data["suspension_reason"]) == False:
+            return "La razón de suspensión no debe tener carácteres especiales"
+
+        if validateNotNumbers(suspension_data["suspension_reason"]) == False:
+            return "La razón de suspensión no debe tener números"
+
+        # support number
+        if validateInteger(suspension_data["support_number"]) == False:
+            return "El número de soporte solo debe contener números enteros"
+
+        return "No Errors"
+
+    def validateWhatCategoryTheUserChoiced(self):
+        category = self.combobox_categories.get()
+        validationResult = ""
+
+        if category == "Suspension":
+            validationResult = self.validateSuspensionCategory()
+
+        elif category == "Egreso":
+            ...
+
+        if validationResult != "No Errors":
+            messagebox.showerror("Error", validationResult)
+            return False
 
 
 class GUI_change_category(GUI_root):
