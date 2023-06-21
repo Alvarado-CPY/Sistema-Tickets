@@ -401,6 +401,10 @@ class GUI_categoryOptions:
         elif category == "Egreso":
             validationResult = self.validateDischargeCategory()
 
+        if validationResult == "":
+            messagebox.showerror("Error", "Categoría no valida")
+            return False
+
         if validationResult != "No Errors":
             messagebox.showerror("Error", validationResult)
             return False
