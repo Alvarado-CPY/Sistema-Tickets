@@ -283,6 +283,15 @@ class GUI_categoryOptions:
 
         self.insertComboBoxChoices()
 
+        # button
+        self.button_save_data: tk.Button = tk.Button(
+            self.frame, text="CAMBIAR CATEGORÍA")
+        self.button_save_data.grid(row=2, column=0)
+        self.button_save_data.config(
+            font=[guiConfig().getFonts()["main_font"], 15],
+            command=lambda: print(self.combobox_categories.get())
+        )
+
         # events
         self.combobox_categories.bind(
             "<<ComboboxSelected>>", lambda e: self.getComboBoxToChange())
@@ -299,8 +308,6 @@ class GUI_categoryOptions:
         elif category == "Egreso":
             GUI_dischargeOption(
                 self.frame_category_container, data=self.data_set[1])
-
-        print(self.data_set[0], self.data_set[1])
 
     def getComboBoxToChange(self):
         self.setCorrespondingCategoryOptions(self.combobox_categories.get())
@@ -374,14 +381,6 @@ class GUI_change_category(GUI_root):
 
         # functions
         self.loadDefaultFrames()
-
-        # button
-        self.button_save_data: tk.Button = tk.Button(
-            self.frame_main, text="CAMBIAR CATEGORÍA")
-        self.button_save_data.grid(row=2, column=0)
-        self.button_save_data.config(
-            font=[guiConfig().getFonts()["main_font"], 15]
-        )
 
     def validateIfOptionIsValid(self):
         valid_options = (

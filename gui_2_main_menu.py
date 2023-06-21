@@ -390,7 +390,6 @@ class GUI_displayChargeButton:
             GUI_workersTableData(self.frame)
 
     def toggleMenu(self, menu_state: str):
-        self.menu.entryconfig("Nuevo", state=menu_state)
         self.menu.entryconfig("Reporte", state=menu_state)
         self.menu.entryconfig("Base de Datos", state=menu_state)
         self.menu.entryconfig("Ayuda", state=menu_state)
