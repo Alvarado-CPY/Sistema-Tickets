@@ -5,6 +5,7 @@ from app_global_variables import guiConfig
 from helpers.writer_interface import INTERFACE_writer
 from helpers.validate_worker_data import *
 
+
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
