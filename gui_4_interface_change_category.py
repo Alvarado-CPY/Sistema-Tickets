@@ -402,10 +402,6 @@ class GUI_categoryOptions:
                 "Reactivacion",
                 "Egreso"
             )
-        elif self.origin_category == "Egreso":
-            choices = [
-                "Reactivacion"
-            ]
 
         self.combobox_categories.config(
             values=choices
@@ -501,8 +497,6 @@ class GUI_categoryOptions:
             table = "reactivations"
         elif self.origin_category == "Suspension":
             table = "suspensions"
-        else:
-            table = "discharge"
 
         query = f"DELETE FROM {table} WHERE worker_ci=?"
         params = self.worker_data[0]
@@ -617,7 +611,6 @@ class GUI_change_category(GUI_root):
             "Nuevo Ingreso",
             "Reactivacion",
             "Suspension",
-            "Egreso"
         )
         if self.worker_origin_category not in valid_options:
             self.destroyRoot()
