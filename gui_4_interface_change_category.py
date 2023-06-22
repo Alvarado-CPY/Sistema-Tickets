@@ -75,16 +75,26 @@ class GUI_frameWorkerData:
         self.entry_name.config(state="readonly")
 
 
+class GUI_reactivationOption(INTERFACE_writer):
+    def __init__(self, frame: tk.Frame, data: dict) -> None:
+        # frame master
+        self.frame = frame
+
+        # inner frame
+        self.frame_reactivation_option: tk.LabelFrame = tk.LabelFrame(self.frame, text="Datos Necesarios para Reactivar")
+        self.frame_reactivation_option.grid(row=0, column=0, sticky="WENS")
+        self.frame_reactivation_option.grid_columnconfigure(0, weight=1)
+
 class GUI_suspensionOption(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
         # variables
+        self.data = data
         self.variable_desincorporation_date: tk.StringVar = tk.StringVar()
         self.variable_suspension_reason: tk.StringVar = tk.StringVar()
         self.variable_support_number: tk.StringVar = tk.StringVar()
 
         # frame master
         self.frame = frame
-        self.data = data
 
         # inner frame
         self.frame_suspension_option: tk.LabelFrame = tk.LabelFrame(
@@ -306,9 +316,13 @@ class GUI_categoryOptions:
 
     def setCorrespondingCategoryOptions(self, category: str):
         self.cleanContainerFrame()
-        if category == "Suspension":
+        if category == "Reactivacion":
+            GUI_reactivationOption(self.frame_category_container, data=self.data_set[2])
+
+        elif category == "Suspension":
             GUI_suspensionOption(
                 self.frame_category_container, data=self.data_set[0])
+
         elif category == "Egreso":
             GUI_dischargeOption(
                 self.frame_category_container, data=self.data_set[1])
@@ -345,7 +359,7 @@ class GUI_categoryOptions:
             choices = choices[0]
 
         self.combobox_categories.set(choices)
-        self.setCorrespondingCategoryOptions(choices)
+        self.setCorrespondingCategoryOptions(self.combobox_categories.get())
 
     def validateSuspensionCategory(self):
         suspension_data = self.data_set[0]
@@ -483,9 +497,15 @@ class GUI_change_category(GUI_root):
             "support_number": ""
         }
 
+        self.reactivation_data_set = {
+            "reactivation_date": "",
+            "account_type": ""
+        }
+
         self.data_set = [
             self.suspension_data_set,
-            self.discharge_data_set
+            self.discharge_data_set,
+            self.reactivation_data_set
         ]
 
         # initial validation before everything loads
