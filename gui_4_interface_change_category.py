@@ -464,6 +464,29 @@ class GUI_categoryOptions:
 
         return "No Errors"
 
+    def validateReactivationCategory(self):
+        reactivation_data = self.data_set[2]
+
+        # no empty fields
+        if validateNoEmptyEntrys(("reactivation_date", "account_type"), reactivation_data) == False:
+            return "Ningún campo puede estar vacío"
+
+        # reactivation date
+        if validateDateFormat(reactivation_data["reactivation_date"]) == False:
+            return "La fecha de reactivación debe tener el formato DD-MM-YYYY"
+
+        # account type
+        if validateUniqueCharacter(reactivation_data["account_type"]) == False:
+            return "El tipo de cuenta debe de ser de un único carácter"
+
+        if validateNotNumbers(reactivation_data["account_type"]) == False:
+            return "El tipo de cuenta no puede llevar números"
+
+        if validateNotSpecialCharacters(reactivation_data["account_type"]) == False:
+            return "El tipo de cuenta no puede llevar carácteres especiales"
+
+        return "No Errors"
+
     def sqlOperation(self, query: str, params: tuple):
         with sqlite3.connect(dbPath()) as bd:
             cursor = bd.cursor()
@@ -499,6 +522,9 @@ class GUI_categoryOptions:
         elif category == "Egreso":
             validationResult = self.validateDischargeCategory()
 
+        elif category == "Reactivacion":
+            validationResult = self.validateReactivationCategory()
+
         if validationResult == "":
             messagebox.showerror("Error", "Categoría no valida")
             return False
@@ -525,6 +551,14 @@ class GUI_categoryOptions:
                 self.data_set[1]["discharge_date"],
                 self.data_set[1]["discharge_reason"],
                 self.data_set[1]["support_number"]
+            )
+
+        if category == "Reactivacion":
+            query = ("INSERT INTO reactivations VALUES(?,?,?)")
+            params = (
+                self.worker_data[0],
+                self.data_set[2]["account_type"],
+                self.data_set[2]["reactivation_date"]
             )
 
         self.sqlOperation(query, params)
