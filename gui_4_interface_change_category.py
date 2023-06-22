@@ -77,13 +77,67 @@ class GUI_frameWorkerData:
 
 class GUI_reactivationOption(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
+        # variables
+        self.data = data
+        self.variable_reactivation_date: tk.StringVar = tk.StringVar()
+        self.variable_account_type: tk.StringVar = tk.StringVar()
+
         # frame master
         self.frame = frame
 
         # inner frame
-        self.frame_reactivation_option: tk.LabelFrame = tk.LabelFrame(self.frame, text="Datos Necesarios para Reactivar")
+        self.frame_reactivation_option: tk.LabelFrame = tk.LabelFrame(
+            self.frame, text="Datos Necesarios para Reactivar")
         self.frame_reactivation_option.grid(row=0, column=0, sticky="WENS")
         self.frame_reactivation_option.grid_columnconfigure(0, weight=1)
+
+        # widgets
+        # reactivation date
+        self.label_reactivation_date: tk.Label = tk.Label(
+            self.frame_reactivation_option, text="FECHA DE REACTIVACIÓN")
+        self.label_reactivation_date.grid(row=0, column=0, sticky="W", pady=5)
+        self.label_reactivation_date.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_reactivation_date: tk.Entry = tk.Entry(
+            self.frame_reactivation_option, textvariable=self.variable_reactivation_date)
+        self.entry_reactivation_date.grid(
+            row=1, column=0, sticky="WENS", ipadx=5, padx=5)
+        self.entry_reactivation_date.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        # account type
+        self.label_account_type: tk.Label = tk.Label(
+            self.frame_reactivation_option, text="TIPO DE CUENTA")
+        self.label_account_type.grid(row=2, column=0, sticky="W", pady=5)
+        self.label_account_type.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        self.entry_account_type: tk.Entry = tk.Entry(
+            self.frame_reactivation_option, textvariable=self.variable_account_type)
+        self.entry_account_type.grid(
+            row=3, column=0, sticky="WENS", ipadx=5, padx=5)
+        self.entry_account_type.config(
+            font=[guiConfig().getFonts()["secondary_font"], 13]
+        )
+
+        # functions
+        self.loadInfoToEntrys()
+
+        # events
+        self.variable_reactivation_date.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="reactivation_date", variable=self.variable_reactivation_date))
+
+        self.variable_account_type.trace_add("write", lambda x, y, z: self.writeDataToHashMap(
+            map=self.data, key_map="account_type", variable=self.variable_account_type))
+
+    def loadInfoToEntrys(self):
+        self.entry_reactivation_date.insert(0, self.data["reactivation_date"])
+        self.entry_account_type.insert(0, self.data["account_type"])
+
 
 class GUI_suspensionOption(INTERFACE_writer):
     def __init__(self, frame: tk.Frame, data: dict) -> None:
@@ -317,7 +371,8 @@ class GUI_categoryOptions:
     def setCorrespondingCategoryOptions(self, category: str):
         self.cleanContainerFrame()
         if category == "Reactivacion":
-            GUI_reactivationOption(self.frame_category_container, data=self.data_set[2])
+            GUI_reactivationOption(
+                self.frame_category_container, data=self.data_set[2])
 
         elif category == "Suspension":
             GUI_suspensionOption(
@@ -474,8 +529,10 @@ class GUI_categoryOptions:
 
         self.sqlOperation(query, params)
         self.sqlDeletePreviousRecord()
-        messagebox.showinfo("Atención", "Cambio de categoría realizado con éxito")
+        messagebox.showinfo(
+            "Atención", "Cambio de categoría realizado con éxito")
         return True
+
 
 class GUI_change_category(GUI_root):
     def __init__(self, root: tk.Tk, data: str) -> None:
