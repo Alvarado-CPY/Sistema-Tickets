@@ -313,11 +313,12 @@ class GUI_dischargeOption(INTERFACE_writer):
 
 
 class GUI_categoryOptions:
-    def __init__(self, frame: tk.Frame, origin_data: str, data_set: list[dict]) -> None:
+    def __init__(self, frame: tk.Frame, origin_data: str, data_set: list[dict], root_handle) -> None:
         # variables
         self.worker_data = origin_data[0]
         self.origin_category = origin_data[1]
         self.data_set = data_set
+        self.root_destroy = root_handle
 
         # frame master
         self.frame = frame
@@ -559,8 +560,7 @@ class GUI_categoryOptions:
         self.sqlDeletePreviousRecord()
         messagebox.showinfo(
             "Atención", "Cambio de categoría realizado con éxito")
-        return True
-
+        self.root_destroy()
 
 class GUI_change_category(GUI_root):
     def __init__(self, root: tk.Tk, data: str) -> None:
@@ -622,4 +622,4 @@ class GUI_change_category(GUI_root):
         GUI_categoryOptions(frame=self.frame_main,
                             origin_data=(
                                 self.worker_data_to_change_category, self.worker_origin_category),
-                            data_set=self.data_set)
+                            data_set=self.data_set, root_handle=self.destroyRoot)

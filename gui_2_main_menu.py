@@ -568,6 +568,9 @@ class GUI_newIncome(GUI_categoryButtons):
             return "break"
 
     def loadNewIncomeData(self):
+        for item in self.table_new_income.get_children():
+            self.table_new_income.delete(item)
+
         with sqlite3.connect(dbPath()) as bd:
             cursor = bd.cursor()
             new_income = cursor.execute("SELECT * FROM newIncome").fetchall()
@@ -637,6 +640,7 @@ class GUI_newIncome(GUI_categoryButtons):
                        [3], focus['values'][-1])
         loadGUI(root=self.root, GUI_to_load=GUI_change_category,
                 data=(worker_data, "Nuevo Ingreso"))
+        self.loadNewIncomeData()
 
     def loadWorkerFormToInsertNewWorker(self):
         loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add")

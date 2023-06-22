@@ -470,6 +470,7 @@ class GUI_addWorker(GUI_root):
         }
         self.displayed_frame = ""
         self.option = option
+        self.current_ci = ""
 
         # initial frames
         self.frame_main: tk.Frame = tk.Frame(self.root)
@@ -566,14 +567,18 @@ class GUI_addWorker(GUI_root):
             return "La cédula no puede ser menor a 5 carácteres"
 
         # validate then if the ci that the user is trying to insert already exists
-        # except when the users tries to update
-        if self.option == "add":
-            with sqlite3.connect(dbPath()) as bd:
-                cursor = bd.cursor()
-                worker = cursor.execute(
-                    "SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            worker = cursor.execute(
+                "SELECT * FROM workers WHERE worker_ci=?", (int(self.worker_data["ci"]),)).fetchone()
+
+            if self.option == "add":
                 if worker != None:
                     return "La cédula que usted marcó ya se encuentra registrada"
+
+            elif self.option == "update":
+                if worker != None and int(self.worker_data["ci"]) != int(self.current_ci):
+                    return "La cédula que usted marcó ya se encuentra registrada para otro trabajador"
 
         # name
         if validateNotSpecialCharacters(self.worker_data["fullname"]) == False:
@@ -785,7 +790,7 @@ class GUI_addWorker(GUI_root):
                     bank=?
                     WHERE worker_ci=?
                     """,
-                    (*data_to_save_in_worker_table, self.worker_data["ci"])
+                    (*data_to_save_in_worker_table, self.current_ci)
                 )
 
                 cursor.execute(
@@ -794,7 +799,7 @@ class GUI_addWorker(GUI_root):
                     account_type=?
                     WHERE worker_ci=?
                     """,
-                    (*data_to_save_in_new_income_table, self.worker_data["ci"])
+                    (*data_to_save_in_new_income_table, self.current_ci)
                 )
 
             bd.commit()
@@ -860,6 +865,7 @@ class GUI_addWorker(GUI_root):
             IT WILL LOAD THE DATA FROM THAT WORKER INTO THE DICTIONARY TO THEN LOAD IT INTO THE GUI
         """
         # load data into temp memory
+        self.current_ci = str(data[2])
         self.worker_data["nacionality"] = str(data[1])
         self.worker_data["ci"] = str(data[2])
         self.worker_data["fullname"] = str(data[3])
@@ -879,7 +885,6 @@ class GUI_addWorker(GUI_root):
         self.worker_data["bank_account"] = f"0{data[17]}"
         self.worker_data["bank_code"] = f"0{data[18]}"
         self.worker_data["account_type"] = str(data[20])
-
 
 class GUI_workerForm:
     def __init__(self, root: tk.Tk, option: str, data=None) -> None:
