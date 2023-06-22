@@ -106,7 +106,7 @@ class BBDD:
         return """CREATE TABLE IF NOT EXISTS discharge(
             worker_ci INTEGER PRIMARY KEY,
             discharge_date DATE,
-            discarge_reason STRING,
+            discharge_reason STRING,
             support_number INTEGER
         )"""
 

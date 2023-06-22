@@ -636,7 +636,7 @@ class GUI_newIncome(GUI_categoryButtons):
         worker_data = (focus['values'][2], focus['values']
                        [3], focus['values'][-1])
         loadGUI(root=self.root, GUI_to_load=GUI_change_category,
-                data=(worker_data, "Nuevo Ingreso"))
+                data=(worker_data, "Egreso"))
 
     def loadWorkerFormToInsertNewWorker(self):
         loadGUI(root=self.root, GUI_to_load=GUI_workerForm, option="add")

@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
-from app_global_variables import guiConfig
+from app_global_variables import guiConfig, dbPath
 from helpers.writer_interface import INTERFACE_writer
 from helpers.validate_worker_data import *
 
@@ -249,11 +249,14 @@ class GUI_dischargeOption(INTERFACE_writer):
 
 
 class GUI_categoryOptions:
-    def __init__(self, frame: tk.Frame, origin_category: str, data_set: list[dict]) -> None:
+    def __init__(self, frame: tk.Frame, origin_data: str, data_set: list[dict]) -> None:
+        # variables
+        self.worker_data = origin_data[0]
+        self.origin_category = origin_data[1]
+        self.data_set = data_set
+
         # frame master
         self.frame = frame
-        self.origin_category = origin_category
-        self.data_set = data_set
 
         # inner frame
         self.frame_category_choice: tk.LabelFrame = tk.LabelFrame(
@@ -330,7 +333,7 @@ class GUI_categoryOptions:
                 "Reactivacion",
                 "Egreso"
             )
-        else:
+        elif self.origin_category == "Egreso":
             choices = [
                 "Reactivacion"
             ]
@@ -392,10 +395,35 @@ class GUI_categoryOptions:
 
         return "No Errors"
 
+    def sqlOperation(self, query: str, params: tuple):
+        with sqlite3.connect(dbPath()) as bd:
+            cursor = bd.cursor()
+            cursor.execute(query, params)
+            bd.commit()
+
+    def sqlDeletePreviousRecord(self):
+        table = ""
+        if self.origin_category == "Nuevo Ingreso":
+            table = "newIncome"
+        elif self.origin_category == "Reactivacion":
+            table = "reactivations"
+        elif self.origin_category == "Suspension":
+            table = "suspensions"
+        else:
+            table = "discharge"
+
+        query = f"DELETE FROM {table} WHERE worker_ci=?"
+        params = self.worker_data[0]
+
+        self.sqlOperation(query, (params,))
+
     def validateWhatCategoryTheUserChoiced(self):
         category = self.combobox_categories.get()
         validationResult = ""
+        query = ""
+        params = ()
 
+        # validations
         if category == "Suspension":
             validationResult = self.validateSuspensionCategory()
 
@@ -410,6 +438,30 @@ class GUI_categoryOptions:
             messagebox.showerror("Error", validationResult)
             return False
 
+        # change to choiced category
+        # primero mover los datos, luego eliminar de donde estaba
+        if category == "Suspension":
+            query = ("INSERT INTO suspensions VALUES(?,?,?,?)")
+            params = (
+                self.worker_data[0],
+                self.data_set[0]["desincorporation_date"],
+                self.data_set[0]["suspension_reason"],
+                self.data_set[0]["support_number"]
+            )
+
+        if category == "Egreso":
+            query = ("INSERT INTO discharge VALUES(?,?,?,?)")
+            params = (
+                self.worker_data[0],
+                self.data_set[1]["discharge_date"],
+                self.data_set[1]["discharge_reason"],
+                self.data_set[1]["support_number"]
+            )
+
+        self.sqlOperation(query, params)
+        self.sqlDeletePreviousRecord()
+        messagebox.showinfo("Atención", "Cambio de categoría realizado con éxito")
+        return True
 
 class GUI_change_category(GUI_root):
     def __init__(self, root: tk.Tk, data: str) -> None:
@@ -464,5 +516,6 @@ class GUI_change_category(GUI_root):
         GUI_frameWorkerData(frame=self.frame_main,
                             data=self.worker_data_to_change_category)
         GUI_categoryOptions(frame=self.frame_main,
-                            origin_category=self.worker_origin_category,
+                            origin_data=(
+                                self.worker_data_to_change_category, self.worker_origin_category),
                             data_set=self.data_set)
