@@ -8,7 +8,7 @@ from helpers.search_engine import SearchEngine
 from helpers.gui_loader import loadGUI, setfullScreen
 from gui_3_interface_new_income import GUI_workerForm
 from gui_4_interface_change_category import GUI_change_category
-
+from gui_5_reports import GUI_reportsMenu
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
@@ -611,7 +611,8 @@ class GUI_newIncome(GUI_categoryButtons):
 
     def setFunctionalityToCategoryButtons(self):
         self.button_first_category_function.config(
-            text="REPORTE"
+            text="REPORTE",
+            command=self.reportNewIncome
         )
 
         self.button_second_category_function.config(
@@ -628,6 +629,9 @@ class GUI_newIncome(GUI_categoryButtons):
             text="AÑADIR TRABAJADOR",
             command=self.loadWorkerFormToInsertNewWorker
         )
+
+    def reportNewIncome(self):
+        loadGUI(root=self.root, GUI_to_load=GUI_reportsMenu, data="Nuevo Ingreso")
 
     def changeCategory(self):
         focus = self.table_new_income.item(self.table_new_income.focus())
