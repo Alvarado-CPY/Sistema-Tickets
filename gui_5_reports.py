@@ -1,4 +1,6 @@
 import tkinter as tk
+from app_global_variables import dbPath, guiConfig
+
 
 class GUI_root:
     def __init__(self, root: tk.Tk):
@@ -30,7 +32,24 @@ class GUI_root:
 
 class GUI_newIncomeReportOptions:
     def __init__(self, frame: tk.Frame):
-        tk.Label(frame, text="hola").grid(row=0, column=0)
+        # frame master
+        self.frame = frame
+
+        # inner frame
+        self.frame_new_income_reports: tk.Frame = tk.Frame(self.frame)
+        self.frame_new_income_reports.grid(
+            row=0, column=0, sticky="WENS", padx=5, pady=5)
+
+        self.frame_new_income_reports.grid_columnconfigure(0, weight=1)
+
+        # widgets
+        self.button_report_who_is_new: tk.Button = tk.Button(
+            self.frame_new_income_reports, text="Reportar Nuevos Entre Fechas")
+        self.button_report_who_is_new.grid(row=0, column=0, sticky="WENS")
+        self.button_report_who_is_new.config(
+            font=[guiConfig().getFonts()["main_font"], 15]
+        )
+
 
 class GUI_reportsMenu(GUI_root):
     def __init__(self, root: tk.Tk, data):
@@ -39,9 +58,11 @@ class GUI_reportsMenu(GUI_root):
         self.category = data
 
         # frames
-        self.frame_main: tk.LabelFrame = tk.LabelFrame(self.root, text="ELIGE LA OPCIÓN A REPORTAR")
+        self.frame_main: tk.LabelFrame = tk.LabelFrame(
+            self.root, text="ELIGE LA OPCIÓN A REPORTAR PARA ")
         self.frame_main.grid(row=0, column=0, sticky="WENS", padx=5, pady=5)
 
+        self.frame_main.grid_rowconfigure(0, weight=1)
         self.frame_main.grid_columnconfigure(0, weight=1)
 
         # load options
@@ -49,4 +70,5 @@ class GUI_reportsMenu(GUI_root):
 
     def loadRespectiveCategoryOptions(self):
         if self.category == "Nuevo Ingreso":
+            self.frame_main["text"] += "NUEVOS INGRESOS"
             GUI_newIncomeReportOptions(self.frame_main)
