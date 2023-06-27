@@ -1,5 +1,5 @@
 import tkinter as tk
-from app_global_variables import dbPath, guiConfig
+from app_global_variables import guiConfig
 
 
 class GUI_root:
