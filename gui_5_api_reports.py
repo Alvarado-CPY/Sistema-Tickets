@@ -1,5 +1,7 @@
 import tkinter as tk
 from app_global_variables import guiConfig
+from helpers.gui_loader import loadGUI
+from gui_5_interface_for_each_report import GUI_new_income_report_between_dates
 
 
 class GUI_root:
@@ -31,9 +33,10 @@ class GUI_root:
 
 
 class GUI_newIncomeReportOptions:
-    def __init__(self, frame: tk.Frame):
+    def __init__(self, frame: tk.Frame, root: tk.Tk):
         # frame master
         self.frame = frame
+        self.root = root
 
         # inner frame
         self.frame_new_income_reports: tk.Frame = tk.Frame(self.frame)
@@ -47,8 +50,12 @@ class GUI_newIncomeReportOptions:
             self.frame_new_income_reports, text="Reportar Nuevos Entre Fechas")
         self.button_report_who_is_new.grid(row=0, column=0, sticky="WENS")
         self.button_report_who_is_new.config(
-            font=[guiConfig().getFonts()["main_font"], 15]
+            font=[guiConfig().getFonts()["main_font"], 15],
+            command=self.loadReportBetweenDates
         )
+
+    def loadReportBetweenDates(self):
+        loadGUI(self.root, GUI_new_income_report_between_dates, full=False)
 
 
 class GUI_reportsMenu(GUI_root):
@@ -71,4 +78,4 @@ class GUI_reportsMenu(GUI_root):
     def loadRespectiveCategoryOptions(self):
         if self.category == "Nuevo Ingreso":
             self.frame_main["text"] += "NUEVOS INGRESOS"
-            GUI_newIncomeReportOptions(self.frame_main)
+            GUI_newIncomeReportOptions(self.frame_main, root=self.root)

@@ -8,7 +8,7 @@ from helpers.search_engine import SearchEngine
 from helpers.gui_loader import loadGUI, setfullScreen
 from gui_3_interface_new_income import GUI_workerForm
 from gui_4_interface_change_category import GUI_change_category
-from gui_5_reports import GUI_reportsMenu
+from gui_5_api_reports import GUI_reportsMenu
 
 class GUI_root:
     def __init__(self, root: tk.Tk) -> None:
